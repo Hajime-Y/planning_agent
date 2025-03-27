@@ -1,0 +1,23 @@
+[project]
+name = "planning_agent"
+version = "0.1.0"
+description = "Planning Agent Project"
+requires-python = ">=3.9"
+dependencies = [
+    "uv>=0.1.0",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest>=7.0.0",
+    "tomli>=2.0.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_functions = ["test_*"] 
