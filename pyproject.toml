@@ -4,7 +4,8 @@ version = "0.1.0"
 description = "Planning Agent Project"
 requires-python = ">=3.9"
 dependencies = [
-    "uv",
+    "pytest>=8.3.5",
+    "pyyaml>=6.0.2",
 ]
 
 [project.optional-dependencies]
@@ -20,7 +21,7 @@ build-backend = "hatchling.build"
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 python_files = ["test_*.py"]
-addopts = "-v --cov=src --cov-report=term-missing"
+addopts = "-v"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/planning_agent"] 
+packages = ["planning_agent"] 
