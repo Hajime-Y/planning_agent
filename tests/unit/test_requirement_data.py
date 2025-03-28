@@ -130,4 +130,76 @@ def test_requirement_data_from_dict():
     assert requirement.priority == "high"
     assert requirement.status == "open"
     assert requirement.tags == ["test", "sample"]
-    assert requirement.metadata == {"key": "value"} 
+    assert requirement.metadata == {"key": "value"}
+
+def test_requirement_data_constraints():
+    """制約条件フィールドのテスト"""
+    constraints = ["期限は2024年4月末まで", "予算上限は100万円"]
+    req = RequirementData(
+        id="REQ001",
+        title="テスト要件",
+        description="テスト",
+        priority="high",
+        status="open",
+        constraints=constraints
+    )
+    assert req.constraints == constraints
+    
+    # to_dictメソッドでの出力確認
+    data_dict = req.to_dict()
+    assert "constraints" in data_dict
+    assert data_dict["constraints"] == constraints
+
+def test_requirement_data_completion_criteria():
+    """完了判定基準フィールドのテスト"""
+    criteria = ["全機能がテストされていること", "コードカバレッジ80%以上", "セキュリティスキャンでの脆弱性ゼロ"]
+    req = RequirementData(
+        id="REQ001",
+        title="テスト要件",
+        description="テスト",
+        priority="high",
+        status="open",
+        completion_criteria=criteria
+    )
+    assert req.completion_criteria == criteria
+    
+    # to_dictメソッドでの出力確認
+    data_dict = req.to_dict()
+    assert "completion_criteria" in data_dict
+    assert data_dict["completion_criteria"] == criteria
+
+def test_requirement_data_all_fields():
+    """全フィールドを含む完全なオブジェクトのテスト"""
+    data = {
+        "id": "REQ001",
+        "title": "完全なテスト要件",
+        "description": "すべてのフィールドを含むテスト",
+        "priority": "high",
+        "status": "in_progress",
+        "constraints": ["制約1", "制約2"],
+        "completion_criteria": ["基準1", "基準2", "基準3"],
+        "tags": ["重要", "フロントエンド"],
+        "metadata": {"作成者": "テストユーザー", "作成日": "2024-03-28"}
+    }
+    
+    req = RequirementData(**data)
+    
+    # すべてのフィールドが正しく設定されていることを確認
+    assert req.id == data["id"]
+    assert req.title == data["title"]
+    assert req.description == data["description"]
+    assert req.priority == data["priority"]
+    assert req.status == data["status"]
+    assert req.constraints == data["constraints"]
+    assert req.completion_criteria == data["completion_criteria"]
+    assert req.tags == data["tags"]
+    assert req.metadata == data["metadata"]
+    
+    # シリアライズ後のデシリアライズでも全フィールドが保持されていることを確認
+    serialized = yaml.dump(req.to_dict())
+    deserialized = RequirementData.from_dict(yaml.safe_load(serialized))
+    
+    assert deserialized.id == req.id
+    assert deserialized.title == req.title
+    assert deserialized.constraints == req.constraints
+    assert deserialized.completion_criteria == req.completion_criteria 

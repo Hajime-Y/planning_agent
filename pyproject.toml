@@ -22,7 +22,7 @@ build-backend = "hatchling.build"
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 python_files = ["test_*.py"]
-addopts = "-v"
+addopts = "-v --cov=planning_agent --cov-report=term-missing"
 
 [tool.hatch.build.targets.wheel]
 packages = ["planning_agent"] 

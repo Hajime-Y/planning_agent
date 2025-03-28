@@ -184,9 +184,57 @@ def test_plan_data_steps_validation_complete():
         status="draft",
         steps=[]
     )
-    plan._validate_steps()  # 明示的に検証メソッドを呼び出し
+    # パブリックインターフェースを通して間接的にバリデーションをテスト
     assert plan.steps == []
+    
+    # ステップの追加と自動バリデーション・ソート確認
+    new_plan = PlanData(
+        id="test_id",
+        title="Test Plan",
+        description="Test Description",
+        status="draft"
+    )
+    
+    # 新しいステップを追加（このとき、__post_init__によって_validate_stepsが間接的に呼ばれる）
+    new_plan = PlanData(
+        id="test_id",
+        title="Test Plan",
+        description="Test Description",
+        status="draft",
+        steps=[
+            {"order": 2, "action": "Second Step", "description": "This is the second step"},
+            {"order": 1, "action": "First Step", "description": "This is the first step"}
+        ]
+    )
+    
+    # ステップが正しく検証・ソートされていることを確認
+    assert len(new_plan.steps) == 2
+    assert new_plan.steps[0]["order"] == 1
+    assert new_plan.steps[0]["action"] == "First Step"
+    assert new_plan.steps[1]["order"] == 2
+    
+    # ステータスプロパティを使用
+    new_plan.status = "in_progress"
+    assert new_plan.status == "in_progress"
 
-    # ステータスの直接設定テスト
-    plan._status = "draft"  # プロパティを介さない直接設定
-    assert plan.status == "draft" 
+def test_plan_data_step_validation_order_type():
+    """ステップのorder値の型チェックテスト"""
+    with pytest.raises(ValueError, match="order は整数である必要があります"):
+        PlanData(
+            id="test_id",
+            title="Test Plan",
+            description="Test Description",
+            status="draft",
+            steps=[{"order": "1", "action": "test", "description": "test"}]  # orderが文字列
+        )
+        
+def test_plan_data_step_validation_order_negative():
+    """ステップのorder値が負の値の場合のテスト"""
+    with pytest.raises(ValueError, match="order は非負である必要があります"):
+        PlanData(
+            id="test_id",
+            title="Test Plan",
+            description="Test Description",
+            status="draft",
+            steps=[{"order": -1, "action": "test", "description": "test"}]  # 負のorder
+        ) 

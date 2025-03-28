@@ -1,5 +1,14 @@
-from typing import Dict, Any, List
+from typing import Dict, Any, List, TypedDict, Optional
 from dataclasses import dataclass, field
+
+class StepData(TypedDict):
+    """ステップデータの型定義"""
+    order: int              # ステップの順序
+    action: str             # 実行アクション
+    description: str        # 説明
+    expected_output: Optional[str]  # 想定成果物
+    actual_output: Optional[str]    # 実際の成果物
+    dependencies: Optional[List[int]]  # 依存タスク番号のリスト
 
 @dataclass
 class PlanData:
@@ -9,7 +18,7 @@ class PlanData:
     description: str
     status: str
     metadata: Dict[str, Any] = field(default_factory=dict)
-    steps: List[Dict[str, Any]] = field(default_factory=list)
+    steps: List[StepData] = field(default_factory=list)
 
     # 有効なステータス値
     VALID_STATUSES = ["draft", "in_progress", "completed"]
@@ -17,19 +26,17 @@ class PlanData:
     def __post_init__(self):
         """バリデーションと初期化後の処理"""
         self._validate_required_fields()
-        self._validate_status()
+        # ステータスのバリデーションはセッターで行われるため、ここでは行わない
         self._validate_steps()
         self._sort_steps()
-
+        
+        # status属性を_statusにコピー（@property経由での設定を行うため）
+        self._status = self.status
+        
     def _validate_required_fields(self):
         """必須フィールドの検証"""
         if not self.id or not self.title or self.status is None:
             raise ValueError("必須フィールド（id, title, status）が必要です")
-
-    def _validate_status(self):
-        """ステータスの検証"""
-        if self.status not in self.VALID_STATUSES:
-            raise ValueError(f"無効なステータスです。有効な値: {', '.join(self.VALID_STATUSES)}")
 
     def _validate_steps(self):
         """ステップデータの検証"""
@@ -41,6 +48,12 @@ class PlanData:
             # 必須フィールドの確認
             if not all(key in step for key in ["order", "action", "description"]):
                 raise ValueError("各ステップには order, action, description が必要です")
+            
+            # orderの型と値のチェック
+            if not isinstance(step["order"], int):
+                raise ValueError(f"order は整数である必要があります: {step['order']}")
+            if step["order"] < 0:
+                raise ValueError(f"order は非負である必要があります: {step['order']}")
             
             # orderの重複チェック
             if step["order"] in orders:

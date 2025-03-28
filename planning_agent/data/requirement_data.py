@@ -9,6 +9,8 @@ class RequirementData:
     description: str
     priority: str
     status: str
+    constraints: Optional[List[str]] = field(default_factory=list)
+    completion_criteria: Optional[List[str]] = field(default_factory=list)
     tags: List[str] = field(default_factory=list)
     metadata: Dict[str, Any] = field(default_factory=dict)
 
@@ -45,6 +47,8 @@ class RequirementData:
             "description": self.description,
             "priority": self.priority,
             "status": self.status,
+            "constraints": self.constraints,
+            "completion_criteria": self.completion_criteria,
             "tags": self.tags,
             "metadata": self.metadata
         }
