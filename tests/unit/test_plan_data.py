@@ -27,10 +27,20 @@ def test_create_plan_data():
 def test_plan_data_validation():
     """必須フィールドの検証テスト"""
     with pytest.raises(ValueError):
-        PlanData()  # 必須フィールドなしで作成
+        PlanData(
+            id="",  # 空のID
+            title="テスト",
+            description="説明",
+            status="draft"
+        )
 
     with pytest.raises(ValueError):
-        PlanData(id="PLAN001")  # 一部の必須フィールドが欠落
+        PlanData(
+            id="PLAN001",
+            title="",  # 空のタイトル
+            description="説明",
+            status="draft"
+        )
 
 def test_plan_data_serialization():
     """YAMLシリアライズ/デシリアライズテスト"""
@@ -129,4 +139,54 @@ def test_plan_data_step_ordering():
     # ステップが順序通りにソートされていることを確認
     assert plan.steps[0]["order"] == 1
     assert plan.steps[1]["order"] == 2
-    assert plan.steps[2]["order"] == 3 
+    assert plan.steps[2]["order"] == 3
+
+def test_plan_data_empty_steps():
+    """空のステップリストのテスト"""
+    plan = PlanData(
+        id="test_id",
+        title="Test Plan",
+        description="Test Description",
+        status="draft",
+        steps=[]
+    )
+    assert plan.steps == []
+
+def test_plan_data_step_missing_fields():
+    """ステップの必須フィールド欠落のテスト"""
+    with pytest.raises(ValueError, match="各ステップには order, action, description が必要です"):
+        PlanData(
+            id="test_id",
+            title="Test Plan",
+            description="Test Description",
+            status="draft",
+            steps=[{"order": 1, "action": "test"}]  # descriptionが欠落
+        )
+
+def test_plan_data_invalid_status_setter():
+    """ステータスセッターの無効値テスト"""
+    plan = PlanData(
+        id="test_id",
+        title="Test Plan",
+        description="Test Description",
+        status="draft"
+    )
+    with pytest.raises(ValueError, match="無効なステータスです"):
+        plan.status = "invalid_status"
+
+def test_plan_data_steps_validation_complete():
+    """ステップのバリデーション完全テスト"""
+    # 空のステップリストのケース
+    plan = PlanData(
+        id="test_id",
+        title="Test Plan",
+        description="Test Description",
+        status="draft",
+        steps=[]
+    )
+    plan._validate_steps()  # 明示的に検証メソッドを呼び出し
+    assert plan.steps == []
+
+    # ステータスの直接設定テスト
+    plan._status = "draft"  # プロパティを介さない直接設定
+    assert plan.status == "draft" 

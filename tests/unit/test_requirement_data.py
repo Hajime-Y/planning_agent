@@ -22,10 +22,22 @@ def test_create_requirement_data():
 def test_requirement_data_validation():
     """必須フィールドの検証テスト"""
     with pytest.raises(ValueError):
-        RequirementData()  # 必須フィールドなしで作成
+        RequirementData(
+            id="",  # 空のID
+            title="テスト",
+            description="説明",
+            priority="high",
+            status="open"
+        )
 
     with pytest.raises(ValueError):
-        RequirementData(id="REQ001")  # 一部の必須フィールドが欠落
+        RequirementData(
+            id="REQ001",
+            title="",  # 空のタイトル
+            description="説明",
+            priority="high",
+            status="open"
+        )
 
 def test_requirement_data_serialization():
     """YAMLシリアライズ/デシリアライズテスト"""
@@ -98,4 +110,24 @@ def test_requirement_data_invalid_status():
             description="テスト",
             priority="high",
             status="invalid_status"  # 無効なステータス
-        ) 
+        )
+
+def test_requirement_data_from_dict():
+    """from_dictメソッドのテスト"""
+    data = {
+        "id": "test_id",
+        "title": "Test Requirement",
+        "description": "Test Description",
+        "priority": "high",
+        "status": "open",
+        "tags": ["test", "sample"],
+        "metadata": {"key": "value"}
+    }
+    requirement = RequirementData.from_dict(data)
+    assert requirement.id == "test_id"
+    assert requirement.title == "Test Requirement"
+    assert requirement.description == "Test Description"
+    assert requirement.priority == "high"
+    assert requirement.status == "open"
+    assert requirement.tags == ["test", "sample"]
+    assert requirement.metadata == {"key": "value"} 
