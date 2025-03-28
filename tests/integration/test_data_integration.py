@@ -136,4 +136,4 @@ def test_complex_data_structure():
     assert len(requirements) == len(plans)
     for req, plan in zip(requirements, plans):
         assert plan.metadata["requirement_id"] == req.id
-        assert req.id in plan.title 
+        assert req.title in plan.title  # IDではなくタイトルを確認 

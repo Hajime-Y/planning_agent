@@ -5,6 +5,7 @@ description = "Planning Agent Project"
 requires-python = ">=3.9"
 dependencies = [
     "pytest>=8.3.5",
+    "pytest-cov>=6.0.0",
     "pyyaml>=6.0.2",
 ]
 
