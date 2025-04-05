@@ -52,4 +52,7 @@ Icon
 .pytest_cache/
 .coverage
 htmlcov/
-.ruff_cache/ 
+.ruff_cache/
+
+# Cursor
+.cursor/ 
