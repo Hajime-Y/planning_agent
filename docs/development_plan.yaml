@@ -1,0 +1,216 @@
+# Planning Agent システム - マイルストーン1: シングルエージェント基本機能とMCP基盤
+# タスク計画
+
+タスク:
+  - タスク番号: "T001"
+    タイトル: "開発環境セットアップ"
+    説明: "プロジェクトの基本環境を構築する"
+    サブタスク:
+      - "リポジトリ初期化"
+      - "pyproject.tomlの作成"
+      - "uvを使った依存パッケージのインストール(smolagents, pyyaml等)"
+      - ".gitignoreファイルの作成"
+    入力:
+      - "Python 3.10以上の環境"
+    出力:
+      - "pyproject.toml"
+      - ".gitignore"
+
+  - タスク番号: "T002"
+    タイトル: "プロジェクト構造作成"
+    説明: "設計ドキュメントに基づくディレクトリ構造とモジュールの作成"
+    サブタスク:
+      - "設計ドキュメントに基づくディレクトリ構造の作成"
+      - "空のモジュールファイルと__init__.pyファイルの作成"
+    入力:
+      - "docs/design_doc.mdのファイル構造定義"
+    出力:
+      - "config/__init__.py"
+      - "agents/__init__.py"
+      - "mcp/__init__.py"
+      - "utils/__init__.py"
+      - "cli.py"
+      - "main.py"
+
+  - タスク番号: "T003"
+    タイトル: "MCPプロトコル調査"
+    説明: "MCPプロトコルの詳細とClaudeとの連携方法を調査"
+    サブタスク:
+      - "OpenAI Agent SDKの調査"
+      - "MCPプロトコルの仕様調査"
+      - "Claude 3.7 Sonnetとの連携要件調査"
+      - "調査結果のドキュメント化"
+    入力:
+      - "PRDとDesign Documentの情報"
+    出力:
+      - "docs/mcp_protocol.md"
+
+  - タスク番号: "T004"
+    タイトル: "ファイル管理ユーティリティ実装"
+    説明: "YAML形式のファイル操作と履歴管理機能を実装"
+    サブタスク:
+      - "FileManagerクラスの実装"
+      - "要件ファイル保存機能実装"
+      - "プランファイル保存機能実装"
+      - "プラン履歴管理機能実装"
+      - "ファイル読み込み機能実装"
+    入力:
+      - "docs/design_doc.mdのデータモデル定義"
+    出力:
+      - "utils/file_manager.py"
+
+  - タスク番号: "T005"
+    タイトル: "MCPインターフェース基本実装"
+    説明: "MCPプロトコルに対応したインターフェースを実装"
+    サブタスク:
+      - "MCPInterfaceクラスの実装"
+      - "CreatePlan機能ハンドラ実装"
+      - "ResetPlan機能ハンドラ実装"
+      - "基本的なリクエスト処理フロー実装"
+    入力:
+      - "docs/mcp_protocol.md"
+      - "docs/design_doc.mdのMCPインターフェース設計"
+    出力:
+      - "mcp/interface.py"
+      - "mcp/handlers.py"
+
+  - タスク番号: "T006"
+    タイトル: "プロンプトテンプレート設計"
+    説明: "要件分析とタスク分解のためのプロンプトテンプレートを設計"
+    サブタスク:
+      - "タスク分析用プロンプトテンプレート設計"
+      - "曖昧性検出プロンプトテンプレート設計"
+      - "タスク分解プロンプトテンプレート設計"
+      - "テンプレート管理の実装"
+    入力:
+      - "PRDの要件分析機能要件"
+      - "PRDのタスク分解機能要件"
+    出力:
+      - "utils/prompt_templates.py"
+
+  - タスク番号: "T007"
+    タイトル: "プランニングマネージャエージェント実装"
+    説明: "smolagentsを使用したプランニングマネージャエージェントの実装"
+    サブタスク:
+      - "PlanningManagerAgentクラスの実装"
+      - "タスク処理メソッド実装"
+      - "MCPインターフェースとの連携実装"
+      - "レスポンス生成機能実装"
+    入力:
+      - "docs/smolagents_usage.md"
+      - "docs/design_doc.mdのPlanningManagerAgent設計"
+    出力:
+      - "agents/planning_manager.py"
+
+  - タスク番号: "T008"
+    タイトル: "要件分析機能実装"
+    説明: "タスク要件を分析し、明確化するための機能を実装"
+    サブタスク:
+      - "タスク分析機能実装"
+      - "曖昧点に関する質問生成機能実装"
+      - "要件確定機能実装"
+      - "要件ファイル出力連携"
+    入力:
+      - "utils/prompt_templates.py"
+      - "utils/file_manager.py"
+    出力:
+      - "agents/requirement_analyzer.py"
+
+  - タスク番号: "T009"
+    タイトル: "タスク分解機能実装"
+    説明: "要件からサブタスクへの分解機能を実装"
+    サブタスク:
+      - "サブタスク生成機能実装"
+      - "サブタスク間の依存関係分析機能実装"
+      - "実行順序付け機能実装"
+      - "プランファイル出力連携"
+    入力:
+      - "utils/prompt_templates.py"
+      - "utils/file_manager.py"
+    出力:
+      - "agents/task_decomposer.py"
+
+  - タスク番号: "T010"
+    タイトル: "設定ファイル実装"
+    説明: "エージェント設定とMCP設定のYAMLファイルを実装"
+    サブタスク:
+      - "エージェント設定ファイル作成"
+      - "MCP設定ファイル作成"
+      - "設定読み込み機能実装"
+    入力:
+      - "docs/design_doc.mdのシステムアーキテクチャ"
+    出力:
+      - "config/agent_config.yaml"
+      - "config/mcp_config.yaml"
+      - "config/config_loader.py"
+
+  - タスク番号: "T011"
+    タイトル: "CLIインターフェース実装"
+    説明: "コマンドラインインターフェースを実装"
+    サブタスク:
+      - "引数パーサーの実装"
+      - "対話モードの実装"
+      - "MCPインターフェースとの連携実装"
+      - "基本的なエラーハンドリング実装"
+    入力:
+      - "mcp/interface.py"
+    出力:
+      - "cli.py"
+
+  - タスク番号: "T012"
+    タイトル: "メインエントリポイント実装"
+    説明: "アプリケーションのメインエントリポイントを実装"
+    サブタスク:
+      - "main.pyの実装"
+      - "コンポーネント初期化フロー実装"
+      - "エラーハンドリング実装"
+    入力:
+      - "cli.py"
+      - "mcp/interface.py"
+      - "agents/planning_manager.py"
+    出力:
+      - "main.py"
+
+  - タスク番号: "T013"
+    タイトル: "Sudoku-Bench統合"
+    説明: "Sudoku-Benchによる評価用の統合機能を実装"
+    サブタスク:
+      - "Sudoku-Benchの調査"
+      - "評価用インターフェース実装"
+      - "ベンチマーク実行スクリプト作成"
+    入力:
+      - "PRDの評価基準"
+    出力:
+      - "tests/benchmark/sudoku_bench.py"
+      - "tests/benchmark/run_benchmark.sh"
+
+  - タスク番号: "T014"
+    タイトル: "基本機能テスト"
+    説明: "実装された基本機能のテストを実施"
+    サブタスク:
+      - "MCPインターフェーステスト"
+      - "FileManagerテスト"
+      - "プランニングマネージャエージェントテスト"
+      - "要件分析機能テスト"
+      - "タスク分解機能テスト"
+    入力:
+      - "すべての実装済みコンポーネント"
+    出力:
+      - "tests/test_mcp_interface.py"
+      - "tests/test_file_manager.py"
+      - "tests/test_planning_manager.py"
+
+  - タスク番号: "T015"
+    タイトル: "初期評価と改善"
+    説明: "Sudoku-Benchを使用した初期評価と改善点の特定"
+    サブタスク:
+      - "Sudoku-Benchによる初期評価実施"
+      - "結果分析"
+      - "改善点の特定とドキュメント化"
+      - "マイルストーン1の完了レポート作成"
+    入力:
+      - "tests/benchmark/sudoku_bench.py"
+    出力:
+      - "docs/benchmark_results_milestone1.md"
+      - "docs/improvement_plan.md"
+      - "docs/milestone1_completion_report.md"
