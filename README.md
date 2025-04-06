@@ -12,6 +12,7 @@ Planning Agentシステムは、複数のエージェントが協調して動作
 - **プラン生成・分解機能**: タスクを実行可能なサブタスクに分解し、依存関係を特定
 - **プラン管理機能**: プランの実行状況追跡と動的な調整
 - **エージェント調整機能**: サブタスクに適したエージェントの選定と協調作業の最適化
+- **ファイル管理機能**: YAML形式でのデータ保存・読み込み・履歴管理
 
 ## システム構成
 
@@ -51,6 +52,7 @@ planning_agent/
 ├── utils/
 │   ├── __init__.py
 │   ├── file_manager.py        # ファイル入出力機能
+│   ├── tools.py               # smolagentsツール集
 │   └── prompt_templates.py    # プロンプトテンプレート
 ├── cli.py                     # CLIインターフェース
 └── main.py                    # メインエントリーポイント
@@ -70,11 +72,21 @@ planning_agent/
 git clone https://github.com/Hajime-Y/planning_agent.git
 cd planning_agent
 
-# 依存パッケージのインストール
+# 環境のセットアップと依存パッケージのインストール
 uv venv
 source .venv/bin/activate
-uv pip install -r requirements.txt
+uv sync
 ```
+
+## ファイル管理ユーティリティ
+
+本システムでは、以下のYAML形式ファイル操作機能を提供しています：
+
+- **要件ファイル管理**: タスク要件の保存と読み込み
+- **プランファイル管理**: プランデータの保存、バージョン管理、履歴管理
+- **課題ファイル管理**: 課題データの保存と追跡
+
+これらの機能は、`utils/file_manager.py`で実装されており、smolagentsのツールとして`utils/tools.py`から利用可能です。
 
 ## 使用方法
 
