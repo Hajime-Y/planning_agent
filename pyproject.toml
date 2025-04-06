@@ -10,13 +10,14 @@ readme = "README.md"
 license = {text = "MIT"}
 
 dependencies = [
-    "smolagents>=0.1.0,<0.2.0",
+    "smolagents==0.1.0",
     "pyyaml>=6.0.1,<7.0.0",
+    "transformers==4.38.2",
 ]
 
 [project.optional-dependencies]
 dev = [
-    "pytest>=7.4.0,<8.0.0",
+    "pytest>=8.3.0,<9.0.0",
     "pytest-cov>=4.1.0,<5.0.0",
     "black>=23.7.0,<24.0.0",
     "isort>=5.12.0,<6.0.0",
@@ -75,3 +76,9 @@ extensions = [
 templates_path = ["_templates"]
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 html_theme = "sphinx_rtd_theme" 
+
+[dependency-groups]
+dev = [
+    "pytest>=7.4.4",
+    "pytest-cov>=4.1.0",
+]

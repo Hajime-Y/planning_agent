@@ -88,6 +88,7 @@ planning_agent/
 ├── utils/
 │   ├── __init__.py
 │   ├── file_manager.py        # ファイル入出力機能
+│   ├── tools.py               # smolagentsツール集
 │   └── prompt_templates.py    # プロンプトテンプレート
 ├── cli.py                     # CLIインターフェース
 └── main.py                    # メインエントリーポイント
@@ -258,8 +259,76 @@ issues:
   - `save_plan(plan_id, plan)`: プラン保存
   - `save_issue(task_id, issue)`: 課題保存
   - `backup_plan(plan_id)`: プラン履歴作成
+  - `load_requirements(task_id)`: 要件読み込み
+  - `load_plan(plan_id)`: プラン読み込み
+  - `load_issues(task_id)`: 課題読み込み
+  - `list_plans()`: プランリスト取得
+  - `list_requirements()`: 要件リスト取得
+  - `list_plan_versions(plan_id)`: プランバージョンリスト取得
+  - `delete_plan(plan_id)`: プラン削除
 
-## 6. 拡張ポイント
+### SmolagentsTools
+- **責任**: smolagentsフレームワークで使用するツール提供
+- **提供ツール**:
+  - `save_yaml`: YAMLファイル保存ツール
+  - `load_yaml`: YAMLファイル読み込みツール
+  - `save_requirements`: 要件ファイル保存ツール
+  - `load_requirements`: 要件ファイル読み込みツール
+  - `save_plan`: プランファイル保存ツール
+  - `load_plan`: プランファイル読み込みツール
+  - `save_issue`: 課題ファイル保存ツール
+  - `load_issues`: 課題ファイル読み込みツール
+  - `list_plans`: プランリスト取得ツール
+  - `list_requirements`: 要件リスト取得ツール
+  - `backup_plan`: プランバックアップツール
+  - `delete_plan`: プラン削除ツール
+
+## 6. ファイル管理ユーティリティの実装
+
+### 6.1 ディレクトリ構造
+
+FileManagerクラスは以下のディレクトリ構造を作成・管理します：
+
+```
+data/
+├── requirements/  # 要件ファイル保存ディレクトリ
+├── plans/         # プランファイル保存ディレクトリ
+├── issues/        # 課題ファイル保存ディレクトリ
+└── history/       # 履歴ファイル保存ディレクトリ
+    └── {plan_id}/ # プランごとの履歴ディレクトリ
+```
+
+### 6.2 ファイル命名規則
+
+- 要件ファイル: `{task_id}.yaml`
+- プランファイル: `{plan_id}.yaml`
+- 課題ファイル: `{task_id}.yaml`
+- 履歴ファイル: `v{version}_{timestamp}.yaml`
+
+### 6.3 バージョン管理
+
+プランファイルが更新される際には、以下のバージョン管理処理が行われます：
+
+1. 既存のプランファイルをバックアップ（`history/{plan_id}/v{version}_{timestamp}.yaml`）
+2. バージョン番号をインクリメント
+3. 更新日時を記録
+4. 新しいバージョンとして保存
+
+### 6.4 smolagentsツール連携
+
+`tools.py`で実装されたツールは、FileManagerの機能をsmolagentsのCodeAgentから直接利用可能にします。各ツールは`@tool`デコレータでラップされており、以下の形式で使用できます：
+
+```python
+from smolagents import CodeAgent
+from utils.tools import save_plan, load_plan
+
+agent = CodeAgent(
+    tools=[save_plan, load_plan],
+    model=model
+)
+```
+
+## 7. 拡張ポイント
 
 将来的な機能拡張を考慮した設計ポイント：
 
@@ -274,3 +343,6 @@ issues:
 
 4. **API提供への移行パス**:
    - MCPインターフェースを抽象化し、将来的にAPIへの移行を容易にする
+
+5. **ツール拡張性**:
+   - 共通のツールインターフェースを定義し、新機能を簡単に追加できるようにする
