@@ -8,6 +8,8 @@ MCPサーバー実装
 import logging
 from typing import Dict, Any, List, Optional
 import json
+import os
+import shutil
 
 # FastMCPのインポート
 from mcp.server.fastmcp import FastMCP
@@ -26,53 +28,6 @@ file_manager = FileManager()
 
 # FastMCPサーバーインスタンスの作成
 mcp_server = FastMCP("planning_agent")
-
-# --- 共通のエージェント実行と結果処理関数は削除 ---
-# def _run_agent_and_process_result(prompt: str, function_name: str) -> Dict[str, Any]:
-#     """PlanningManagerAgentを実行し、結果を処理する共通関数"""
-#     try:
-#         # PlanningManagerAgentのインスタンスを作成
-#         # 環境変数などで設定されたAPIキーが利用される想定
-#         agent = create_planning_manager_agent()
-#
-#         # エージェントを実行
-#         result_str = agent.run(prompt)
-#         logger.info(f"Agent run result for {function_name}: {result_str}")
-#
-#         # agent.runの結果 (文字列) を辞書に変換
-#         try:
-#             # ```json ... ``` のようなマークダウンを除去
-#             if isinstance(result_str, str):
-#                 if result_str.strip().startswith("```json"):
-#                     result_str = result_str.strip()[7:-3].strip()
-#                 elif result_str.strip().startswith("```"):
-#                      result_str = result_str.strip()[3:-3].strip()
-#             
-#             # JSON文字列をパース
-#             response_data = json.loads(result_str)
-#             
-#             # 結果が辞書でない場合は整形
-#             if not isinstance(response_data, dict):
-#                  response_data = {"status": "success", "message": "処理が完了しました。", "details": response_data}
-#             
-#             # statusキーがない場合は追加 (成功とみなす)
-#             if "status" not in response_data:
-#                 response_data["status"] = "success"
-#                 
-#         except json.JSONDecodeError:
-#             logger.warning(f"Agent result for {function_name} is not valid JSON: {result_str}")
-#             # JSONパース失敗時は生の結果を返す
-#             response_data = {"status": "warning", "message": "エージェントは処理を完了しましたが、結果の形式がJSONではありません。", "raw_result": result_str}
-#         except Exception as e:
-#              logger.error(f"Error processing agent result for {function_name}: {e}")
-#              response_data = {"status": "error", "message": f"エージェント結果の処理中に予期せぬエラーが発生しました: {e}", "raw_result": result_str}
-#
-#         return response_data
-#
-#     except Exception as e:
-#         logger.error(f"{function_name} 処理中にエラー: {e}", exc_info=True)
-#         return {"status": "error", "message": f"{function_name} の実行中に予期せぬエラーが発生しました: {e}"}
-
 
 @mcp_server.tool()
 def create_plan(task_description: str) -> str:
@@ -165,55 +120,47 @@ def reset_plan() -> Dict[str, Any]:
     errors = []
 
     try:
-        # 既存のプランIDとタスクIDを取得 (削除対象を特定するため)
-        plan_ids = file_manager.list_plans()
-        req_ids = file_manager.list_requirements()
-        # issuesディレクトリ内のタスクIDも取得 (planやreqと紐づかない場合も考慮)
-        issue_task_ids = set([p.stem for p in file_manager.issues_dir.glob("*.yaml")])
-        all_task_ids = set(req_ids) | issue_task_ids
-        
-        logger.info(f"削除対象プランID: {plan_ids}")
-        logger.info(f"削除対象タスクID (requirements + issues): {all_task_ids}")
+        # プランと履歴の削除
+        plan_files = list(file_manager.plans_dir.glob("*.yaml"))
+        plan_ids_to_delete = [f.stem for f in plan_files]
+        logger.info(f"削除対象プランID: {plan_ids_to_delete}")
 
         # プランと履歴の削除
-        for plan_id in plan_ids:
+        for plan_id in plan_ids_to_delete:
             try:
                 if file_manager.delete_plan(plan_id):
                     logger.info(f"プラン {plan_id} を削除しました (履歴含む)")
                     # delete_plan がTrueを返した場合、プランファイルと履歴ディレクトリが対象
                     # カウント方法は要検討だが、ひとまず1プラン=1カウントとする
-                    deleted_files_count += 1 
-                else:
-                    # ファイルが存在しなかった場合などはFalseが返る
-                    logger.warning(f"プラン {plan_id} の削除に失敗、または既に存在しませんでした。")
+                    deleted_files_count += 1
             except Exception as e:
                 msg = f"プラン {plan_id} の削除中にエラー: {e}"
                 logger.error(msg)
                 errors.append(msg)
 
         # 要件ファイルの削除
-        for task_id in all_task_ids:
+        req_files = list(file_manager.requirements_dir.glob("*.yaml"))
+        logger.info(f"削除対象の要件ファイル数: {len(req_files)}")
+        for req_file in req_files:
             try:
-                req_file = file_manager.requirements_dir / f"{task_id}.yaml"
-                if req_file.exists():
-                    req_file.unlink()
-                    logger.info(f"要件ファイル {req_file} を削除しました")
-                    deleted_files_count += 1
+                req_file.unlink()
+                logger.info(f"要件ファイル {req_file.name} を削除しました")
+                deleted_files_count += 1
             except Exception as e:
-                msg = f"要件ファイル {task_id}.yaml の削除中にエラー: {e}"
+                msg = f"要件ファイル {req_file.name} の削除中にエラー: {e}"
                 logger.error(msg)
                 errors.append(msg)
         
         # 課題ファイルの削除
-        for task_id in all_task_ids:
+        issue_files = list(file_manager.issues_dir.glob("*.yaml"))
+        logger.info(f"削除対象の課題ファイル数: {len(issue_files)}")
+        for issue_file in issue_files:
             try:
-                issue_file = file_manager.issues_dir / f"{task_id}.yaml"
-                if issue_file.exists():
-                    issue_file.unlink()
-                    logger.info(f"課題ファイル {issue_file} を削除しました")
-                    deleted_files_count += 1
+                issue_file.unlink()
+                logger.info(f"課題ファイル {issue_file.name} を削除しました")
+                deleted_files_count += 1
             except Exception as e:
-                msg = f"課題ファイル {task_id}.yaml の削除中にエラー: {e}"
+                msg = f"課題ファイル {issue_file.name} の削除中にエラー: {e}"
                 logger.error(msg)
                 errors.append(msg)
 

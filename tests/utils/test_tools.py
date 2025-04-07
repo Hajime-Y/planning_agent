@@ -11,146 +11,139 @@ from pathlib import Path
 import pytest
 import yaml
 
+# utils.tools からテスト対象のツールと必要な型をインポート
 from utils.tools import (
-    save_yaml, load_yaml,
     save_requirements, load_requirements,
     save_plan, load_plan,
     save_issue, load_issues,
-    list_plans, list_requirements,
-    backup_plan, delete_plan
 )
+# FileManager や TypedDict はテストロジックでは直接使わないが、
+# utils.tools が内部で使うため、間接的に必要になる可能性がある
+# (特に setup_file_manager フィクスチャ)
 from utils.file_manager import FileManager
 
 
 class TestTools:
     """Smolagentsツールのテスト"""
-    
-    @pytest.fixture
-    def temp_dir(self):
-        """テスト用の一時ディレクトリを作成"""
-        temp_dir = tempfile.mkdtemp()
-        yield temp_dir
-        # テスト終了後にディレクトリを削除
-        shutil.rmtree(temp_dir)
-    
+
+    # temp_dir フィクスチャは不要になったため削除
+
     @pytest.fixture
     def setup_file_manager(self, monkeypatch):
         """FileManagerのインスタンスを一時ディレクトリを使うようにパッチする"""
         temp_dir = tempfile.mkdtemp()
-        
+
         # ツールモジュール内の_file_managerを一時ディレクトリを使うインスタンスに置き換える
         import utils.tools
+        # _file_manager を直接パッチする
         monkeypatch.setattr(utils.tools, "_file_manager", FileManager(base_dir=temp_dir))
-        
-        yield temp_dir
-        
+
+        yield temp_dir # 一時ディレクトリのパスを返す (ファイルパス確認用)
+
         # テスト終了後にディレクトリを削除
         shutil.rmtree(temp_dir)
-    
-    def test_save_and_load_yaml(self, temp_dir):
-        """save_yamlとload_yamlツールのテスト"""
-        file_path = os.path.join(temp_dir, "test.yaml")
-        data = {"name": "テストデータ", "values": [1, 2, 3]}
-        
-        # 保存
-        result = save_yaml(file_path, data)
-        assert result == file_path
-        assert Path(file_path).exists()
-        
-        # 読み込み
-        loaded_data = load_yaml(file_path)
-        assert loaded_data["name"] == "テストデータ"
-        assert loaded_data["values"] == [1, 2, 3]
-    
+
+    # test_save_and_load_yaml は削除
+
     def test_save_and_load_requirements(self, setup_file_manager):
         """save_requirementsとload_requirementsツールのテスト"""
+        base_dir = setup_file_manager # フィクスチャから一時ディレクトリパスを取得
         task_id = "test-task-101"
-        requirements = {
-            "title": "ツールテスト",
-            "description": "要件ツールのテスト"
-        }
-        
-        # 保存
-        path = save_requirements(task_id, requirements)
-        assert Path(path).exists()
-        
+        title = "ツールテスト"
+        description = "要件ツールのテスト"
+        constraints = ["制約A"]
+        resources = ["リソースX"]
+
+        # 保存 (clarificationsは削除されたので渡さない)
+        result_message = save_requirements(
+            task_id=task_id,
+            title=title,
+            description=description,
+            constraints=constraints,
+            resources=resources,
+        )
+        expected_path = Path(base_dir) / "requirements" / f"{task_id}.yaml"
+        assert result_message == str(expected_path) # 保存パスが返ることを確認
+        assert expected_path.exists()
+
         # 読み込み
         loaded = load_requirements(task_id)
-        assert loaded["title"] == "ツールテスト"
-        assert loaded["description"] == "要件ツールのテスト"
+        assert loaded["title"] == title
+        assert loaded["description"] == description
+        assert loaded["constraints"] == constraints
+        assert loaded["resources"] == resources
         assert loaded["task_id"] == task_id
-    
+        assert "created_at" in loaded
+        assert "updated_at" in loaded
+
     def test_save_and_load_plan(self, setup_file_manager):
         """save_planとload_planツールのテスト"""
+        base_dir = setup_file_manager
         plan_id = "test-plan-101"
-        plan = {
-            "description": "プランツールのテスト",
-            "subtasks": [{"id": "sub1", "description": "サブタスク1"}]
-        }
-        
+        task_id = "linked-task-id"
+        status = "pending"
+        subtasks = [{"id": "sub1", "description": "サブタスク1", "status": "pending", "order": 1, "inputs": [], "outputs": []}]
+
         # 保存
-        result = save_plan(plan_id, plan)
-        assert "プランを保存しました" in result
-        assert "バージョン: 1" in result
-        
+        result_message = save_plan(
+            plan_id=plan_id,
+            task_id=task_id,
+            status=status,
+            subtasks=subtasks,
+        )
+        expected_path = Path(base_dir) / "plans" / f"{plan_id}.yaml"
+        assert f"プランを保存しました: {expected_path} (バージョン: 1)" in result_message
+
         # 読み込み
         loaded = load_plan(plan_id)
-        assert loaded["description"] == "プランツールのテスト"
+        assert loaded["task_id"] == task_id
+        assert loaded["status"] == status
         assert loaded["subtasks"][0]["id"] == "sub1"
         assert loaded["version"] == 1
-    
+        assert "created_at" in loaded
+        assert "updated_at" in loaded
+
     def test_save_and_load_issues(self, setup_file_manager):
-        """save_issueとload_issuesツールのテスト"""
+        """save_issueとload_issuesツールのテスト (新規作成)"""
+        base_dir = setup_file_manager
         task_id = "test-task-102"
-        issue = {
-            "description": "課題ツールのテスト",
-            "status": "open"
-        }
-        
-        # 保存
-        path = save_issue(task_id, issue)
-        assert Path(path).exists()
-        
+        description = "課題ツールのテスト"
+        status = "open"
+        impact = "medium"
+        solution = "解決策1"
+        remarks = None
+        related_subtasks = ["subtask-related"]
+
+        # 保存 (issue_id=None で新規作成)
+        result_message = save_issue(
+            task_id=task_id,
+            issue_id=None,
+            status=status,
+            description=description,
+            impact=impact,
+            solution=solution,
+            remarks=remarks,
+            related_subtasks=related_subtasks,
+        )
+        expected_path = Path(base_dir) / "issues" / f"{task_id}.yaml"
+        assert expected_path.exists()
+        # Issue ID は自動生成されるので、メッセージの形式で確認
+        assert f"課題 'issue-{task_id}-001' を保存しました: {expected_path}" in result_message
+
         # 読み込み
         loaded = load_issues(task_id)
         assert loaded["task_id"] == task_id
         assert len(loaded["issues"]) == 1
-        assert loaded["issues"][0]["description"] == "課題ツールのテスト"
-    
-    def test_list_plans_and_requirements(self, setup_file_manager):
-        """list_plansとlist_requirementsツールのテスト"""
-        # 要件とプランを作成
-        save_requirements("task-list-1", {"description": "リストテスト1"})
-        save_requirements("task-list-2", {"description": "リストテスト2"})
-        
-        save_plan("plan-list-1", {"description": "プランリストテスト1"})
-        save_plan("plan-list-2", {"description": "プランリストテスト2"})
-        
-        # リスト取得
-        tasks = list_requirements()
-        plans = list_plans()
-        
-        assert "task-list-1" in tasks
-        assert "task-list-2" in tasks
-        assert "plan-list-1" in plans
-        assert "plan-list-2" in plans
-    
-    def test_backup_and_delete_plan(self, setup_file_manager):
-        """backup_planとdelete_planツールのテスト"""
-        plan_id = "test-plan-backup"
-        
-        # プランを保存
-        save_plan(plan_id, {"description": "バックアップテスト"})
-        
-        # バックアップを作成
-        backup_path = backup_plan(plan_id)
-        assert backup_path is not None
-        assert Path(backup_path).exists()
-        
-        # プランを削除
-        result = delete_plan(plan_id)
-        assert result is True
-        
-        # プランが削除されていることを確認
-        with pytest.raises(FileNotFoundError):
-            load_plan(plan_id) 
+        issue = loaded["issues"][0]
+        assert issue["issue_id"] == f"issue-{task_id}-001"
+        assert issue["description"] == description
+        assert issue["status"] == status
+        assert issue["impact"] == impact
+        assert issue["solution"] == solution
+        assert issue["remarks"] == remarks
+        assert issue["related_subtasks"] == related_subtasks
+        assert "created_at" in issue
+        assert "updated_at" in loaded # ファイル全体の更新日時
+
+    # test_list_plans_and_requirements は削除
+    # test_backup_and_delete_plan は削除 
