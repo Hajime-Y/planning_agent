@@ -81,10 +81,9 @@ planning_agent/
 │   ├── requirement_analyzer.py # 要件分析エージェント
 │   ├── task_decomposer.py     # タスク分解エージェント
 │   └── issue_manager.py       # 課題管理エージェント
-├── mcp/
+├── mcp_interface/           # MCPサーバー関連
 │   ├── __init__.py
-│   ├── interface.py           # MCPインターフェース
-│   └── handlers.py            # MCP機能ハンドラー
+│   └── server.py            # MCPサーバー実装 (FastMCP使用)
 ├── utils/
 │   ├── __init__.py
 │   ├── file_manager.py        # ファイル入出力機能
@@ -243,14 +242,6 @@ issues:
   - `analyze_issue(issue_description, plan)`: 問題分析
   - `generate_action_plan(issue, plan)`: 対応策の生成
   - `track_issue(issue_id, status)`: 課題ステータス管理
-
-### MCPInterface
-- **責任**: MCPプロトコル処理、エージェントとの連携
-- **主要メソッド**:
-  - `handle_create_plan(request)`: CreatePlan処理
-  - `handle_update_plan(request)`: UpdatePlan処理
-  - `handle_report_issue(request)`: ReportIssue処理
-  - `handle_reset_plan(request)`: ResetPlan処理
 
 ### FileManager
 - **責任**: YAML形式のファイル操作、履歴管理

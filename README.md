@@ -45,10 +45,9 @@ planning_agent/
 │   ├── requirement_analyzer.py # 要件分析エージェント
 │   ├── task_decomposer.py     # タスク分解エージェント
 │   └── issue_manager.py       # 課題管理エージェント
-├── mcp/
+├── mcp_interface/           # MCPサーバー関連
 │   ├── __init__.py
-│   ├── interface.py           # MCPインターフェース
-│   └── handlers.py            # MCP機能ハンドラー
+│   └── server.py            # MCPサーバー実装 (FastMCP使用)
 ├── utils/
 │   ├── __init__.py
 │   ├── file_manager.py        # ファイル入出力機能
