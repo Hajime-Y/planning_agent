@@ -10,9 +10,9 @@ readme = "README.md"
 license = {text = "MIT"}
 
 dependencies = [
-    "smolagents==0.1.0",
+    "smolagents>=1.13.0",
     "pyyaml>=6.0.1,<7.0.0",
-    "transformers==4.38.2",
+    "transformers>=4.40.0",
     "fastmcp>=0.4.1",
     "mcp>=1.6.0",
 ]
