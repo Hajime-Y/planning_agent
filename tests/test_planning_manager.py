@@ -29,15 +29,13 @@ def test_agent_has_tools(mock_lite_llm_model):
     """生成されたエージェントが期待されるツールを持っているか確認"""
     agent = create_planning_manager_agent()
     
-    # utils.tools から公開されているツールオブジェクトのリストを取得
+    # utils.tools から公開されているツールオブジェクトのリストを取得 (修正後)
     # Note: tools モジュール内の SimpleTool インスタンスを直接参照する
     expected_user_tools_objects = [
-        tools.save_yaml, tools.load_yaml,
         tools.save_requirements, tools.load_requirements,
         tools.save_plan, tools.load_plan,
         tools.save_issue, tools.load_issues,
-        tools.list_plans, tools.list_requirements,
-        tools.backup_plan, tools.delete_plan
+        # 削除されたツールはリストから除く
     ]
     
     # smolagentsがデフォルトで追加するツールも考慮

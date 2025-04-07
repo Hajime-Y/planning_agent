@@ -38,12 +38,9 @@ def create_planning_manager_agent(model_id: str = "gpt-4o") -> CodeAgent:
 
     # エージェントが使用するツールのリスト
     available_tools = [
-        tools.save_yaml, tools.load_yaml,
         tools.save_requirements, tools.load_requirements,
         tools.save_plan, tools.load_plan,
         tools.save_issue, tools.load_issues,
-        tools.list_plans, tools.list_requirements,
-        tools.backup_plan, tools.delete_plan
     ]
 
     # 将来的に追加する他の専門エージェント (ManagedAgent) のリスト

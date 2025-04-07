@@ -100,6 +100,7 @@ planning_agent/
 ```yaml
 task_id: "task-001"
 created_at: "2025-04-03T10:00:00Z"
+updated_at: "2025-04-03T10:00:00Z"
 title: "数独パズルを解く"
 description: "9x9の数独パズルを解いてください"
 clarifications:
@@ -128,22 +129,32 @@ subtasks:
     description: "数独の初期状態を解析する"
     status: "completed"
     order: 1
+    inputs: ["数独の初期状態文字列"]
+    outputs: ["解析された数独グリッド"]
   - id: "subtask-002"
     description: "各セルの候補となる数字を特定する"
     status: "in_progress"
     order: 2
+    inputs: ["解析された数独グリッド"]
+    outputs: ["候補数字を含むグリッド"]
   - id: "subtask-003"
     description: "制約伝播アルゴリズムを適用する"
     status: "pending"
     order: 3
+    inputs: ["候補数字を含むグリッド"]
+    outputs: ["制約伝播後のグリッド"]
   - id: "subtask-004"
     description: "バックトラッキングを使って解を探索する"
     status: "pending"
     order: 4
+    inputs: ["制約伝播後のグリッド"]
+    outputs: ["解かれた数独グリッド"]
   - id: "subtask-005"
     description: "結果を指定された形式で出力する"
     status: "pending"
     order: 5
+    inputs: ["解かれた数独グリッド"]
+    outputs: ["指定形式の解答文字列"]
 ```
 
 #### 3.2.3 課題ファイル (YAML)
@@ -157,9 +168,8 @@ issues:
     status: "open"
     description: "サブタスク3の制約伝播アルゴリズムが効率的に動作していない"
     impact: "解の探索に時間がかかりすぎる"
-    suggested_actions:
-      - "制約伝播の実装を最適化する"
-      - "より効率的なデータ構造を使用する"
+    solution: "より効率的なデータ構造を使用する"
+    remarks: "アルゴリズムの選択やデータ構造の見直しが必要かもしれない"
     related_subtasks: ["subtask-003"]
 ```
 
