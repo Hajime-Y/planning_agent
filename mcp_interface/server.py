@@ -15,7 +15,7 @@ import shutil
 from mcp.server.fastmcp import FastMCP
 
 # PlanningManagerAgentを作成する関数をインポート
-from agents.planning_manager import create_planning_manager_agent
+from planning_agents.planning_manager import create_planning_manager_agent
 
 # ロガーの設定
 logger = logging.getLogger(__name__)
