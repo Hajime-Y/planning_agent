@@ -10,11 +10,12 @@ readme = "README.md"
 license = {text = "MIT"}
 
 dependencies = [
-    "smolagents>=1.13.0",
+    "smolagents[litellm]>=1.13.0",
     "pyyaml>=6.0.1,<7.0.0",
     "transformers>=4.40.0",
     "fastmcp>=0.4.1",
     "mcp>=1.6.0",
+    "requests>=2.32.3",
 ]
 
 [project.optional-dependencies]
@@ -83,4 +84,7 @@ html_theme = "sphinx_rtd_theme"
 dev = [
     "pytest>=7.4.4",
     "pytest-cov>=4.1.0",
+    "pytest-mock>=3.14.0",
+    "rich>=14.0.0",
+    "typer[all]>=0.15.2",
 ]
