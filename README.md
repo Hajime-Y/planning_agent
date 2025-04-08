@@ -89,7 +89,39 @@ uv sync
 
 ## 使用方法
 
-（実装完了後に追記予定）
+### コマンドラインインターフェース (CLI)
+
+`cli.py` を使用して、MCPツール関数の直接呼び出しや、Planning Agentとの対話が可能です。
+
+**1. MCPツール関数の呼び出し**
+
+`mcp call` サブコマンドを使用します。引数はJSON形式の文字列で渡します。
+
+```bash
+# 例: create_plan を呼び出す
+python cli.py mcp call create_plan '{"task_description": "新しい機能Xを実装する"}'
+
+# 例: update_plan を呼び出す
+python cli.py mcp call update_plan '{"task_number": 1, "artifacts": ["path/to/output.py"], "comments": "タスク1完了"}'
+
+# 例: report_issue を呼び出す
+python cli.py mcp call report_issue '{"task_number": 2, "issue_description": "テスト中にエラー発生"}'
+
+# 例: reset_plan を呼び出す (引数なし)
+python cli.py mcp call reset_plan '{}'
+```
+
+**2. Planning Agentとの対話**
+
+`chat` サブコマンドを使用します。
+
+```bash
+python cli.py chat
+```
+
+実行すると、`Initializing Planning Agent...` と表示された後、プロンプト (`>`) が表示されます。
+エージェントに指示や質問を入力し、Enterキーを押してください。
+対話を終了するには `quit` または `exit` と入力します。
 
 ## 開発ロードマップ
 
