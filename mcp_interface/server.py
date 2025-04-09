@@ -5,10 +5,20 @@ MCPサーバー実装
 クライアントからのリクエストを受け付け、適切なツール関数を呼び出します。
 """
 
+import sys
+import os
+
+# このファイルのディレクトリを取得
+current_dir = os.path.dirname(os.path.abspath(__file__))
+# プロジェクトルートディレクトリを取得 (mcp_interface の親ディレクトリ)
+project_root = os.path.dirname(current_dir)
+# sys.path にプロジェクトルートを追加 (既に追加されていない場合)
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
+
 import logging
 from typing import Dict, Any, List, Optional
 import json
-import os
 import shutil
 
 # FastMCPのインポート
