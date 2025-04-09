@@ -16,6 +16,8 @@ dependencies = [
     "fastmcp>=0.4.1",
     "mcp>=1.6.0",
     "requests>=2.32.3",
+    "openai-agents>=0.0.9",
+    "openai>=1.71.0",
 ]
 
 [project.optional-dependencies]
@@ -83,6 +85,7 @@ html_theme = "sphinx_rtd_theme"
 [dependency-groups]
 dev = [
     "pytest>=7.4.4",
+    "pytest-asyncio>=0.26.0",
     "pytest-cov>=4.1.0",
     "pytest-mock>=3.14.0",
     "rich>=14.0.0",
