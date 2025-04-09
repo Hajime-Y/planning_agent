@@ -6,7 +6,7 @@ from rich.table import Table
 # Import MCP tool functions directly
 from mcp_interface.server import create_plan, update_plan, report_issue, reset_plan
 # Import the agent creation function
-from agents.planning_manager import create_planning_manager_agent
+from planning_agents.planning_manager import create_planning_manager_agent
 
 # Store available tools in a dictionary for easy lookup
 AVAILABLE_MCP_TOOLS = {
