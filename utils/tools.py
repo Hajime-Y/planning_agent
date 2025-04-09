@@ -90,7 +90,34 @@ def save_plan(
         plan_id: プランID
         task_id: 関連するタスクID
         status: プランのステータス (例: 'in_progress', 'completed')
-        subtasks: サブタスクのリスト (例: [{'id': 's1', 'description': 'd', 'status': 'pending', 'order': 1, 'inputs': [], 'outputs': []}])
+        subtasks: サブタスクのリスト。各サブタスクは Subtask 型の辞書で、'id', 'description', 'status', 'order', 'inputs', 'outputs' をキーとして持ちます。
+                  例 (Pythonスクリプト作成タスクの場合): [
+                      {
+                          'id': 's1', 'description': '要件分析と定義書の作成',
+                          'status': 'completed', 'order': 1,
+                          'inputs': ['task_id'], 'outputs': ['data/requirements/task_id.yaml']
+                      },
+                      {
+                          'id': 's2', 'description': 'スクリプト設計と設計書の作成',
+                          'status': 'in_progress', 'order': 2,
+                          'inputs': ['data/requirements/task_id.yaml'], 'outputs': ['docs/design/task_id_design.md']
+                      },
+                      {
+                          'id': 's3', 'description': 'Pythonスクリプトの実装',
+                          'status': 'pending', 'order': 3,
+                          'inputs': ['docs/design/task_id_design.md'], 'outputs': ['src/my_script.py']
+                      },
+                      {
+                          'id': 's4', 'description': '単体テストコードの作成',
+                          'status': 'pending', 'order': 4,
+                          'inputs': ['src/my_script.py'], 'outputs': ['tests/test_my_script.py']
+                      },
+                      {
+                          'id': 's5', 'description': '単体テストの実行と結果レポート生成',
+                          'status': 'pending', 'order': 5,
+                          'inputs': ['src/my_script.py', 'tests/test_my_script.py'], 'outputs': ['reports/test_results.xml']
+                      }
+                  ]
 
     Returns:
         保存/更新結果を示すメッセージ (例: "プランを保存しました: path/to/plan.yaml (バージョン: 2)")
