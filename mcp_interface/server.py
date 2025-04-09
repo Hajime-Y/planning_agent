@@ -43,6 +43,7 @@ mcp_server = FastMCP("planning_agent")
 def create_plan(task_description: str) -> str:
     """
     新しいタスクからプランを作成、または要件定義のための質問を返します。
+    作成された要件とプランは、適切なツール（save_requirements, save_plan）で保存する必要があります。
 
     Args:
         task_description: タスクの説明
@@ -53,8 +54,20 @@ def create_plan(task_description: str) -> str:
     logger.info(f"create_planが呼び出されました: task_description='{task_description[:50]}...'" )
     try:
         agent = create_planning_manager_agent()
-        # プロンプトはシンプルにタスク内容を伝える
-        prompt = f"以下のタスクの説明に基づいて、プランを作成するか、要件定義のための質問をしてください。\n\nタスク説明:\n{task_description}"
+        # プロンプトにツール利用の指示を追加
+        prompt = f"""以下のタスクの説明に基づいて、要件を定義し、プランを作成してください。
+もし情報が不足している場合は、要件定義のための質問をしてください。
+
+タスク説明:
+{task_description}
+
+**指示:**
+1.  タスク説明から具体的な要件を抽出し、整理してください。
+2.  抽出した要件を `save_requirements` ツールで保存してください。
+3.  定義した要件に基づいて、具体的なサブタスクに分解された実行計画（プラン）を作成してください。
+4.  作成したプランを `save_plan` ツールで保存してください。
+5.  最終的な応答としては、作成したプランの内容、または要件定義のための質問のみを返してください。ツール呼び出しの結果ではなく、プラン自体や質問を直接返します。
+"""
         result_text = agent.run(prompt)
         logger.info(f"Agent run result for create_plan: {result_text}")
         return result_text
@@ -67,6 +80,7 @@ def create_plan(task_description: str) -> str:
 def update_plan(task_number: int, artifacts: List[str], comments: str) -> str:
     """
     実施済みタスクの結果に基づきプランを更新、またはプラン更新のための質問を返します。
+    プランの読み込み、更新、保存には適切なツール（load_plan, save_plan）を使用する必要があります。
 
     Args:
         task_number: 実施したサブタスクの番号
@@ -79,10 +93,22 @@ def update_plan(task_number: int, artifacts: List[str], comments: str) -> str:
     logger.info(f"update_planが呼び出されました: task_number={task_number}")
     try:
         agent = create_planning_manager_agent()
-        prompt = f"サブタスク {task_number} が完了しました。以下の情報に基づいてプランを更新するか、プラン更新のための質問をしてください。\n\n"
-        prompt += f"成果物:\n" + "\n".join([f"- {a}" for a in artifacts]) + "\n\n"
-        prompt += f"コメント:\n{comments}"
-        
+        # プロンプトにツール利用の指示を追加
+        prompt = f"""サブタスク {task_number} が完了しました。以下の情報に基づいてプランを更新するか、プラン更新のための質問をしてください。
+
+完了タスク情報:
+-   実施済みサブタスク番号: {task_number}
+-   生成された成果物: {', '.join(artifacts) if artifacts else 'なし'}
+-   コメント: {comments}
+
+**指示:**
+1.  現在アクティブなプランファイルを `load_plan` ツールで読み込んでください。
+2.  読み込んだプランと完了タスク情報を照らし合わせ、プランのステータス（完了、未完了など）を更新してください。
+3.  成果物やコメントを考慮し、残りのタスク内容や順序を調整する必要があれば更新してください。
+4.  更新したプラン全体を `save_plan` ツールで保存してください。
+5.  必要に応じて、関連する要件（`load_requirements`）や課題（`load_issues`）も参照して、プラン更新の判断材料としてください。
+6.  最終的な応答としては、更新されたプランの内容、またはプラン更新のための質問のみを返してください。ツール呼び出しの結果ではなく、更新後のプラン自体や質問を直接返します。
+"""
         result_text = agent.run(prompt)
         logger.info(f"Agent run result for update_plan: {result_text}")
         return result_text
@@ -95,6 +121,7 @@ def update_plan(task_number: int, artifacts: List[str], comments: str) -> str:
 def report_issue(task_number: int, issue_description: str) -> str:
     """
     実行中のタスクで発生した課題を報告し、対応方針または追加質問を返します。
+    課題の保存、プランや要件の読み込みには適切なツール（save_issue, load_plan, load_requirements）を使用する必要があります。
 
     Args:
         task_number: 問題が発生したサブタスクの番号
@@ -106,8 +133,22 @@ def report_issue(task_number: int, issue_description: str) -> str:
     logger.info(f"report_issueが呼び出されました: task_number={task_number}, description='{issue_description[:50]}...'" )
     try:
         agent = create_planning_manager_agent()
-        prompt = f"サブタスク {task_number} の実行中に以下の課題が発生しました。プラン全体を確認し、対応方針を示すか、分析のために追加の質問をしてください。\n\n課題内容:\n{issue_description}"
-        
+        # プロンプトにツール利用の指示を追加
+        prompt = f"""サブタスク {task_number} の実行中に以下の課題が発生しました。
+プラン全体を確認し、対応方針を示すか、分析のために追加の質問をしてください。
+
+発生した課題:
+-   課題発生タスク番号: {task_number}
+-   課題内容: {issue_description}
+
+**指示:**
+1.  まず、発生した課題を `save_issue` ツールで保存してください。
+2.  対応方針を検討するために、`load_plan` ツールで現在のプランを読み込んでください。必要であれば `load_requirements` ツールで関連する要件も読み込んでください。
+3.  課題の内容と現在のプラン・要件を分析し、以下のいずれかを行ってください。
+    a.  **対応方針の決定:** 課題解決のための具体的なアクション（プランの修正、追加タスクの定義など）を決定してください。もしプランを修正する場合は、`save_plan` ツールで更新内容を保存してください。
+    b.  **追加質問の生成:** 対応方針を決定するために情報が不足している場合は、必要な情報を得るための質問を生成してください。
+4.  最終的な応答としては、決定した対応方針（プラン修正が必要な場合はその概要を含む）、または追加の質問のみを返してください。ツール呼び出しの結果ではなく、方針や質問を直接返します。
+"""
         result_text = agent.run(prompt)
         logger.info(f"Agent run result for report_issue: {result_text}")
         return result_text
