@@ -8,6 +8,10 @@ from typing import List
 from agents import Agent, Runner
 from agents.mcp import MCPServerStdio
 from openai import AsyncOpenAI
+from dotenv import load_dotenv
+
+# .envファイルから環境変数を読み込む
+load_dotenv()
 
 # ロガー設定
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -24,12 +28,12 @@ async def main():
 
     logger.info("Starting the Planning Agent Client...")
 
-    # 環境変数からOpenAI APIキーを取得 (Agent SDKが内部で使用する可能性がある)
-    # 必要に応じて他の設定もここで行う (例: モデル名、カスタムクライアント)
-    # api_key = os.getenv("OPENAI_API_KEY")
-    # if not api_key:
-    #     logger.error("OPENAI_API_KEY environment variable not set.")
-    #     return # またはデフォルトキーを使用するか、エラー処理
+    # 環境変数からOpenAI APIキーを取得
+    api_key = os.getenv("OPENAI_API_KEY")
+    if not api_key:
+        logger.error("OPENAI_API_KEY environment variable not set. Please set it before running.")
+        return # APIキーがない場合は終了
+    logger.info("OPENAI_API_KEY found.") # キーが見つかったことをログに出力
 
     # MCPサーバー (planning_agent) への接続設定
     planning_server_config = {

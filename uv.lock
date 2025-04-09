@@ -389,30 +389,16 @@ wheels = [
 
 [[package]]
 name = "duckduckgo-search"
-version = "2025.4.4"
+version = "8.0.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "click" },
     { name = "lxml" },
     { name = "primp" },
 ]
+sdist = { url = "https://files.pythonhosted.org/packages/25/aa/594674d0cfe45bdeb825b6383de2104c7320f3fb582eb97fb153dbdc8c71/duckduckgo_search-8.0.0.tar.gz", hash = "sha256:2a8e22092156e11d3c9195e1ce100fa0bce181d23d6f84b89228190498887736", size = 22253 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/91/a1/02fad7df6feb8c1ac1ec640c32275f5cdd02fe322b9bd5182fe1b7a72716/duckduckgo_search-2025.4.4-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:2ad6e748b16974d6eb95b3604ecad7a6c85337e34f7b7e0ec5ef8ba4b1f8b8e1", size = 78988 },
-    { url = "https://files.pythonhosted.org/packages/55/e6/a62ad4522e46a1dcf202e13fbd6ab585f0022f753c556738bdfeb36ab16e/duckduckgo_search-2025.4.4-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:85244f9791da37bbaf250f341c490db0005ca16f823bd75dd4734f6a833a48b1", size = 76705 },
-    { url = "https://files.pythonhosted.org/packages/b6/30/5527c1f3536c6b2678f18b4497b77f71bf2f9fca2d61e4382d76052cd641/duckduckgo_search-2025.4.4-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:b9dfba8734f8f6220d63777efaa7a70a180e77b91d414736e2b3c862041f8978", size = 96565 },
-    { url = "https://files.pythonhosted.org/packages/3e/89/73ccd75fbd54392d060b9b575dbef9614aaf42303f6b78b236575655f212/duckduckgo_search-2025.4.4-cp310-cp310-win_amd64.whl", hash = "sha256:e63e374508573813caf82694686d5f5aca5c28d97c51a4ce14acba1ced7b3ba1", size = 60503 },
-    { url = "https://files.pythonhosted.org/packages/2a/a0/d16e8573788ff073c57c02d065b21218a3a3b4c8f4193c3d6bfd3ba18c1b/duckduckgo_search-2025.4.4-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:c93136df7ab2356a2c72e4a5b12468b4211001966eaa0f7e916fec21c6a030a8", size = 77705 },
-    { url = "https://files.pythonhosted.org/packages/b8/1e/c5080229a0af6e521c4b96bc322521b6653ec78b1ce5a9e88ff32bea2be3/duckduckgo_search-2025.4.4-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:cba3328e3b445108eea2885a067d7940df9d4ac4a80896bf8cd0d20bb775b33a", size = 75141 },
-    { url = "https://files.pythonhosted.org/packages/5c/49/0cd13c7c74c1ff627a390127ed66a133a5a96fc98c20537996ced261f307/duckduckgo_search-2025.4.4-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:343a30ec5c8be287aad44e657e5ece2e10ef319642feac346ffe485704363a7c", size = 94924 },
-    { url = "https://files.pythonhosted.org/packages/c2/e9/f4233afcca57a239cc605171ec7b1ce0540088e48aa6e7bbbc00ecffe03d/duckduckgo_search-2025.4.4-cp311-cp311-win_amd64.whl", hash = "sha256:5ce7de2a211b012b2e761f937efe77151010cf97075262efe08811ed987fe92a", size = 60343 },
-    { url = "https://files.pythonhosted.org/packages/77/15/bea5add03f5028dba529ddd9090ec6bd545e90926bdaa5a80b122e265110/duckduckgo_search-2025.4.4-cp312-cp312-macosx_10_13_x86_64.whl", hash = "sha256:18f21c972613f96fba344e2186757e862b724d9e574c956193ebc4f7fdfdf0fa", size = 78319 },
-    { url = "https://files.pythonhosted.org/packages/4a/ee/6ce5a5db585af44e4a811d0fd61431fe13789e51ade1102e78dd4f610a55/duckduckgo_search-2025.4.4-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:8c6944fb74b77aaab5759c8806c23ed20aa96624d1c49a2caf2b9f3b50c07057", size = 75032 },
-    { url = "https://files.pythonhosted.org/packages/e2/2f/a899d28de2d46541b24d33b969fedda74f6b00a4317e16cf207cbb896292/duckduckgo_search-2025.4.4-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:2e52028aeaa6151514a3115cc6fe616883cf9614fba2966792a415b7d97935b6", size = 95875 },
-    { url = "https://files.pythonhosted.org/packages/58/f3/cf71d8a286325f8a2d969bc0bda9e4defb01f1df2142887c965fa03adebb/duckduckgo_search-2025.4.4-cp312-cp312-win_amd64.whl", hash = "sha256:f8a826f0d19eccba76d83d5034be8ae2e89f38263befd290c6ca613c8eed7ea2", size = 60488 },
-    { url = "https://files.pythonhosted.org/packages/85/d6/8d8775727dc18a38b5bbd5982383ff4d2a1b392afba4a998cac54e5c78f8/duckduckgo_search-2025.4.4-cp313-cp313-macosx_10_13_x86_64.whl", hash = "sha256:a34c01f397f843ea9e4d00520eadfee087f837c3be9d7c2817c6006ec634c057", size = 78209 },
-    { url = "https://files.pythonhosted.org/packages/97/72/e1d4db7ef67fe35fe996ad492b253cdfba79652d5ef03c1e0159b6d1a05e/duckduckgo_search-2025.4.4-cp313-cp313-macosx_11_0_arm64.whl", hash = "sha256:7fc5625842c14b0f80b955f448757976295f4242ade632b6982b5ae002fe3d81", size = 74936 },
-    { url = "https://files.pythonhosted.org/packages/0b/7c/dc478eea16f30270183a2d5a964352404c00b3fcc5df8ce64a1220a5a556/duckduckgo_search-2025.4.4-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:5434abee02b3d0c9759210a7d358aaa51214c1529ab1e6ddf374d94afa2a0e5e", size = 95537 },
-    { url = "https://files.pythonhosted.org/packages/75/eb/a16b1e6516c0156c04499367eb7b7bcaec1b69e91a25d449df2ee97f1377/duckduckgo_search-2025.4.4-cp313-cp313-win_amd64.whl", hash = "sha256:a2cf0c92deb868eeb0694d864aa922e054e3a87da81009757af6af56d700f681", size = 60237 },
+    { url = "https://files.pythonhosted.org/packages/db/39/8e01afdea1bf7e67eb191217ad958a5c691f7739c9dacd00e8d77a663e4d/duckduckgo_search-8.0.0-py3-none-any.whl", hash = "sha256:0026f2c6961d457b4c526cb840dbb28a7b24f67ce38589618a5021fdb3f0e8bc", size = 18687 },
 ]
 
 [[package]]
@@ -1289,6 +1275,7 @@ dependencies = [
     { name = "mcp" },
     { name = "openai" },
     { name = "openai-agents" },
+    { name = "python-dotenv" },
     { name = "pyyaml" },
     { name = "requests" },
     { name = "smolagents", extra = ["litellm"] },
@@ -1327,6 +1314,7 @@ requires-dist = [
     { name = "openai-agents", specifier = ">=0.0.9" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.3.0,<9.0.0" },
     { name = "pytest-cov", marker = "extra == 'dev'", specifier = ">=4.1.0,<5.0.0" },
+    { name = "python-dotenv", specifier = ">=1.1.0" },
     { name = "pyyaml", specifier = ">=6.0.1,<7.0.0" },
     { name = "requests", specifier = ">=2.32.3" },
     { name = "smolagents", extras = ["litellm"], specifier = ">=1.13.0" },

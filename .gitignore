@@ -30,6 +30,7 @@ ENV/
 
 # macOS
 .DS_Store
+**/.DS_Store
 .AppleDouble
 .LSOverride
 Icon
@@ -56,3 +57,4 @@ htmlcov/
 
 # Cursor
 .cursor/ 
+.cursorignore
