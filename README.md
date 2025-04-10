@@ -59,10 +59,9 @@ planning_agent/
 
 ## MCP機能
 
-- **CreatePlan**: 新規プラン作成機能
+- **CreatePlan**: 新規プラン作成機能（既存プランのアーカイブ含む）
 - **UpdatePlan**: プラン更新機能
 - **ReportIssue**: 課題報告・対応方針提示機能
-- **ResetPlan**: タスク情報リセット機能
 
 ## インストール方法
 
@@ -99,16 +98,13 @@ uv sync
 
 ```bash
 # 例: create_plan を呼び出す
-uv run python cli.py mcp call create_plan \'{"task_description": "新しい機能Xを実装する"}\'
+uv run python cli.py mcp call create_plan '{"task_description": "新しい機能Xを実装する"}'
 
 # 例: update_plan を呼び出す
-uv run python cli.py mcp call update_plan \'{"task_number": 1, "artifacts": ["path/to/output.py"], "comments": "タスク1完了"}\'
+uv run python cli.py mcp call update_plan '{"task_number": 1, "artifacts": ["path/to/output.py"], "comments": "タスク1完了"}'
 
 # 例: report_issue を呼び出す
-uv run python cli.py mcp call report_issue \'{"task_number": 2, "issue_description": "テスト中にエラー発生"}\'
-
-# 例: reset_plan を呼び出す (引数なし)
-uv run python cli.py mcp call reset_plan \'{}\'
+uv run python cli.py mcp call report_issue '{"task_number": 2, "issue_description": "テスト中にエラー発生"}'
 ```
 
 **2. Planning Agentとの対話**
