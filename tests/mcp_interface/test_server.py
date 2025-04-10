@@ -10,7 +10,7 @@ import tempfile # 一時ディレクトリ作成用
 import shutil # ディレクトリ削除用
 
 # テスト対象の関数をインポート
-from mcp_interface.server import create_plan, update_plan, report_issue, reset_plan, mcp_server
+from mcp_interface.server import create_plan, update_plan, report_issue, mcp_server
 # FileManager もインポート (Mock作成のため)
 from utils.file_manager import FileManager, RequirementsData, PlanData, IssueFileData, Subtask, Issue
 
@@ -44,13 +44,33 @@ def setup_mock_file_manager(monkeypatch, tmp_path):
 
 # --- テストケース --- 
 
-def test_create_plan(mock_agent_run):
-    """create_plan 関数の基本的なテスト (Agent呼び出し確認)"""
+def test_create_plan(mock_agent_run, setup_mock_file_manager):
+    """create_plan 関数のテスト (Agent呼び出しと既存プランアーカイブ確認)"""
+    mock_fm, temp_dir = setup_mock_file_manager
+
+    # テスト用の既存プランファイルを作成
+    existing_plan_id = "existing-plan"
+    existing_plan_file = mock_fm.plans_dir / f"{existing_plan_id}.yaml"
+    existing_plan_file.touch()
+    assert existing_plan_file.exists() # 事前確認
+
     task_desc = "テストタスクの説明"
     result = create_plan(task_description=task_desc)
+    
     # Agent の run が呼ばれたか、内容はモックの戻り値かを確認
     mock_agent_run.run.assert_called_once()
     assert result == "Mock agent response"
+
+    # 既存プランがアーカイブされたか（元の場所にない）を確認
+    assert not existing_plan_file.exists()
+    # アーカイブ先のディレクトリとファイルが存在するか確認
+    # archive_existing_plans がタイムスタンプを使うため、正確なディレクトリ名は取得難しい
+    # history ディレクトリ内に archive_* というディレクトリが1つできているかで確認
+    archive_dirs = list(mock_fm.history_dir.glob("archive_*"))
+    assert len(archive_dirs) == 1
+    # そのディレクトリ内に移動されたファイルがあるか確認
+    archived_file = archive_dirs[0] / f"{existing_plan_id}.yaml"
+    assert archived_file.exists()
 
 def test_update_plan(mock_agent_run):
     """update_plan 関数の基本的なテスト (Agent呼び出し確認)"""
@@ -63,37 +83,3 @@ def test_report_issue(mock_agent_run):
     result = report_issue(task_number=2, issue_description="問題発生")
     mock_agent_run.run.assert_called_once()
     assert result == "Mock agent response"
-
-def test_reset_plan(setup_mock_file_manager):
-    """reset_plan 関数のテスト (ファイル削除の確認)"""
-    mock_fm, temp_dir = setup_mock_file_manager
-
-    # テスト用のファイルを作成
-    plan_id = "plan-to-reset"
-    task_id = "task-to-reset"
-    req_file = mock_fm.requirements_dir / f"{task_id}.yaml"
-    plan_file = mock_fm.plans_dir / f"{plan_id}.yaml"
-    issue_file = mock_fm.issues_dir / f"{task_id}.yaml"
-    history_dir = mock_fm.history_dir / plan_id
-    history_file = history_dir / "v1_test.yaml"
-
-    req_file.touch()
-    plan_file.touch()
-    issue_file.touch()
-    history_dir.mkdir()
-    history_file.touch()
-
-    # reset_plan を実行
-    result = reset_plan()
-
-    # ステータスとメッセージを確認
-    assert result["status"] == "success"
-    assert "リセットが完了しました" in result["message"]
-
-    # delete_plan が呼ばれたか確認 (Mockのおかげ)
-    mock_fm.delete_plan.assert_called_once_with(plan_id)
-
-    # 要件ファイルと課題ファイルが削除されたか確認 (直接確認)
-    assert not req_file.exists()
-    assert not issue_file.exists()
-    # plan_file と history_dir は delete_plan が削除するはず (モックされている)
