@@ -78,6 +78,7 @@ def create_plan(task_description: str) -> str:
     **重要:** 各サブタスクには、明確な入力（inputs）と出力（outputs）を定義してください。これにより、タスク間の連携がスムーズになり、実行の確実性が高まります。
 4.  作成したプランを `save_plan` ツールで保存してください。
 5.  **最終的な応答** としては、作成したプランの内容に加えて、**プランに含まれる最初のサブタスク（通常は `order: 1`）を実行するための具体的な指示** を含めて返してください。
+    指示には、**そのサブタスクの入力（inputs）を受け取り、どのように処理して出力（outputs）を生成するか** の概要を含めてください。
 """
         result_text = agent.run(prompt)
         logger.info(f"Agent run result for create_plan: {result_text}")
@@ -120,6 +121,7 @@ def update_plan(task_number: int, artifacts: List[str], comments: str) -> str:
 4.  更新したプラン全体を `save_plan` ツールで保存してください。
 5.  必要に応じて、関連する要件（`load_requirements`）や課題（`load_issues`）も参照して、プラン更新の判断材料としてください。
 6.  **最終的な応答** としては、更新されたプランの内容に加えて、**次に実行すべき未完了のサブタスク（最も小さい `order` を持つ `status: pending` のタスク）を実行するための具体的な指示** を含めて返してください。
+    指示には、**そのサブタスクの入力（inputs）を受け取り、どのように処理して出力（outputs）を生成するか** の概要を含めてください。
 """
         result_text = agent.run(prompt)
         logger.info(f"Agent run result for update_plan: {result_text}")
