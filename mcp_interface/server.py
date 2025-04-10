@@ -42,17 +42,27 @@ mcp_server = FastMCP("planning_agent")
 @mcp_server.tool()
 def create_plan(task_description: str) -> str:
     """
-    新しいタスクからプランを作成、または要件定義のための質問を返します。
-    作成された要件とプランは、適切なツール（save_requirements, save_plan）で保存する必要があります。
+    ユーザーからのタスク説明に基づき、全く新しい計画を作成します。
+    このツールは、プロジェクトの初期段階や、既存の計画を完全に破棄して新しい計画を立てる場合に使用します。
+    呼び出すと、まず既存の計画ファイルがあればアーカイブされ、その後、タスク分析、要件定義、計画作成が行われます。
 
     Args:
-        task_description: タスクの説明
+        task_description (str): 実行したいタスク内容の説明。
 
     Returns:
-        作成されたプラン、または要件定義のための質問事項（テキスト形式）
+        str: 作成された計画（通常はYAML形式の文字列）、または計画作成のために追加情報が必要な場合の質問。
     """
     logger.info(f"create_planが呼び出されました: task_description='{task_description[:50]}...'" )
     try:
+        # 既存プランをアーカイブ
+        try:
+            archived_files = file_manager.archive_existing_plans()
+            if archived_files:
+                logger.info(f"既存のプランファイル {len(archived_files)} 件をアーカイブしました。")
+        except Exception as archive_e:
+            logger.warning(f"既存プランのアーカイブ中にエラーが発生しました: {archive_e}", exc_info=True)
+            # アーカイブエラーは処理を続行するが、警告を出す
+
         agent = create_planning_manager_agent()
         # プロンプトにツール利用の指示を追加
         prompt = f"""以下のタスクの説明に基づいて、要件を定義し、プランを作成してください。
@@ -79,16 +89,16 @@ def create_plan(task_description: str) -> str:
 @mcp_server.tool()
 def update_plan(task_number: int, artifacts: List[str], comments: str) -> str:
     """
-    実施済みタスクの結果に基づきプランを更新、またはプラン更新のための質問を返します。
-    プランの読み込み、更新、保存には適切なツール（load_plan, save_plan）を使用する必要があります。
+    完了したサブタスクの結果を受けて、既存の計画を更新します。
+    計画の進捗状況を反映させたり、予期せぬ結果に基づいて後続タスクを修正したりする場合に使用します。
 
     Args:
-        task_number: 実施したサブタスクの番号
-        artifacts: 生成された成果物のリスト（ファイルパスなど）
-        comments: 今後のタスクに影響を及ぼしそうな内容に関するコメント
+        task_number (int): 完了したサブタスクの番号。
+        artifacts (List[str]): サブタスク実行によって生成された成果物（ファイルパスなど）のリスト。
+        comments (str): 計画の更新に考慮すべき点や、後続タスクへの影響に関するコメント。
 
     Returns:
-        更新されたプラン、またはプラン更新のための質問事項（テキスト形式）
+        str: 更新された計画（通常はYAML形式の文字列）、または計画更新のために追加情報が必要な場合の質問。
     """
     logger.info(f"update_planが呼び出されました: task_number={task_number}")
     try:
@@ -120,15 +130,15 @@ def update_plan(task_number: int, artifacts: List[str], comments: str) -> str:
 @mcp_server.tool()
 def report_issue(task_number: int, issue_description: str) -> str:
     """
-    実行中のタスクで発生した課題を報告し、対応方針または追加質問を返します。
-    課題の保存、プランや要件の読み込みには適切なツール（save_issue, load_plan, load_requirements）を使用する必要があります。
+    サブタスク実行中に発生した問題やブロッカーを報告し、対応方針の策定を依頼します。
+    計画通りに進まなくなった場合や、予期せぬ障害が発生した場合に使用します。
 
     Args:
-        task_number: 問題が発生したサブタスクの番号
-        issue_description: 課題の内容
+        task_number (int): 問題が発生したサブタスクの番号。
+        issue_description (str): 発生した問題の詳細な説明。
 
     Returns:
-        プラン全体を確認しての課題対応方針、または課題分析のための追加質問事項（テキスト形式）
+        str: 問題への対応方針（計画修正案を含む場合がある）、または問題解決のために追加情報が必要な場合の質問。
     """
     logger.info(f"report_issueが呼び出されました: task_number={task_number}, description='{issue_description[:50]}...'" )
     try:
@@ -155,74 +165,6 @@ def report_issue(task_number: int, issue_description: str) -> str:
     except Exception as e:
         logger.error(f"report_issue 処理中にエラー: {e}", exc_info=True)
         return f"[エラー] 課題報告の処理中に予期せぬエラーが発生しました: {e}"
-
-
-@mcp_server.tool()
-def reset_plan() -> Dict[str, Any]:
-    """
-    これまでのプラン関連データ（要件、プラン、課題、履歴）を削除します。
-    この操作ではエージェントは呼び出されません。
-
-    Returns:
-        処理結果を示す辞書
-    """
-    logger.info(f"reset_planが呼び出されました")
-    deleted_files_count = 0
-    errors = []
-
-    try:
-        # プランと履歴の削除
-        plan_files = list(file_manager.plans_dir.glob("*.yaml"))
-        plan_ids_to_delete = [f.stem for f in plan_files]
-        logger.info(f"削除対象プランID: {plan_ids_to_delete}")
-
-        # プランと履歴の削除
-        for plan_id in plan_ids_to_delete:
-            try:
-                if file_manager.delete_plan(plan_id):
-                    logger.info(f"プラン {plan_id} を削除しました (履歴含む)")
-                    # delete_plan がTrueを返した場合、プランファイルと履歴ディレクトリが対象
-                    # カウント方法は要検討だが、ひとまず1プラン=1カウントとする
-                    deleted_files_count += 1
-            except Exception as e:
-                msg = f"プラン {plan_id} の削除中にエラー: {e}"
-                logger.error(msg)
-                errors.append(msg)
-
-        # 要件ファイルの削除
-        req_files = list(file_manager.requirements_dir.glob("*.yaml"))
-        logger.info(f"削除対象の要件ファイル数: {len(req_files)}")
-        for req_file in req_files:
-            try:
-                req_file.unlink()
-                logger.info(f"要件ファイル {req_file.name} を削除しました")
-                deleted_files_count += 1
-            except Exception as e:
-                msg = f"要件ファイル {req_file.name} の削除中にエラー: {e}"
-                logger.error(msg)
-                errors.append(msg)
-        
-        # 課題ファイルの削除
-        issue_files = list(file_manager.issues_dir.glob("*.yaml"))
-        logger.info(f"削除対象の課題ファイル数: {len(issue_files)}")
-        for issue_file in issue_files:
-            try:
-                issue_file.unlink()
-                logger.info(f"課題ファイル {issue_file.name} を削除しました")
-                deleted_files_count += 1
-            except Exception as e:
-                msg = f"課題ファイル {issue_file.name} の削除中にエラー: {e}"
-                logger.error(msg)
-                errors.append(msg)
-
-        if not errors:
-            return {"status": "success", "message": f"プラン関連データのリセットが完了しました。削除ファイル数 (概算): {deleted_files_count}"}
-        else:
-            return {"status": "warning", "message": f"プラン関連データのリセット中に一部エラーが発生しました。削除ファイル数 (概算): {deleted_files_count}", "errors": errors}
-
-    except Exception as e:
-        logger.error(f"reset_plan 処理中に予期せぬエラー: {e}", exc_info=True)
-        return {"status": "error", "message": f"プランリセット中に予期せぬエラーが発生しました: {e}"}
 
 
 if __name__ == "__main__":

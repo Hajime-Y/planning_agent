@@ -457,3 +457,31 @@ class FileManager:
         except Exception as e:
             print(f"プランの削除に失敗しました: {e}")
             return False
+
+    def archive_existing_plans(self) -> List[str]:
+        """
+        既存のプランファイル（plans_dir直下の.yamlファイル）を履歴ディレクトリに移動する
+
+        Returns:
+            移動されたプランファイルの元のパスのリスト
+        """
+        archived_files = []
+        timestamp = self._get_timestamp()
+        archive_target_dir = self.history_dir / f"archive_{timestamp}"
+        archive_target_dir.mkdir(exist_ok=True)
+
+        plan_files = list(self.plans_dir.glob("*.yaml"))
+        if not plan_files:
+            return [] # アーカイブ対象がなければ空リストを返す
+
+        for file_path in plan_files:
+            try:
+                # 移動先のパスを作成
+                dest_path = archive_target_dir / file_path.name
+                shutil.move(str(file_path), str(dest_path))
+                archived_files.append(str(file_path))
+            except Exception as e:
+                # ここではエラーログは出さずに処理を続ける (呼び出し元で考慮)
+                print(f"Warning: Failed to archive {file_path}: {e}") # 簡易的な警告
+
+        return archived_files

@@ -16,7 +16,6 @@ graph TD
         MCP -- CreatePlan --> PM[プランニングマネージャエージェント]
         MCP -- UpdatePlan --> PM
         MCP -- ReportIssue --> PM
-        MCP -- ResetPlan --> PM
         
         PM <--> RA[要件分析エージェント]
         PM <--> TD[タスク分解エージェント]
@@ -212,17 +211,6 @@ issues:
   4. 必要に応じてプラン更新提案
   5. 結果返却
 
-#### ResetPlan
-
-- **目的**: タスク完了またはリセット要求によるクリーンアップ
-- **入力**: プランID
-- **出力**: リセット確認
-- **処理フロー**:
-  1. リセット要求受信
-  2. 関連ファイル退避（オプション）
-  3. ファイル削除
-  4. 確認メッセージ返却
-
 ## 5. 主要クラスと責任範囲
 
 ### PlanningManagerAgent
@@ -266,7 +254,7 @@ issues:
   - `list_plans()`: プランリスト取得
   - `list_requirements()`: 要件リスト取得
   - `list_plan_versions(plan_id)`: プランバージョンリスト取得
-  - `delete_plan(plan_id)`: プラン削除
+  - `archive_existing_plans()`: 既存プランアーカイブ（CreatePlanで使用）
 
 ### SmolagentsTools
 - **責任**: smolagentsフレームワークで使用するツール提供
@@ -282,7 +270,6 @@ issues:
   - `list_plans`: プランリスト取得ツール
   - `list_requirements`: 要件リスト取得ツール
   - `backup_plan`: プランバックアップツール
-  - `delete_plan`: プラン削除ツール
 
 ## 6. ファイル管理ユーティリティの実装
 
