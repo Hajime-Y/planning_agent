@@ -458,30 +458,47 @@ class FileManager:
             print(f"プランの削除に失敗しました: {e}")
             return False
 
-    def archive_existing_plans(self) -> List[str]:
+    def archive_existing_project_data(self) -> List[str]:
         """
-        既存のプランファイル（plans_dir直下の.yamlファイル）を履歴ディレクトリに移動する
+        既存のプロジェクト関連ファイル（プラン、要件、課題）を履歴ディレクトリに移動する。
+        主に create_plan 実行時に、既存データをクリーンアップするために使用される。
 
         Returns:
-            移動されたプランファイルの元のパスのリスト
+            移動されたファイルの元のパスのリスト
         """
         archived_files = []
         timestamp = self._get_timestamp()
         archive_target_dir = self.history_dir / f"archive_{timestamp}"
-        archive_target_dir.mkdir(exist_ok=True)
+        
+        # アーカイブ対象ディレクトリとファイルパターン
+        dirs_to_archive = {
+            self.plans_dir: "*.yaml",
+            self.requirements_dir: "*.yaml",
+            self.issues_dir: "*.yaml",
+        }
 
-        plan_files = list(self.plans_dir.glob("*.yaml"))
-        if not plan_files:
+        # 対象ファイルが存在する場合のみアーカイブディレクトリを作成
+        found_files = False
+        for source_dir, pattern in dirs_to_archive.items():
+            if list(source_dir.glob(pattern)):
+                found_files = True
+                break
+        
+        if not found_files:
             return [] # アーカイブ対象がなければ空リストを返す
 
-        for file_path in plan_files:
-            try:
-                # 移動先のパスを作成
-                dest_path = archive_target_dir / file_path.name
-                shutil.move(str(file_path), str(dest_path))
-                archived_files.append(str(file_path))
-            except Exception as e:
-                # ここではエラーログは出さずに処理を続ける (呼び出し元で考慮)
-                print(f"Warning: Failed to archive {file_path}: {e}") # 簡易的な警告
+        archive_target_dir.mkdir(exist_ok=True)
+
+        for source_dir, pattern in dirs_to_archive.items():
+            files_to_move = list(source_dir.glob(pattern))
+            for file_path in files_to_move:
+                try:
+                    # 移動先のパスを作成 (ファイル名のみ維持)
+                    dest_path = archive_target_dir / file_path.name
+                    shutil.move(str(file_path), str(dest_path))
+                    archived_files.append(str(file_path))
+                except Exception as e:
+                    # ここではエラーログは出さずに処理を続ける (呼び出し元で考慮)
+                    print(f"Warning: Failed to archive {file_path}: {e}") # 簡易的な警告
 
         return archived_files

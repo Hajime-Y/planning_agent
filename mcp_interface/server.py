@@ -52,15 +52,15 @@ def create_plan(task_description: str) -> str:
     Returns:
         str: 作成された計画（通常はYAML形式の文字列）、または計画作成のために追加情報が必要な場合の質問。
     """
-    logger.info(f"create_planが呼び出されました: task_description='{task_description[:50]}...'" )
+    logger.info(f"create_planが呼び出されました: task_description='{task_description[:50]}...'")
     try:
-        # 既存プランをアーカイブ
+        # 既存プロジェクトデータ（プラン、要件、課題）をアーカイブ
         try:
-            archived_files = file_manager.archive_existing_plans()
+            archived_files = file_manager.archive_existing_project_data()
             if archived_files:
-                logger.info(f"既存のプランファイル {len(archived_files)} 件をアーカイブしました。")
+                logger.info(f"既存のプロジェクト関連ファイル {len(archived_files)} 件をアーカイブしました。")
         except Exception as archive_e:
-            logger.warning(f"既存プランのアーカイブ中にエラーが発生しました: {archive_e}", exc_info=True)
+            logger.warning(f"既存プロジェクトデータのアーカイブ中にエラーが発生しました: {archive_e}", exc_info=True)
             # アーカイブエラーは処理を続行するが、警告を出す
 
         agent = create_planning_manager_agent()
@@ -75,6 +75,7 @@ def create_plan(task_description: str) -> str:
 1.  タスク説明から具体的な要件を抽出し、整理してください。
 2.  抽出した要件を `save_requirements` ツールで保存してください。
 3.  定義した要件に基づいて、具体的なサブタスクに分解された実行計画（プラン）を作成してください。
+    **重要:** 各サブタスクには、明確な入力（inputs）と出力（outputs）を定義してください。これにより、タスク間の連携がスムーズになり、実行の確実性が高まります。
 4.  作成したプランを `save_plan` ツールで保存してください。
 5.  最終的な応答としては、作成したプランの内容、または要件定義のための質問のみを返してください。ツール呼び出しの結果ではなく、プラン自体や質問を直接返します。
 """
