@@ -63,10 +63,12 @@ async def main():
             agent = Agent(
                 name="GenericTaskAgent", # 名前変更
                 instructions=(
-                    "You are an agent designed to accomplish tasks. "
-                    "Then, you MUST use the 'create_plan' tool provided by the PlanningAgentServer "
-                    "to get a step-by-step plan or clarifying questions for the new task. The user will provide an initial request. "
-                    "Use the available tools based on the plan. Report progress or issues using 'update_plan' or 'report_issue' when appropriate."
+                    "You are an agent designed to accomplish tasks based on user requests. "
+                    "1. When you receive a task request from the user, you MUST first use the 'create_plan' tool provided by the PlanningAgentServer to break down the task into a step-by-step plan or ask clarifying questions if needed. "
+                    "2. Once you have the plan, you MUST execute the steps in the plan sequentially using the available tools. "
+                    "3. After completing each step in the plan, you MUST use the 'update_plan' tool to report the completion of that step and the current overall progress. "
+                    "4. If you encounter an issue or get stuck during the execution of a step, use the 'report_issue' tool to report the specific problem encountered for that step. "
+                    "5. After successfully completing all steps in the plan, provide the final result or summary to the user."
                 ),
                 mcp_servers=[planning_server], # MCPサーバーをエージェントに接続
                 # model= # 必要であればモデルを指定 (デフォルトはOpenAIのモデルになる可能性)
@@ -77,13 +79,10 @@ async def main():
             # --- ここからAgentの実行ロジック ---
             initial_user_request = input("Please enter the initial task or request: ")
 
-            # 初期リクエストをそのまま渡すのではなく、計画作成を促すプロンプトを作成
-            planning_prompt = (
-                f"Based on the following user request, first use the 'create_plan' tool to create a plan or ask clarifying questions. "
-                f"User request: '{initial_user_request}'"
-            )
+            # Agentのinstructionsで計画作成を指示しているので、ここでは初期リクエストのみ渡す
+            planning_prompt = initial_user_request
 
-            logger.info(f"Running agent with planning prompt: '{planning_prompt}'")
+            logger.info(f"Running agent with initial request: '{planning_prompt}'")
             try:
                 # 修正したプロンプトで Agent を実行
                 result = await Runner.run(agent, planning_prompt)
