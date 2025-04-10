@@ -4,7 +4,7 @@ from rich.console import Console
 from rich.table import Table
 
 # Import MCP tool functions directly
-from mcp_interface.server import create_plan, update_plan, report_issue, reset_plan
+from mcp_interface.server import create_plan, update_plan, report_issue
 # Import the agent creation function
 from planning_agents.planning_manager import create_planning_manager_agent
 
@@ -13,7 +13,6 @@ AVAILABLE_MCP_TOOLS = {
     "create_plan": create_plan,
     "update_plan": update_plan,
     "report_issue": report_issue,
-    "reset_plan": reset_plan,
 }
 
 # agentsモジュールや他のインポートは後で追加

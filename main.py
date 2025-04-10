@@ -64,7 +64,6 @@ async def main():
                 name="GenericTaskAgent", # 名前変更
                 instructions=(
                     "You are an agent designed to accomplish tasks. "
-                    "When given a new task request, you MUST first call the 'reset_plan' tool to clear any existing plan data. "
                     "Then, you MUST use the 'create_plan' tool provided by the PlanningAgentServer "
                     "to get a step-by-step plan or clarifying questions for the new task. The user will provide an initial request. "
                     "Use the available tools based on the plan. Report progress or issues using 'update_plan' or 'report_issue' when appropriate."
