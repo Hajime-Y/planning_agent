@@ -37,14 +37,17 @@ Planning Agentシステムは、複数のエージェントが協調して動作
 ```
 planning_agent/
 ├── config/
-│   ├── agent_config.yaml      # エージェント設定
-│   └── mcp_config.yaml        # MCP設定
-├── agents/
+│   ├── agent_config.yaml      # エージェント設定（※現在不使用）
+│   └── mcp_config.yaml        # MCP設定（※現在不使用）
+├── planning_agents/           # バックエンドのプランニングエージェント群
 │   ├── __init__.py
 │   ├── planning_manager.py    # プランニングマネージャエージェント
 │   ├── requirement_analyzer.py # 要件分析エージェント
 │   ├── task_decomposer.py     # タスク分解エージェント
 │   └── issue_manager.py       # 課題管理エージェント
+├── front_agents/            # フロントエンドのエージェント（main.pyから利用）
+│   ├── __init__.py
+│   └── generic_task_agent.py  # 汎用タスク実行エージェント定義
 ├── mcp_interface/           # MCPサーバー関連
 │   ├── __init__.py
 │   └── server.py            # MCPサーバー実装 (FastMCP使用)
@@ -53,8 +56,8 @@ planning_agent/
 │   ├── file_manager.py        # ファイル入出力機能
 │   ├── tools.py               # smolagentsツール集
 │   └── prompt_templates.py    # プロンプトテンプレート
-├── cli.py                     # CLIインターフェース
-└── main.py                    # メインエントリーポイント
+├── cli.py                     # CLIインターフェース（バックエンド用）
+└── main.py                    # フロントエンドエージェントのエントリーポイント
 ```
 
 ## MCP機能
@@ -121,7 +124,9 @@ uv run python cli.py chat
 
 ### MCP クライアントとしての実行 (`main.py`)
 
-`main.py` は、OpenAI Agent SDK を使用して MCP クライアントとして動作する **汎用タスク実行エージェント (`GenericTaskAgent`)** を起動します。このエージェントの主な役割はユーザーからの指示に基づいてタスクを実行することですが、**複雑なタスクの計画立案と管理は MCP サーバー (`PlanningAgentServer`) に委任します。**
+`main.py` は、OpenAI Agent SDK を使用して MCP クライアントとして動作する **汎用タスク実行エージェント (`GenericTaskAgent`)** を起動します。このエージェントの定義は `front_agents/generic_task_agent.py` にあり、`main.py` から呼び出されます。
+
+このエージェントの主な役割はユーザーからの指示に基づいてタスクを実行することですが、**複雑なタスクの計画立案と管理は MCP サーバー (`PlanningAgentServer`) に委任するオプションがあります（デフォルトで有効）。**
 
 エージェントは、サブプロセスとして起動した MCP サーバー (`mcp_interface/server.py`) と標準入出力を介して通信し、利用可能なツール (`create_plan`, `update_plan` など) を使用します。
 
@@ -133,13 +138,14 @@ uv run python main.py
 ```
 
 実行すると、MCP サーバーへの接続と Agent の初期化が行われ、`Please enter the initial task or request:` というプロンプトが表示されます。ここに最初のタスク指示を入力してください。
-**Agent はまず、その指示に基づいて計画を立てるために、MCP サーバーの `create_plan` ツールを呼び出します。** その後、得られた計画や指示に従ってタスクを実行し、必要に応じて `update_plan` や `report_issue` ツールを使って進捗や問題を MCP サーバーに報告します。
+**PlanningAgentServer を使用する場合、Agent はまず、その指示に基づいて計画を立てるために、MCP サーバーの `create_plan` ツールを呼び出します。** その後、得られた計画や指示に従ってタスクを実行し、必要に応じて `update_plan` や `report_issue` ツールを使って進捗や問題を MCP サーバーに報告します。
 
 **注意点:**
 
 - このスクリプトは、`mcp_interface/server.py` をサブプロセスとして起動します。Python の実行パスが正しく設定されている必要があります。
 - 現在、グレースフルシャットダウン機能は実装されていません。終了するには Ctrl+C を使用してください。
 - OpenAI Agent SDK が内部で OpenAI API キーを使用する可能性があるため、環境変数 `OPENAI_API_KEY` の設定が必要になる場合があります（モデル設定によります）。
+- エージェントのモデルや PlanningAgentServer の利用有無は `main.py` 内で変更可能です。
 
 ## 開発ロードマップ
 

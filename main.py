@@ -3,12 +3,15 @@ import asyncio
 import logging
 import os
 import sys
-from typing import List
+from typing import List, Dict, Union
 
-from agents import Agent, Runner
-from agents.mcp import MCPServerStdio
-from openai import AsyncOpenAI
+# from agents import Runner # Runner は front_agents で使用
+# from agents.mcp import MCPServerStdio # MCPServerStdio は front_agents で使用
+# from openai import AsyncOpenAI # openai は front_agents で使用（間接的に）
 from dotenv import load_dotenv
+
+# 新しく作成したエージェント実行関数をインポート
+from front_agents.generic_task_agent import run_agent_session, DEFAULT_MODEL
 
 # .envファイルから環境変数を読み込む
 load_dotenv()
@@ -17,100 +20,79 @@ load_dotenv()
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
-# MCPサーバー (planning_agent) を起動するコマンド
-# mcp_interface/server.py を実行する
-# Pythonのパスを考慮する必要がある場合がある
-PLANNING_AGENT_SERVER_COMMAND = [sys.executable, "mcp_interface/server.py"]
+# MCPサーバーコマンド定義は front_agents に移動
+# PLANNING_AGENT_SERVER_COMMAND = [sys.executable, "mcp_interface/server.py"]
 
 async def main():
-    """メイン処理"""
-    loop = asyncio.get_running_loop()
+    """メイン処理: ユーザーとの対話ループを実行し、エージェントセッションを管理する"""
+    logger.info("Starting the Front Agent Client...")
 
-    logger.info("Starting the Planning Agent Client...")
-
-    # 環境変数からOpenAI APIキーを取得
+    # 環境変数からOpenAI APIキーを取得 (Agent SDK が内部で使用する可能性があるためチェック)
     api_key = os.getenv("OPENAI_API_KEY")
     if not api_key:
-        logger.error("OPENAI_API_KEY environment variable not set. Please set it before running.")
-        return # APIキーがない場合は終了
-    logger.info("OPENAI_API_KEY found.") # キーが見つかったことをログに出力
+        logger.warning("OPENAI_API_KEY environment variable not set. Agent SDK might require it.")
+    else:
+        logger.info("OPENAI_API_KEY found.")
 
-    # MCPサーバー (planning_agent) への接続設定
-    planning_server_config = {
-        "name": "PlanningAgentServer",
-        "params": {
-            "command": PLANNING_AGENT_SERVER_COMMAND[0], # python実行可能ファイル
-            "args": PLANNING_AGENT_SERVER_COMMAND[1:],  # server.pyスクリプト
-        },
-        "cache_tools_list": True, # ツールリストをキャッシュする
-    }
+    conversation_history: List[Dict] = [] # 会話履歴を保持するリスト
+    current_input: Union[str, List[Dict]] = None # 現在のターンへの入力
 
-    try:
-        # MCPServerStdio を非同期コンテキストマネージャとして使用
-        async with MCPServerStdio(**planning_server_config) as planning_server:
-            logger.info("Successfully connected to Planning Agent MCP Server.")
-            # 利用可能なツールリストを取得してログに出力（デバッグ用）
-            try:
-                tools_list = await planning_server.list_tools()
-                logger.info(f"Available tools from Planning Agent Server: {tools_list}")
-            except Exception as e:
-                logger.error(f"Failed to list tools from MCP server: {e}", exc_info=True)
-                # ツールリスト取得に失敗した場合でも処理を続けるか、エラーとするか要検討
-                return
+    print("Welcome to the Agent Chat! Type 'quit' or 'exit' to end the session.")
 
-            # OpenAI Agent SDK を使用して Agent を初期化
-            # エージェントの名前と指示を変更
-            agent = Agent(
-                name="GenericTaskAgent", # 名前変更
-                instructions=(
-                    "You are an agent designed to accomplish tasks based on user requests. "
-                    "1. When you receive a task request from the user, you MUST first use the 'create_plan' tool provided by the PlanningAgentServer to break down the task into a step-by-step plan or ask clarifying questions if needed. "
-                    "2. Once you have the plan, you MUST execute the steps in the plan sequentially using the available tools. "
-                    "3. After completing each step in the plan, you MUST use the 'update_plan' tool to report the completion of that step and the current overall progress. "
-                    "4. If you encounter an issue or get stuck during the execution of a step, use the 'report_issue' tool to report the specific problem encountered for that step. "
-                    "5. After successfully completing all steps in the plan, provide the final result or summary to the user."
-                ),
-                mcp_servers=[planning_server], # MCPサーバーをエージェントに接続
-                # model= # 必要であればモデルを指定 (デフォルトはOpenAIのモデルになる可能性)
-                # openai_client= # カスタムクライアントを使用する場合
+    while True:
+        try:
+            # --- ユーザーからの入力を受け付け --- 
+            if not conversation_history: # 最初のターン
+                user_message = input("\nPlease enter the initial task or request: ")
+                current_input = user_message # 初回は文字列
+            else:
+                user_message = input("\nUser: ")
+                if user_message.lower() in ["quit", "exit"]:
+                    print("Exiting chat session.")
+                    break # ループを抜ける
+                # 履歴にユーザーメッセージを追加して入力リストを作成
+                current_input = conversation_history + [{"role": "user", "content": user_message}]
+
+            if not user_message:
+                continue # 空の入力は無視
+
+            # --- エージェントセッションの実行 --- 
+            print("Agent thinking...") # 応答待機中メッセージ
+            result = await run_agent_session(
+                user_input=current_input,
+                # model="gpt-4o" # モデルを変更する場合
+                # use_planning_server=False # Planning Server を使用しない場合
             )
-            logger.info("Generic Task Agent initialized.") # ログも更新
 
-            # --- ここからAgentの実行ロジック ---
-            initial_user_request = input("Please enter the initial task or request: ")
+            # --- 結果の表示 --- 
+            if result and result.final_output:
+                print(f"\nAgent: {result.final_output}")
+                # 次のターンのために会話履歴を更新
+                conversation_history = result.to_input_list()
+            else:
+                print("\nAgent session finished without a final output for this turn.")
+                # エラーなどで final_output がない場合でも、履歴は更新しておく
+                # (エラーメッセージ等が内部的に履歴に含まれている可能性があるため)
+                if result:
+                    conversation_history = result.to_input_list()
+                # else の場合 (run_agent_session が例外を投げた場合) は履歴はそのまま
 
-            # Agentのinstructionsで計画作成を指示しているので、ここでは初期リクエストのみ渡す
-            planning_prompt = initial_user_request
-
-            logger.info(f"Running agent with initial request: '{planning_prompt}'")
-            try:
-                # 修正したプロンプトで Agent を実行
-                result = await Runner.run(agent, planning_prompt)
-                logger.info("Agent run finished.")
-                print("\n--- Agent Final Output ---")
-                print(result.final_output)
-                print("--------------------------\n")
-            except Exception as e:
-                logger.error(f"Error during agent execution: {e}", exc_info=True)
-                print(f"\n[Error] Agent execution failed: {e}\n")
-
-            # --- Agent実行ロジックここまで ---
-
-    except asyncio.CancelledError:
-        logger.info("Main task was cancelled.")
-    except ConnectionRefusedError:
-        logger.error("Failed to connect to the Planning Agent MCP Server. Is it running correctly?")
-    except FileNotFoundError:
-         logger.error(f"Failed to start MCP Server. Command not found: {' '.join(PLANNING_AGENT_SERVER_COMMAND)}")
-         logger.error("Please ensure Python path and script path are correct.")
-    except Exception as e:
-        logger.error(f"An unexpected error occurred in main loop: {e}", exc_info=True)
+        except ConnectionRefusedError:
+            logger.error("Failed to connect to the Planning Agent MCP Server. Is it running correctly?")
+            print("\n[Error] Could not connect to the Planning Agent server. Please ensure it is running and restart the chat.")
+            break # 接続エラー時はループ中断
+        except FileNotFoundError:
+             logger.error(f"Failed to start MCP Server. Script not found.")
+             print("\n[Error] Could not find the MCP server script. Check installation and restart the chat.")
+             break # サーバー起動失敗時もループ中断
+        except Exception as e:
+            logger.error(f"An unexpected error occurred during the turn: {e}", exc_info=True)
+            print(f"\n[Error] An unexpected error occurred: {e}")
+            # エラーが発生しても会話を続けられるように、break しない
+            # 必要であれば、ここで conversation_history をリセットするなどの処理を追加
 
 if __name__ == "__main__":
-    # 非同期イベントループを開始
     try:
-        # main() を直接実行する形に変更 (main_task グローバル変数を削除したため)
-        asyncio.run(main()) # asyncio.run で実行し、完了を待つ
+        asyncio.run(main())
     except KeyboardInterrupt:
-        # KeyboardInterrupt時の処理も簡略化 (単純なログ出力のみ)
         logger.info("\nKeyboardInterrupt received. Exiting.")

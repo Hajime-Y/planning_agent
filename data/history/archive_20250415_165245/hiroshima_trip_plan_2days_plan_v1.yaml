@@ -1,0 +1,61 @@
+plan_id: hiroshima_trip_plan_2days_plan_v1
+task_id: hiroshima_trip_plan_2days
+created_at: '2025-04-15T15:53:13.056779'
+updated_at: '2025-04-15T15:53:13.056779'
+version: 1
+status: in_progress
+subtasks:
+- id: '1'
+  description: 旅の基本情報整理と前提条件の確認（日時、空港発着、宿泊地・天候・人数など）
+  status: not_started
+  order: 1
+  inputs:
+  - requirementsファイル（タスク説明含む）
+  outputs:
+  - 旅行日程・交通手段・滞在地・天候・人数等の整理リスト
+- id: '2'
+  description: 観光資源・候補地のリストアップと概要整理（市内・宮島・周辺、天候による向き不向きも記載）
+  status: not_started
+  order: 2
+  inputs:
+  - 前サブタスク出力
+  - 関連リソース情報
+  outputs:
+  - 観光候補地リスト（エリア・特徴・天候適性等つき）
+- id: '3'
+  description: 各移動区間ごとの主要ルート・所要時間・アクセス手段の調査
+  status: not_started
+  order: 3
+  inputs:
+  - 前サブタスク出力
+  - アクセス手段や時刻表等リソース
+  outputs:
+  - 区間ごとの移動方法・移動時間のリスト
+- id: '4'
+  description: 各日程の最適な観光コース案の作成（初日は晴れ・2日目曇り考慮、移動効率と見どころ重視）
+  status: not_started
+  order: 4
+  inputs:
+  - 観光地リスト
+  - 移動手段リスト
+  - 天候データ
+  outputs:
+  - 初日・2日目それぞれの観光ルート案詳細（時刻・順序・スポット等）
+- id: '5'
+  description: 全体の整合性や無理のない工程かチェックし、課題があれば調整する
+  status: not_started
+  order: 5
+  inputs:
+  - 観光ルート案
+  - 各移動・所要時間
+  - 要件リスト
+  outputs:
+  - 最終確定プラン（工程表・簡易地図案等も含む）
+- id: '6'
+  description: 最終的な旅行プランのまとめ・提示用フォーマット化
+  status: not_started
+  order: 6
+  inputs:
+  - 最終確定プラン
+  outputs:
+  - 旅行者に提示可能な観光プラン表（タイムスケジュール・MAP案など）
