@@ -1,0 +1,39 @@
+plan_id: hiroshima_trip_plan_v1
+task_id: hiroshima_trip_april
+created_at: '2025-04-09T21:43:42.629556'
+updated_at: '2025-04-09T21:43:42.629556'
+version: 1
+status: in_progress
+subtasks:
+- id: s1
+  description: Confirm dates and draft detailed schedule for April 11-12, considering
+    weather conditions.
+  status: pending
+  order: 1
+  inputs: []
+  outputs: []
+- id: s2
+  description: Select sightseeing spots and activities suitable for sunny and cloudy
+    weather.
+  status: pending
+  order: 2
+  inputs: []
+  outputs: []
+- id: s3
+  description: Evaluate transportation options for traveling within Hiroshima.
+  status: pending
+  order: 3
+  inputs: []
+  outputs: []
+- id: s4
+  description: Book accommodation for the nights of April 10 and April 11.
+  status: pending
+  order: 4
+  inputs: []
+  outputs: []
+- id: s5
+  description: Plan dining options and make reservations if necessary.
+  status: pending
+  order: 5
+  inputs: []
+  outputs: []

@@ -1,0 +1,58 @@
+plan_id: plan_hiroshima_trip
+task_id: hiroshima_trip_plan
+created_at: '2025-04-10T14:11:53.306673'
+updated_at: '2025-04-10T14:11:53.306673'
+version: 1
+status: in_progress
+subtasks:
+- id: '1'
+  description: 旅行の期間を決定する。
+  status: not_started
+  order: 1
+  inputs:
+  - カレンダー
+  - 個人のスケジュール
+  outputs:
+  - 旅行の日程
+- id: '2'
+  description: 交通手段を調査して決定する。
+  status: not_started
+  order: 2
+  inputs:
+  - インターネット
+  outputs:
+  - 選択した交通手段
+- id: '3'
+  description: 宿泊施設を予約する。
+  status: not_started
+  order: 3
+  inputs:
+  - 宿泊予約サイト
+  outputs:
+  - 宿泊予約情報
+- id: '4'
+  description: 観光地やアクティビティを調査し、訪問先を決定する。
+  status: not_started
+  order: 4
+  inputs:
+  - インターネット
+  - 旅行ガイド
+  outputs:
+  - 訪問先一覧
+- id: '5'
+  description: 食事の計画を立てる。
+  status: not_started
+  order: 5
+  inputs:
+  - レストラン情報
+  - レビューサイト
+  outputs:
+  - 食事の予定
+- id: '6'
+  description: 予算を立てる。
+  status: not_started
+  order: 6
+  inputs:
+  - 旅行費用の見積もり
+  outputs:
+  - 予算表

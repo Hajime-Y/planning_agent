@@ -1,0 +1,49 @@
+plan_id: hiroshima_trip_plan
+task_id: hiroshima_trip_2days
+created_at: '2025-04-10T17:48:06.630462'
+updated_at: '2025-04-10T17:48:06.630462'
+version: 1
+status: in_progress
+subtasks:
+- id: subtask_1
+  description: 宿泊先の選定
+  status: not started
+  order: 1
+  inputs:
+  - 広島市周辺の宿泊施設情報
+  outputs:
+  - 宿泊施設の候補リスト
+- id: subtask_2
+  description: 初日の観光プラン
+  status: not started
+  order: 2
+  inputs:
+  - 広島市の見どころ情報
+  - 晴れの条件
+  outputs:
+  - 初日の行程表
+- id: subtask_3
+  description: 2日目の観光プラン
+  status: not started
+  order: 3
+  inputs:
+  - 広島市の見どころ情報
+  - 曇りの条件
+  outputs:
+  - 2日目の行程表
+- id: subtask_4
+  description: 食事プランの作成
+  status: not started
+  order: 4
+  inputs:
+  - 広島市のおすすめレストラン情報
+  outputs:
+  - 食事スケジュール
+- id: subtask_5
+  description: 交通手段の手配
+  status: not started
+  order: 5
+  inputs:
+  - 現地の交通手段情報
+  outputs:
+  - 交通手段の手配プラン
