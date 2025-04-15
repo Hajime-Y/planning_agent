@@ -71,7 +71,7 @@ async def main():
                     "5. After successfully completing all steps in the plan, provide the final result or summary to the user."
                 ),
                 mcp_servers=[planning_server], # MCPサーバーをエージェントに接続
-                # model= # 必要であればモデルを指定 (デフォルトはOpenAIのモデルになる可能性)
+                model="gpt-4.1", # モデルを明示的に gpt-4.1 に指定
                 # openai_client= # カスタムクライアントを使用する場合
             )
             logger.info("Generic Task Agent initialized.") # ログも更新
