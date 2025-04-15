@@ -17,12 +17,12 @@ AUTHORIZED_IMPORTS = [
     # 必要に応じて他の安全なライブラリを追加
 ]
 
-def create_planning_manager_agent(model_id: str = "gpt-4o") -> CodeAgent:
+def create_planning_manager_agent(model_id: str = "gpt-4.1") -> CodeAgent:
     """
     PlanningManagerAgent (CodeAgent) のインスタンスを作成して返します。
 
     Args:
-        model_id (str): 使用するLLMのモデルID (デフォルト: "gpt-4o")
+        model_id (str): 使用するLLMのモデルID (デフォルト: "gpt-4.1")
 
     Returns:
         CodeAgent: 初期化されたPlanningManagerAgentインスタンス
