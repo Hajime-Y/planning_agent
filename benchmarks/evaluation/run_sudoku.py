@@ -23,9 +23,8 @@ Example Usage (from project root):
 Example Usage:
 --------------
 uv run python benchmarks/evaluation/run_sudoku.py \
-    --output_csv results/sudoku_4x4_eval_$(date +%Y%m%d_%H%M%S).csv \
-    --model gpt-4o \
-    --model_save_name gpt-4o-sudoku-4x4 \
+    --output_csv benchmarks/results/sudoku_4x4_eval_$(date +%Y%m%d_%H%M%S).csv \
+    --model gpt-4.1 \
     --use-planning-server \
     --n_history_turns 5 \
     --batch_size 1

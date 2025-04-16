@@ -58,3 +58,6 @@ htmlcov/
 # Cursor
 .cursor/ 
 .cursorignore
+
+# Evaluation results
+benchmarks/results/

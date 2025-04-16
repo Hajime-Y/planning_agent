@@ -24,16 +24,15 @@
 **基本コマンド:**
 
 ```bash
-uv run python benchmarks/evaluation/run_sudoku.py --output_csv path/to/your/results.csv
+uv run python benchmarks/evaluation/run_sudoku.py --output_csv benchmarks/results/your_results.csv
 ```
 
 **オプション付き実行例:**
 
 ```bash
 uv run python benchmarks/evaluation/run_sudoku.py \
-    --output_csv results/sudoku_4x4_eval_$(date +%Y%m%d_%H%M%S).csv \
-    --model gpt-4o \
-    --model_save_name gpt-4o-sudoku-4x4 \
+    --output_csv benchmarks/results/sudoku_4x4_eval_$(date +%Y%m%d_%H%M%S).csv \
+    --model gpt-4.1 \
     --use-planning-server \
     --n_history_turns 5 \
     --n_response_idxs 0 1 2 \
