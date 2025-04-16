@@ -1,0 +1,393 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sudoku-Bench Leaderboard</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <style>
+            body { padding: 20px; font-family: Arial, sans-serif; }
+            .header { margin-bottom: 30px; }
+            .section { margin-bottom: 40px; }
+            .plot-container { margin: 20px 0; text-align: center; }
+            .plot-container img { max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; }
+            .table-responsive { margin-top: 30px; }
+            .summary-card { margin-bottom: 20px; }
+            h2, h3 { color: #2c3e50; }
+            .card { box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+            footer { margin-top: 50px; text-align: center; font-size: 0.9em; color: #7f8c8d; }
+        </style>
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="header">
+                <h1 class="display-4">Sudoku-Bench Leaderboard</h1>
+                <p class="lead">Comparative performance analysis of different models on <a href=https://huggingface.co/datasets/SakanaAI/Sudoku-Bench>SakanaAI/Sudoku-Bench</a></p>
+                <p class="text-muted">Last updated on: 2025-04-16</p>
+            </div>
+            
+            <div class="row section">
+                <div class="col-12">
+                    <h2>Description</h2>
+                    <p>Each puzzle is tested on with different difficulty levels. The difficulty level is decided by the number of empty cells ("num_empty_cells"). When it is "original", the original puzzle is directly presented without the evaluation system prefilling any cells.</p>
+                </div>
+            </div>
+            
+            <div class="row section">
+                <div class="col-12">
+                    <h2>Summary</h2>
+                    <p>The following tables show the overall performance of each model. The "Avg." metrics are averaged across all difficulty levels ("Empty Cells"), but we only show the best setting for each model. Results are sorted by average correct placements (highest first).</p>
+                    <p>"Correct" refers to the average number of correct placements, and "Solve %" is the average solve rate across all puzzles.</p>
+                    
+        <div class="card summary-card">
+            <div class="card-header">
+                <h3>Overall Model Performance</h3>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Model</th>
+                                <th>Avg. Correct Placements</th>
+                                <th>Avg. Solve Rate (%)</th>
+                                <th>Best Setting</th>
+        
+                                <th colspan="2">Empty Cells: 5</th>
+                
+                                <th colspan="2">Empty Cells: Original</th>
+                
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+            
+                                <th>Correct</th>
+                                <th>Solve %</th>
+                
+                                <th>Correct</th>
+                                <th>Solve %</th>
+                
+                            </tr>
+                        </thead>
+                        <tbody>
+        
+                            <tr>
+                                <td>gpt-4.1_planning_disabled</td>
+                                <td style="background-color: hsl(210, 100%, 50%); color: #ffffff;">2.57</td>
+                                <td style="background-color: hsl(160, 100%, 50%); color: #ffffff;">46.67</td>
+                                <td>5-history-turns</td>
+            
+                                <td style="background-color: hsl(210, 1440%, -955%); color: #ffffff;">4.80</td>
+                                <td style="background-color: hsl(160, 520%, -265%); color: #ffffff;">93.33</td>
+                        
+                                <td style="background-color: hsl(210, -1240%, 1055%); color: #000000;">0.33</td>
+                                <td style="background-color: hsl(160, -320%, 365%); color: #000000;">0.00</td>
+                        
+                            </tr>
+            
+                            <tr>
+                                <td>gpt-4.1_planning_enabled</td>
+                                <td style="background-color: hsl(210, 40%, 95%); color: #000000;">2.47</td>
+                                <td style="background-color: hsl(160, 40%, 95%); color: #000000;">40.00</td>
+                                <td>5-history-turns</td>
+            
+                                <td style="background-color: hsl(210, 880%, -535%); color: #ffffff;">3.87</td>
+                                <td style="background-color: hsl(160, 340%, -130%); color: #ffffff;">73.33</td>
+                        
+                                <td style="background-color: hsl(210, -800%, 725%); color: #000000;">1.07</td>
+                                <td style="background-color: hsl(160, -260%, 320%); color: #000000;">6.67</td>
+                        
+                            </tr>
+            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card summary-card">
+            <div class="card-header">
+                <h3>Model Performance on challenge_100</h3>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Model</th>
+                                <th>Avg. Correct Placements</th>
+                                <th>Avg. Solve Rate (%)</th>
+                                <th>Best Setting</th>
+        
+                                <th colspan="2">Empty Cells: 5</th>
+                
+                                <th colspan="2">Empty Cells: Original</th>
+                
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+            
+                                <th>Correct</th>
+                                <th>Solve %</th>
+                
+                                <th>Correct</th>
+                                <th>Solve %</th>
+                
+                            </tr>
+                        </thead>
+                        <tbody>
+        
+                            <tr>
+                                <td>gpt-4.1_planning_disabled</td>
+                                <td style="background-color: hsl(210, 100%, 50%); color: #ffffff;">2.57</td>
+                                <td style="background-color: hsl(160, 100%, 50%); color: #ffffff;">46.67</td>
+                                <td>5-history-turns</td>
+            
+                                <td style="background-color: hsl(210, 1440%, -955%); color: #ffffff;">4.80</td>
+                                <td style="background-color: hsl(160, 520%, -265%); color: #ffffff;">93.33</td>
+                        
+                                <td style="background-color: hsl(210, -1240%, 1055%); color: #000000;">0.33</td>
+                                <td style="background-color: hsl(160, -320%, 365%); color: #000000;">0.00</td>
+                        
+                            </tr>
+            
+                            <tr>
+                                <td>gpt-4.1_planning_enabled</td>
+                                <td style="background-color: hsl(210, 40%, 95%); color: #000000;">2.47</td>
+                                <td style="background-color: hsl(160, 40%, 95%); color: #000000;">40.00</td>
+                                <td>5-history-turns</td>
+            
+                                <td style="background-color: hsl(210, 880%, -535%); color: #ffffff;">3.87</td>
+                                <td style="background-color: hsl(160, 340%, -130%); color: #ffffff;">73.33</td>
+                        
+                                <td style="background-color: hsl(210, -800%, 725%); color: #000000;">1.07</td>
+                                <td style="background-color: hsl(160, -260%, 320%); color: #000000;">6.67</td>
+                        
+                            </tr>
+            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+                </div>
+            </div>
+
+            <div class="row section">
+                <div class="col-12">
+                    <h2>Visualizations</h2>
+                    <p>These charts provide a visual representation of model performance across different dimensions.</p>
+                    
+                    
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card summary-card">
+                    <div class="card-header">
+                        <h3># Correct predictions by Difficulty</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="plot-container">
+                            <img src="plots/model_performance_by_difficulty.png" alt="# Correct predictions by Difficulty">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card summary-card">
+                    <div class="card-header">
+                        <h3>Solve Rate by Model and Setting</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="plot-container">
+                            <img src="plots/solve_rate_by_model.png" alt="Solve Rate by Model and Setting">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card summary-card">
+                    <div class="card-header">
+                        <h3>Performance by Data Source</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="plot-container">
+                            <img src="plots/performance_by_data_source.png" alt="Performance by Data Source">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+                </div>
+            </div>
+
+            <div class="row section">
+                <div class="col-12">
+                    <h2>Detailed Results</h2>
+                    <p>The table below presents detailed statistics for each model configuration.</p>
+                    <p>"num_correct_placements" refers to the number of correct placements, and "final_solved" indicates whether the puzzle was solved or not.</p>
+                    <p>"num_correct_placements" shows a column of aggregation of "max" over all puzzles under the corresponding setting, while "final_solved" shows a column of aggregation of "sum". Note that some models are tested for multiple runs on each puzzle, so the entire number of tested puzzles ("count") can be different among models.</p>
+                    <div class="table-responsive">
+                        <style type="text/css">
+#T_db6fb_row0_col1, #T_db6fb_row0_col4 {
+  background-color: #081d58;
+  color: #f1f1f1;
+}
+#T_db6fb_row0_col2, #T_db6fb_row1_col2 {
+  background-color: #fdd3a9;
+  color: #000000;
+}
+#T_db6fb_row0_col5 {
+  background-color: #00441b;
+  color: #f1f1f1;
+}
+#T_db6fb_row1_col1 {
+  background-color: #2350a1;
+  color: #f1f1f1;
+}
+#T_db6fb_row1_col4 {
+  background-color: #2351a2;
+  color: #f1f1f1;
+}
+#T_db6fb_row1_col5 {
+  background-color: #18823d;
+  color: #f1f1f1;
+}
+#T_db6fb_row2_col1, #T_db6fb_row2_col4 {
+  background-color: #ffffd9;
+  color: #000000;
+}
+#T_db6fb_row2_col2 {
+  background-color: #fff5eb;
+  color: #000000;
+}
+#T_db6fb_row2_col5 {
+  background-color: #f7fcf5;
+  color: #000000;
+}
+#T_db6fb_row3_col1 {
+  background-color: #e1f3b2;
+  color: #000000;
+}
+#T_db6fb_row3_col2 {
+  background-color: #7f2704;
+  color: #f1f1f1;
+}
+#T_db6fb_row3_col4 {
+  background-color: #f5fbc2;
+  color: #000000;
+}
+#T_db6fb_row3_col5 {
+  background-color: #edf8e9;
+  color: #000000;
+}
+</style>
+<table id="T_db6fb" class="table table-striped table-hover table-bordered">
+  <thead>
+    <tr>
+      <th class="blank" >&nbsp;</th>
+      <th class="blank" >&nbsp;</th>
+      <th class="blank" >&nbsp;</th>
+      <th class="blank level0" >&nbsp;</th>
+      <th id="T_db6fb_level0_col0" class="col_heading level0 col0" colspan="3">num_correct_placements</th>
+      <th id="T_db6fb_level0_col3" class="col_heading level0 col3" colspan="3">final_solved</th>
+    </tr>
+    <tr>
+      <th class="blank" >&nbsp;</th>
+      <th class="blank" >&nbsp;</th>
+      <th class="blank" >&nbsp;</th>
+      <th class="blank level1" >&nbsp;</th>
+      <th id="T_db6fb_level1_col0" class="col_heading level1 col0" >count</th>
+      <th id="T_db6fb_level1_col1" class="col_heading level1 col1" >mean</th>
+      <th id="T_db6fb_level1_col2" class="col_heading level1 col2" >max</th>
+      <th id="T_db6fb_level1_col3" class="col_heading level1 col3" >count</th>
+      <th id="T_db6fb_level1_col4" class="col_heading level1 col4" >mean</th>
+      <th id="T_db6fb_level1_col5" class="col_heading level1 col5" >sum</th>
+    </tr>
+    <tr>
+      <th class="index_name level0" >data_source</th>
+      <th class="index_name level1" >num_empty_cells</th>
+      <th class="index_name level2" >setting</th>
+      <th class="index_name level3" >model</th>
+      <th class="blank col0" >&nbsp;</th>
+      <th class="blank col1" >&nbsp;</th>
+      <th class="blank col2" >&nbsp;</th>
+      <th class="blank col3" >&nbsp;</th>
+      <th class="blank col4" >&nbsp;</th>
+      <th class="blank col5" >&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th id="T_db6fb_level0_row0" class="row_heading level0 row0" rowspan="4">challenge_100</th>
+      <th id="T_db6fb_level1_row0" class="row_heading level1 row0" rowspan="2">5</th>
+      <th id="T_db6fb_level2_row0" class="row_heading level2 row0" rowspan="2">5-history-turns</th>
+      <th id="T_db6fb_level3_row0" class="row_heading level3 row0" >gpt-4.1_planning_disabled</th>
+      <td id="T_db6fb_row0_col0" class="data row0 col0" >15</td>
+      <td id="T_db6fb_row0_col1" class="data row0 col1" >4.80</td>
+      <td id="T_db6fb_row0_col2" class="data row0 col2" >5</td>
+      <td id="T_db6fb_row0_col3" class="data row0 col3" >15</td>
+      <td id="T_db6fb_row0_col4" class="data row0 col4" >0.93</td>
+      <td id="T_db6fb_row0_col5" class="data row0 col5" >14</td>
+    </tr>
+    <tr>
+      <th id="T_db6fb_level3_row1" class="row_heading level3 row1" >gpt-4.1_planning_enabled</th>
+      <td id="T_db6fb_row1_col0" class="data row1 col0" >15</td>
+      <td id="T_db6fb_row1_col1" class="data row1 col1" >3.87</td>
+      <td id="T_db6fb_row1_col2" class="data row1 col2" >5</td>
+      <td id="T_db6fb_row1_col3" class="data row1 col3" >15</td>
+      <td id="T_db6fb_row1_col4" class="data row1 col4" >0.73</td>
+      <td id="T_db6fb_row1_col5" class="data row1 col5" >11</td>
+    </tr>
+    <tr>
+      <th id="T_db6fb_level1_row2" class="row_heading level1 row2" rowspan="2">Original</th>
+      <th id="T_db6fb_level2_row2" class="row_heading level2 row2" rowspan="2">5-history-turns</th>
+      <th id="T_db6fb_level3_row2" class="row_heading level3 row2" >gpt-4.1_planning_disabled</th>
+      <td id="T_db6fb_row2_col0" class="data row2 col0" >15</td>
+      <td id="T_db6fb_row2_col1" class="data row2 col1" >0.33</td>
+      <td id="T_db6fb_row2_col2" class="data row2 col2" >2</td>
+      <td id="T_db6fb_row2_col3" class="data row2 col3" >15</td>
+      <td id="T_db6fb_row2_col4" class="data row2 col4" >0.00</td>
+      <td id="T_db6fb_row2_col5" class="data row2 col5" >0</td>
+    </tr>
+    <tr>
+      <th id="T_db6fb_level3_row3" class="row_heading level3 row3" >gpt-4.1_planning_enabled</th>
+      <td id="T_db6fb_row3_col0" class="data row3 col0" >15</td>
+      <td id="T_db6fb_row3_col1" class="data row3 col1" >1.07</td>
+      <td id="T_db6fb_row3_col2" class="data row3 col2" >15</td>
+      <td id="T_db6fb_row3_col3" class="data row3 col3" >15</td>
+      <td id="T_db6fb_row3_col4" class="data row3 col4" >0.07</td>
+      <td id="T_db6fb_row3_col5" class="data row3 col5" >1</td>
+    </tr>
+  </tbody>
+</table>
+
+                    </div>
+                </div>
+            </div>
+            
+            <footer>
+                <hr>
+                <p>This report was automatically generated using Python. For questions or issues, please report an issue on our Github repo <a href="https://github.com/SakanaAI/Sudoku-Bench">SakanaAI/Sudoku-Bench<a>.</p>
+            </footer>
+        </div>
+        
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+    </html>
+    
