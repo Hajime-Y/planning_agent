@@ -1,33 +1,33 @@
-# Sudoku 4x4 Benchmark Evaluation
+# 数独 4x4 ベンチマーク評価
 
-This directory contains the script `run_sudoku.py` used to evaluate the `planning_agent`'s ability to solve 4x4 Sudoku puzzles from the `challenge_100` subset of the [SakanaAI/Sudoku-Bench](https://github.com/SakanaAI/Sudoku-Bench) dataset.
+このディレクトリには、`planning_agent` の数独解決能力を評価するためのスクリプト `run_sudoku.py` が含まれています。評価には [SakanaAI/Sudoku-Bench](https://github.com/SakanaAI/Sudoku-Bench) データセットの `challenge_100` サブセットに含まれる 4x4 パズルを使用します。
 
-## Script Overview
+## スクリプト概要
 
-`run_sudoku.py` is based on the original evaluation script from the Sudoku-Bench repository (`src/eval/run.py`). It has been modified to:
+`run_sudoku.py` は、Sudoku-Bench リポジトリのオリジナルの評価スクリプト (`src/eval/run.py`) をベースにしています。以下の点が変更されています：
 
-1.  Use the `planning_agent`'s `run_agent_session` function (instead of directly calling external LLM APIs).
-2.  Focus exclusively on the 4x4 puzzles within the `challenge_100` dataset subset.
+1.  外部 LLM API を直接呼び出す代わりに、`planning_agent` の `run_agent_session` 関数を使用します。
+2.  評価対象を `challenge_100` データセットサブセット内の 4x4 パズルのみに限定します。
 
-The script iteratively prompts the agent with the Sudoku board state and evaluates its proposed moves against the known solution.
+このスクリプトは、数独の盤面状態を繰り返しエージェントに提示し、提案された手を既知の解答と比較して評価します。
 
-## Prerequisites
+## 前提条件
 
-*   **Dependencies:** Ensure you have installed the necessary Python packages listed in the project's `pyproject.toml` file, including `datasets`, `pandas`, `tqdm`, and `jinja2`. You can typically install/sync them using `uv sync`.
-*   **Environment Variables:** The underlying `run_agent_session` might require environment variables (e.g., API keys for the LLM it uses). Make sure your `.env` file is configured correctly in the project root.
-*   **Dependency Code:** The required code from the `Sudoku-Bench` repository must be present in the `benchmarks/sudoku_bench_deps/` directory.
+*   **依存関係:** プロジェクトの `pyproject.toml` に記載されている必要な Python パッケージ（`datasets`, `pandas`, `tqdm`, `jinja2` など）がインストールされていることを確認してください。通常、`uv sync` を使用してインストール/同期できます。
+*   **環境変数:** `run_agent_session` が内部で使用する LLM の API キーなどの環境変数が必要になる場合があります。プロジェクトルートにある `.env` ファイルが正しく設定されていることを確認してください。
+*   **依存コード:** `Sudoku-Bench` リポジトリから取得した必要なコードが `benchmarks/sudoku_bench_deps/` ディレクトリに存在する必要があります。
 
-## How to Run
+## 実行方法
 
-Execute the script from the **project root directory** using `uv run` (or your preferred Python execution method).
+**プロジェクトのルートディレクトリ** から `uv run` (または任意の Python 実行方法) を使用してスクリプトを実行します。
 
-**Basic Command:**
+**基本コマンド:**
 
 ```bash
 uv run python benchmarks/evaluation/run_sudoku.py --output_csv path/to/your/results.csv
 ```
 
-**Example with Options:**
+**オプション付き実行例:**
 
 ```bash
 uv run python benchmarks/evaluation/run_sudoku.py \
@@ -40,21 +40,21 @@ uv run python benchmarks/evaluation/run_sudoku.py \
     --batch_size 1
 ```
 
-## Key Command-Line Arguments
+## 主要なコマンドライン引数
 
-*   `--output_csv` (Required): Path where the evaluation results CSV file will be saved.
-*   `--model` (Optional): Specifies the model name to be used by the `run_agent_session` (e.g., `gpt-4o`). If not provided, the agent's default model is used.
-*   `--model_save_name` (Optional): The name used to identify the model in the output CSV file. Defaults to the value of `--model` or "agent_default".
-*   `--use-planning-server` (Optional Flag): If included, instructs the `run_agent_session` to utilize the planning server (if available/configured).
-*   `--n_history_turns` (Optional): Number of past turns to include in the prompt history. Use `-1` for full history. Default is `[-1]`.
-*   `--n_response_idxs` (Optional): List of indices for running multiple trials per puzzle configuration. Default is `[0]`.
-*   `--num_empty_cells` (Optional): Specifies variations by removing hints (not typically used for 4x4 evaluation). Default is `[0]`.
-*   `--shuffle_seeds` (Optional): Seeds for hint removal randomization (used with `--num_empty_cells`). Default is `[0]`.
-*   `--batch_size` (Optional): Number of puzzles to evaluate concurrently. Default is `1`. Use higher values with caution, especially if the agent maintains state.
-*   `--max-retries` (Optional): Maximum number of retries if an agent session call fails. Default is `3`.
-*   `--retry-delay` (Optional): Delay in seconds between retries. Default is `5.0`.
+*   `--output_csv` (必須): 評価結果を保存する CSV ファイルのパス。
+*   `--model` (任意): `run_agent_session` で使用するモデル名を指定します (例: `gpt-4o`)。指定しない場合はエージェントのデフォルトモデルが使用されます。
+*   `--model_save_name` (任意): 出力 CSV ファイル内でモデルを識別するための名前。指定しない場合は `--model` の値または "agent_default" が使用されます。
+*   `--use-planning-server` (任意フラグ): 指定された場合、`run_agent_session` に対してプランニングサーバーの使用を指示します (利用可能/設定されている場合)。
+*   `--n_history_turns` (任意): プロンプト履歴に含める過去のターン数。`-1` で完全な履歴を使用します。デフォルトは `[-1]`。
+*   `--n_response_idxs` (任意): 同じパズル設定に対して複数の試行を実行するためのインデックスのリスト。デフォルトは `[0]`。
+*   `--num_empty_cells` (任意): ヒントを削除することによるバリエーションを指定します (通常 4x4 評価では使用しません)。デフォルトは `[0]`。
+*   `--shuffle_seeds` (任意): ヒント削除のランダム化のためのシード (`--num_empty_cells` と共に使用)。デフォルトは `[0]`。
+*   `--batch_size` (任意): 同時に評価するパズルの数。デフォルトは `1`。エージェントが状態を持つ場合は注意して使用してください。
+*   `--max-retries` (任意): エージェントセッションの呼び出しが失敗した場合の最大リトライ回数。デフォルトは `3`。
+*   `--retry-delay` (任意): リトライ間の遅延時間 (秒)。デフォルトは `5.0`。
 
-## Output
+## 出力
 
-1.  **CSV File:** A detailed CSV file saved to the path specified by `--output_csv`. See the docstring in `run_sudoku.py` for column descriptions.
-2.  **Console Output:** A summary of the evaluation results (average correct placements, solve rate) printed to the standard output upon completion. 
+1.  **CSV ファイル:** `--output_csv` で指定されたパスに詳細な CSV ファイルが保存されます。列の説明については `run_sudoku.py` の docstring を参照してください。
+2.  **コンソール出力:** 完了時に、評価結果の概要 (平均正解配置数、解決率) が標準出力に出力されます。 
