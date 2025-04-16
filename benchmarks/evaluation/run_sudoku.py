@@ -49,6 +49,12 @@ A CSV file with columns (similar to original run.py):
     "final_board",      # Final board state after evaluation ended
 ]
 
+Puzzle Selection Arguments:
+-------------------------
+*   `--iloc_start`: Start index of 4x4 puzzles to evaluate (default: 0)
+*   `--iloc_end`: End index of 4x4 puzzles to evaluate (exclusive, default: all)
+*   `--ilocs`: Specific indices (plural) of 4x4 puzzles to evaluate (overrides start/end)
+
 Plus a summary of average correctness/final-solved rates printed to stdout.
 """
 
@@ -385,7 +391,16 @@ def main():
     parser.add_argument("--output_csv", type=str, required=True,
                         help="Output CSV path.")
 
+    # Subset of puzzles to evaluate
+    parser.add_argument("--iloc_start", type=int, default=0,
+                        help="Start index of puzzles to evaluate.")
+    parser.add_argument("--iloc_end", type=int, default=None,
+                        help="End index of puzzles to evaluate (exclusive).")
+    parser.add_argument("--ilocs", type=int, nargs="+",
+                        help="Specific puzzle indices to evaluate. Overrides start/end.")
+
     # Eval setting
+    # The number of evaluations for each puzzle is the product of the following four arguments.
     parser.add_argument("--num_empty_cells", type=int, nargs="+", default=[0, 5, 10],
                         help="Number of empty cells in the intial board after hint fill in random cells. "
                              "0 means the original board.")
@@ -424,8 +439,15 @@ def main():
     # Load puzzle
     dataset = datasets.load_dataset("SakanaAI/Sudoku-Bench", args.dataset, split="test")
     # filter メソッドで 4x4 パズルを抽出
-    filtered_dataset = dataset.filter(lambda example: example.get('rows') == 4 and example.get('cols') == 4)
-    puzzle_rows = list(filtered_dataset) # 結果をリストに変換
+    dataset = dataset.filter(lambda example: example.get('rows') == 4 and example.get('cols') == 4)
+
+    # Use a subset of puzzles if specified
+    if args.ilocs is not None:
+        ilocs = args.ilocs
+    else:
+        end_idx = args.iloc_end if args.iloc_end is not None else len(dataset)
+        ilocs = range(args.iloc_start, end_idx)
+    puzzle_rows = [dataset[i] for i in ilocs]
     print(f"Number of puzzles to evaluate: {len(puzzle_rows)}")
 
     # Construct requests
