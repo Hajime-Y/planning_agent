@@ -58,6 +58,19 @@ Puzzle Selection Arguments:
 Plus a summary of average correctness/final-solved rates printed to stdout.
 """
 
+import sys
+import os
+
+# スクリプト自身の絶対パスを取得
+_current_dir = os.path.dirname(os.path.abspath(__file__))
+# プロジェクトルートのパスを計算 (このスクリプトは benchmarks/evaluation にあるので、2階層上がる)
+_project_root = os.path.abspath(os.path.join(_current_dir, '..', '..'))
+
+# sys.path の先頭にプロジェクトルートを追加（既になければ）
+if _project_root not in sys.path:
+    print(f"Adding project root to Python path: {_project_root}")
+    sys.path.insert(0, _project_root)
+
 import argparse
 import asyncio
 import json
@@ -72,11 +85,9 @@ import jinja2
 import pandas as pd
 from tqdm import tqdm
 
-try:
-    from front_agents.generic_task_agent import run_agent_session, AgentSessionResult
-except ImportError as e:
-    print(f"Error importing agent session function: {e}. Ensure PYTHONPATH or execution context is correct.", file=sys.stderr)
-    sys.exit(1)
+# --- Agent Session 関数のインポート ---
+# uv run で実行すれば、プロジェクトルートがパスに含まれるはず
+from front_agents.generic_task_agent import run_agent_session
 
 from benchmarks.sudoku_bench_deps.eval.prompts import (
     BOARD_PROMPT,
@@ -91,8 +102,6 @@ from benchmarks.sudoku_bench_deps.eval.utils import (
 from benchmarks.sudoku_bench_deps.sudoku_ds import (
     SudokuAction,
     SudokuBoard,
-    SudokuValue,
-    SudokuCell,
 )
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -112,7 +121,7 @@ async def call_agent_session(
     attempt = 0
     while attempt < args.max_retries:
         try:
-            agent_result: Optional[AgentSessionResult] = await run_agent_session(
+            agent_result = await run_agent_session(
                 model=model,
                 user_input=messages,
                 use_planning_server=use_planning_server,
