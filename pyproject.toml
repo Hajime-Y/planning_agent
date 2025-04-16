@@ -19,6 +19,11 @@ dependencies = [
     "openai-agents>=0.0.9",
     "openai>=1.71.0",
     "python-dotenv>=1.1.0",
+    "datasets>=2.0.0",
+    "jinja2>=3.0.0",
+    "pandas>=1.0.0",
+    "matplotlib>=3.0.0",
+    "seaborn>=0.11.0",
 ]
 
 [project.optional-dependencies]
