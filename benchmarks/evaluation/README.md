@@ -59,4 +59,26 @@ uv run python benchmarks/evaluation/run_sudoku.py \
 ## 出力
 
 1.  **CSV ファイル:** `--output_csv` で指定されたパスに詳細な CSV ファイルが保存されます。列の説明については `run_sudoku.py` の docstring を参照してください。
-2.  **コンソール出力:** 完了時に、評価結果の概要 (平均正解配置数、解決率) が標準出力に出力されます。 
+2.  **コンソール出力:** 完了時に、評価結果の概要 (平均正解配置数、解決率) が標準出力に出力されます。
+
+## 結果の集計 (Summarize)
+
+`run_sudoku.py` で生成された複数の結果 CSV ファイルを分析し、HTMLレポートを生成するには、`Sudoku-Bench` からコピーした `summarize.py` スクリプトを使用できます。
+
+**集計スクリプトのパス:** `benchmarks/sudoku_bench_deps/eval/summarize.py`
+
+**実行方法 (プロジェクトルートから):**
+
+```bash
+# 例: benchmarks/results/ ディレクトリ内の結果を benchmarks/reports/ に集計・レポート生成
+uv run python -m benchmarks.sudoku_bench_deps.eval.summarize \
+    --input_dir benchmarks/results/ \
+    --output_dir benchmarks/reports/
+```
+
+**主要な引数 (`summarize.py`):**
+
+*   `--input_dir`: 集計対象の CSV ファイルが含まれるディレクトリのパス。
+*   `--output_dir`: 生成される HTML レポートや集計テーブルを保存するディレクトリのパス。
+
+このスクリプトは、パフォーマンスの可視化や詳細なテーブルを含む HTML レポートを生成します。 

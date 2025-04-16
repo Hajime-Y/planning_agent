@@ -61,3 +61,6 @@ htmlcov/
 
 # Evaluation results
 benchmarks/results/
+
+# Summarized evaluation reports
+benchmarks/reports/
