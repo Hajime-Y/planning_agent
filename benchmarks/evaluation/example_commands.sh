@@ -36,8 +36,9 @@ uv run python benchmarks/evaluation/run_sudoku.py \
     --model gpt-4.1 \
     --model_save_name gpt-4.1_planning_enabled \
     --use-planning-server \
-    --num_empty_cells 0 5 \
-    --batch_size 1
+    --num_empty_cells 5 \
+    --n_response_idxs 0 1 2 3 4 \
+    --batch_size 15
 
 echo "--------------------"
 
@@ -47,8 +48,9 @@ uv run python benchmarks/evaluation/run_sudoku.py \
     --output_csv benchmarks/results/sudoku_4x4_eval_gpt-4.1_planning_disabled_$(date +%Y%m%d_%H%M%S).csv \
     --model gpt-4.1 \
     --model_save_name gpt-4.1_planning_disabled \
-    --num_empty_cells 0 5 \
-    --batch_size 1
+    --num_empty_cells 0 5 10 \
+    --n_response_idxs 0 1 2 3 \
+    --batch_size 15
 
 echo "--------------------"
 
