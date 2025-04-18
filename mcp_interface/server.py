@@ -82,7 +82,9 @@ def create_plan(task_description: str) -> str:
 """
         result_text = agent.run(prompt)
         logger.info(f"Agent run result for create_plan: {result_text}")
-        return result_text
+        # 次のアクションを促す定型文を追加
+        guidance = "\\n\\n---\\n**次のステップ:** サブタスク完了後は `update_plan` で完了報告をしてください。サブタスク実行中に問題が発生した場合は、必ず `report_issue` で報告してください。"
+        return result_text + guidance
     except Exception as e:
         logger.error(f"create_plan 処理中にエラー: {e}", exc_info=True)
         return f"[エラー] プラン作成中に予期せぬエラーが発生しました: {e}"
@@ -125,7 +127,9 @@ def update_plan(task_number: int, artifacts: List[str], comments: str) -> str:
 """
         result_text = agent.run(prompt)
         logger.info(f"Agent run result for update_plan: {result_text}")
-        return result_text
+        # 次のアクションを促す定型文を追加
+        guidance = "\\n\\n---\\n**次のステップ:** サブタスク完了後は `update_plan` で完了報告をしてください。サブタスク実行中に問題が発生した場合は、必ず `report_issue` で報告してください。"
+        return result_text + guidance
     except Exception as e:
         logger.error(f"update_plan 処理中にエラー: {e}", exc_info=True)
         return f"[エラー] プラン更新中に予期せぬエラーが発生しました: {e}"
