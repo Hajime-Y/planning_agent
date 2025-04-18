@@ -1,0 +1,59 @@
+plan_id: plan_sudoku_4x4_antiknight_kropki
+task_id: sudoku_4x4_antiknight_kropki
+created_at: '2025-04-17T18:04:39.844940'
+updated_at: '2025-04-17T18:04:39.844940'
+version: 1
+status: in_progress
+subtasks:
+- id: parse_input
+  description: Parse the raw board setup and constraints into structured data suitable
+    for computation (e.g., 4x4 grid, and constraints dict/list).
+  status: pending
+  order: 1
+  inputs:
+    raw_board_setup: 3 . 2 1 / 1 2 4 . / 2 1 3 4 / 4 . . .
+    raw_constraints:
+    - Standard 4x4 Sudoku rules apply (each row, column, and 2x2 box contains digits
+      1-4 without repeats).
+    - 'Anti-Knight constraint: No two identical digits may be placed such that they
+      are a knight''s move apart (as in chess).'
+    - 'Partial Kropki constraints:'
+    - '  - White dot between r1c3 and r1c4: the digits in these cells must differ
+      by 1.'
+    - '  - Black dot between r3c1 and r4c1: the digits in these cells must be in 1:2
+      ratio.'
+    - '  - No Kropki constraint applies to any other pair unless explicitly marked.'
+    - 'Initial board setup is: Row 1: [3, ., 2, 1], Row 2: [1, 2, 4, .], Row 3: [2,
+      1, 3, 4], Row 4: [4, ., ., .] (''.'' indicates empty cell).'
+  outputs:
+    board: A 4x4 list of lists with int or None for empty cells.
+    constraints_dict: A dict/list encoding all constraints for validation.
+- id: prepare_validators
+  description: Implement the Sudoku, Anti-Knight, and partial Kropki constraints as
+    validation/check functions.
+  status: pending
+  order: 2
+  inputs:
+    constraints_dict: From parse_input
+  outputs:
+    validators: Set of callable constraint checking functions.
+- id: solve_puzzle
+  description: Using the board and validators, search for a solution satisfying all
+    constraints (e.g., backtracking solver).
+  status: pending
+  order: 3
+  inputs:
+    board: From parse_input
+    validators: From prepare_validators
+  outputs:
+    solved_board: Completed 4x4 board as list of lists
+- id: output_solution
+  description: Format and output the solution, verifying validity and converting to
+    readable string if needed.
+  status: pending
+  order: 4
+  inputs:
+    solved_board: From solve_puzzle
+  outputs:
+    final_solution: String or array representing solved puzzle
+    is_valid: Boolean

@@ -1,0 +1,57 @@
+plan_id: '1'
+task_id: '1'
+created_at: '2025-04-17T18:12:31.385914'
+updated_at: '2025-04-17T18:12:31.385914'
+version: 1
+status: in_progress
+subtasks:
+- id: subtask_1
+  description: 初期盤面・V・X手掛かりのパース
+  status: completed
+  order: 1
+  inputs: null
+  outputs:
+    parsed_board:
+    - - 4
+      - 1
+      - 5
+      - 8
+    - - null
+      - 7
+      - null
+      - 2
+    - - 5
+      - 4
+      - 2
+      - 7
+    - - null
+      - 6
+      - 8
+      - null
+    parsed_V:
+    - (1,1)-(1,2)
+    - (2,3)-(3,3)
+    parsed_X:
+    - (2,2)-(2,3)
+    - (1,4)-(2,4)
+    - (3,2)-(4,2)
+  remarks: Initial board parsed as a 4x4 list of lists with None for blanks. V and
+    X clues are structured and indexed by their cell pairs for later logical deduction.
+- id: subtask_2
+  description: VとXの手掛かり・盤面をもとに埋まる数字をロジカルに推論する（１手進める）
+  status: pending
+  order: 2
+  inputs:
+    parsed_board: subtask_1.outputs.parsed_board
+    parsed_V: subtask_1.outputs.parsed_V
+    parsed_X: subtask_1.outputs.parsed_X
+  outputs:
+    updated_board: 盤面に新たに確定した数字情報
+- id: subtask_3
+  description: 矛盾がないかチェックし、確定できる数字がなくなれば終了判断または再度推論
+  status: pending
+  order: 3
+  inputs:
+    updated_board: subtask_2.outputs.updated_board
+  outputs:
+    status: 解答継続 or 完了の判断

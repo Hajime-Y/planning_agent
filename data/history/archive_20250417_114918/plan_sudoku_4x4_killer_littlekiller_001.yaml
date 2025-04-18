@@ -1,0 +1,54 @@
+plan_id: plan_sudoku_4x4_killer_littlekiller_001
+task_id: sudoku_4x4_killer_littlekiller_001
+created_at: '2025-04-17T11:48:45.154441'
+updated_at: '2025-04-17T11:48:45.154441'
+version: 1
+status: in_progress
+subtasks:
+- id: subtask_1
+  description: 'Parse and structure the Sudoku puzzle data: grid initial clues, killer
+    cages, and little killer diagonal constraint.'
+  status: not_started
+  order: 1
+  inputs:
+  - raw initial grid as described in requirements
+  - killer cages definitions and sums
+  - little killer diagonal constraint
+  outputs:
+  - structured puzzle object representing grid, cages, and diagonal
+- id: subtask_2
+  description: Generate possible candidates for each cell, enforcing classic Sudoku
+    rules (row/col/box uniqueness).
+  status: not_started
+  order: 2
+  inputs:
+  - structured puzzle object
+  outputs:
+  - candidate lists per cell
+- id: subtask_3
+  description: Apply killer cage and little killer diagonal constraints to prune candidates.
+  status: not_started
+  order: 3
+  inputs:
+  - candidate lists per cell
+  - structured puzzle object
+  outputs:
+  - pruned candidate lists per cell
+- id: subtask_4
+  description: Find a valid solution for the Sudoku using search (backtracking/constraint
+    propagation), satisfying all constraints.
+  status: not_started
+  order: 4
+  inputs:
+  - pruned candidate lists per cell
+  - structured puzzle object
+  outputs:
+  - solved Sudoku grid
+- id: subtask_5
+  description: Format and output the solved grid as required.
+  status: not_started
+  order: 5
+  inputs:
+  - solved Sudoku grid
+  outputs:
+  - solution output

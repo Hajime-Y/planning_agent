@@ -1,0 +1,27 @@
+task_id: euler_sudoku_4x4_digits_colors
+title: Solve a 4x4 Euler Sudoku puzzle with digits, colors, thermometers, and an odd
+  circle
+description: Solve a 4x4 Euler Sudoku variant where each cell contains a digit (1-4)
+  and a color (4 colors), and every digit/color combination appears exactly once in
+  the grid. Thermometers and a gray circle (that must contain an odd digit) provide
+  extra placement constraints. The puzzle starts empty.
+constraints:
+- The grid is 4x4, cells must be filled with digits 1-4.
+- Each cell is also assigned one of 4 colors (identifiers to be determined).
+- Every digit-color pair appears exactly once in the whole grid.
+- 'Standard Sudoku constraints: each digit appears only once per row and column.'
+- 'Standard Sudoku constraints: each color appears only once per row and column.'
+- Thermometers (not specified in detail) add sequential placement constraints (lower
+  to higher digits along thermometer).
+- There is a gray circle cell which must have an odd digit (1 or 3).
+- The grid is initially empty.
+- 'Stepwise logical solving process required: Analyze constraints, find forced placements,
+  make and output first certain move.'
+resources:
+- Puzzle grid definition (4x4 cells)
+- Thermometer and gray circle positions/rules (to be specified by inputs or puzzle
+  image)
+- Digit values (1-4)
+- Color set (abstract; real colors not specified)
+created_at: '2025-04-17T17:55:47.051942'
+updated_at: '2025-04-17T17:55:47.051942'

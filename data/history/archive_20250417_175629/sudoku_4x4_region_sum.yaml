@@ -1,0 +1,22 @@
+task_id: sudoku_4x4_region_sum
+title: 4x4 Sudoku with Region Sum Lines - Step-by-step Forced Placement
+description: 'Solve the given 4x4 Sudoku with ''Region Sum Lines''. Use classic sudoku
+  rules (each digit 1–4 per row, column, 2x2 box) AND the constraint that digits on
+  each ''region sum line'' sum to the same total, with no repeated digits on a line.
+  Start from the empty grid and given region sum lines. Step-by-step: analyze classic
+  sudoku deductions and the region sum line constraints to make a forced cell placement.'
+constraints:
+- 'Classic 4x4 sudoku rules: Each digit 1–4 appears once per row, column, and 2x2
+  box.'
+- 'Region sum line constraints: Cells on the same line sum to the same value; digits
+  do not repeat on a line.'
+- Grid starts empty; region sum lines (with their cell coordinates) are provided.
+- Solve step-by-step, making only forced placements (no guessing).
+- At each step, analyze classic sudoku deductions and region sum line constraints
+  together.
+resources:
+- Empty 4x4 sudoku grid
+- 'List of region sum lines (each line: list of cell coordinates)'
+- Pen and paper methods, or logical deduction techniques
+created_at: '2025-04-17T17:56:22.668037'
+updated_at: '2025-04-17T17:56:22.668037'

@@ -1,0 +1,57 @@
+plan_id: plan_4x4_sudoku_snake
+task_id: solve_4x4_sudoku_snake
+created_at: '2025-04-17T18:11:24.202897'
+updated_at: '2025-04-17T18:11:24.202897'
+version: 1
+status: in_progress
+subtasks:
+- id: s1
+  description: 与えられた文字列から盤面データ（4x4のリスト形式）を初期化し、各セルの状態を出力する。
+  status: not_started
+  order: 1
+  inputs:
+    board_str: . 1 4 3 | . 3 . 1 | 3 4 1 2 | . 2 3 .
+  outputs:
+    board: 4x4のリスト形式の盤面データ
+- id: s2
+  description: 通常の数独ルール（行・列・ボックス被りなし）に基づき、各空セルの候補数字を列挙する。
+  status: not_started
+  order: 2
+  inputs:
+    board: 4x4のリスト形式の盤面データ
+  outputs:
+    candidates: 空セルごとの候補数字リスト
+- id: s3
+  description: 盤面上の各セルについて、スネークの通過が許される（not friendlyセルかどうか）を判定する。
+  status: not_started
+  order: 3
+  inputs:
+    board: 4x4のリスト形式の盤面データ
+  outputs:
+    allowed_snake_cells: snake通過可能セルの座標リスト
+- id: s4
+  description: スネーク制約（r1c1開始・全box訪問・連続条件）下で合法なsnakeパスが作れるか探索する。
+  status: not_started
+  order: 4
+  inputs:
+    allowed_snake_cells: snake通過可能セル座標リスト
+    board: 4x4のリスト形式盤面
+  outputs:
+    valid_snake_paths: 有効なsnakeパスの（必要なら複数）リスト
+- id: s5
+  description: 候補数字・snake制約から矛盾しないような値が確定する空セルを決定する。
+  status: not_started
+  order: 5
+  inputs:
+    candidates: 空セルごとの候補数字リスト
+    valid_snake_paths: 有効なsnakeパスリスト
+  outputs:
+    first_determined_cell: 確定できた空セル（座標＆値）
+- id: s6
+  description: 最初に確定できた空セルの値（座標＆数字）を出力とする。
+  status: not_started
+  order: 6
+  inputs:
+    first_determined_cell: 確定した空セル情報
+  outputs:
+    output: 最初に確定した空セルの場所と値

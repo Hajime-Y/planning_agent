@@ -1,0 +1,20 @@
+task_id: sudoku_special_4x4_001
+title: Solve 4x4 sudoku with ratio and line difference constraints
+description: 'Solve a 4x4 sudoku grid where: 1. Digits separated by a black dot are
+  in a 1:2 ratio; 2. For each colored line, the difference between two adjacent digits
+  indicates exactly how many pairs along the line have that difference. Given clues:
+  . 3 4 2 | . 4 . 3 | 3 1 2 4 | . 2 3 . . There is a black dot between r4c1 and r4c2.
+  A palegreen line runs through r3c1, r3c2, r4c3; A plum line through r2c2, r2c3,
+  r3c4, r4c4.'
+constraints:
+- 'Standard 4x4 sudoku rules: each digit 1-4 appears once per row, column, and region.'
+- 'Black dot (between r4c1 and r4c2): digits must be in 1:2 ratio.'
+- 'Palegreen line (r3c1, r3c2, r4c3), plum line (r2c2, r2c3, r3c4, r4c4): For each,
+  the difference between consecutive digits equals the number of such differences
+  along that line.'
+resources:
+- 'Initial grid: . 3 4 2 | . 4 . 3 | 3 1 2 4 | . 2 3 . .'
+- 'Black dot position: (r4c1)-(r4c2)'
+- 'Colored lines: palegreen [r3c1,r3c2,r4c3], plum [r2c2,r2c3,r3c4,r4c4]'
+created_at: '2025-04-17T18:08:56.063199'
+updated_at: '2025-04-17T18:08:56.063199'

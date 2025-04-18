@@ -1,0 +1,42 @@
+plan_id: plan_sudoku_variant_4x4_v1
+task_id: sudoku_variant_4x4
+created_at: '2025-04-17T17:45:47.473872'
+updated_at: '2025-04-17T17:45:47.473872'
+version: 1
+status: in_progress
+subtasks:
+- id: st1
+  order: 1
+  description: 1. 4x4グリッドに適用する4種類の数字の候補セットを決定し、その論理的根拠を示す。
+  inputs:
+  - Digits 1-9
+  - 全体ルール・制約一覧
+  - 視覚的ヒント（仮/未定義）
+  outputs:
+  - 選択する4桁セットのリスト
+  - 選択理由・根拠
+- id: st2
+  order: 2
+  description: 2. 視覚的要素（サーモメーター/点/グレーセル）など、全ての追加制約をグリッド形状・配置として整理。
+  inputs:
+  - 与えられる全ビジュアルヒント
+  - 空のグリッド
+  outputs:
+  - ビジュアル制約付きのグリッドレイアウト
+- id: st3
+  order: 3
+  description: 3. 制約をすべて満たす数独の解（または解候補）を論理的に順序立てて構築する。
+  inputs:
+  - 4桁の数字セット
+  - ビジュアル制約付きグリッド
+  - すべてのルール・制約
+  outputs:
+  - 解答（もしくは全ての論理配置候補）
+- id: st4
+  order: 4
+  description: 4. 解答を検証し、全ての制約が満たされていることを説明・確認する。
+  inputs:
+  - 構築した解答
+  - 制約内容一覧
+  outputs:
+  - 制約充足性の説明・確認結果

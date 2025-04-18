@@ -1,0 +1,44 @@
+plan_id: sudoku_4x4_xv_plan
+task_id: sudoku_4x4_xv_variant
+created_at: '2025-04-17T17:52:53.875677'
+updated_at: '2025-04-17T17:52:53.875677'
+version: 1
+status: in_progress
+subtasks:
+- id: analyze_clues
+  description: 'Grid and clue analysis: Parse the puzzle, gather all clue info (locations
+    of X/V clues), and represent the grid structure for logical analysis.'
+  status: pending
+  order: 1
+  inputs:
+  - Puzzle grid structure with initial X/V clues
+  outputs:
+  - Structured representation of the grid and clues for further solving
+- id: deduce_sums_and_candidate_digits
+  description: Infer possible row/col/box sums and possible digit sets per house using
+    X/V clues and grid rules.
+  status: pending
+  order: 2
+  inputs:
+  - Structured grid and clues
+  outputs:
+  - Candidate sums for houses, initial digit possibility sets for each cell/house
+- id: propagate_constraints
+  description: Propagate constraints from X/V and nonrepetition across grid to eliminate
+    candidates; update possibilities.
+  status: pending
+  order: 3
+  inputs:
+  - Candidate sums and digit sets
+  outputs:
+  - Reduced candidate lists for each cell
+- id: stepwise_fill_and_reason
+  description: 'Stepwise fill: Place digits in cells where possible, explaining logical
+    reasoning after each placement. Repeat until puzzle is solved.'
+  status: pending
+  order: 4
+  inputs:
+  - Reduced candidate lists
+  outputs:
+  - Step-by-step solution path (placements with logical justifications), completed
+    grid

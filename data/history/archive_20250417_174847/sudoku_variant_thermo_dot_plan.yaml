@@ -1,0 +1,51 @@
+plan_id: sudoku_variant_thermo_dot_plan
+task_id: sudoku_variant_thermo_dot
+created_at: '2025-04-17T17:48:43.451846'
+updated_at: '2025-04-17T17:48:43.451846'
+version: 1
+status: in_progress
+subtasks:
+- id: '1'
+  description: 全ルール・初期盤面・制約（温度計・黒白ドット・偶数指定）をデータ構造として整理する
+  status: waiting
+  order: 1
+  inputs:
+  - タスク要件 (constraints, resources)
+  - タスク記載の初期盤面・熱計/ドット制約情報
+  outputs:
+  - 数独グリッド初期状態
+  - 温度計・黒白ドット・偶数マスの座標情報
+  - 使用する4桁数字セットの候補
+- id: '2'
+  description: 初期盤面および全制約をもとに各セルの数字候補リストを列挙する
+  status: waiting
+  order: 2
+  inputs:
+  - 整理済みグリッド・制約データ
+  outputs:
+  - 全セルの数字候補リスト
+- id: '3'
+  description: 温度計・黒白ドット・偶数など追加制約を施し、候補リストを絞り込む
+  status: waiting
+  order: 3
+  inputs:
+  - 全セルの数字候補リスト
+  - 温度計・ドット・偶数マス情報
+  outputs:
+  - 制約反映後の数字候補リスト
+- id: '4'
+  description: 論理的に1通りに決まるマス（強制配置）を同定する
+  status: waiting
+  order: 4
+  inputs:
+  - 制約反映後の数字候補リスト
+  outputs:
+  - 強制配置対象マスと配置数字
+- id: '5'
+  description: 強制配置の出力（座標・数字）を行う
+  status: waiting
+  order: 5
+  inputs:
+  - 強制配置対象マスと配置数字
+  outputs:
+  - 出力フォーマットでの強制配置情報

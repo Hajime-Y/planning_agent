@@ -1,0 +1,49 @@
+plan_id: sudoku_snake_friendly_4x4_plan
+task_id: sudoku_snake_friendly_4x4
+created_at: '2025-04-17T18:08:49.098007'
+updated_at: '2025-04-17T18:08:49.098007'
+version: 1
+status: in_progress
+subtasks:
+- id: subtask_1
+  description: 受け取った4x4数独の初期盤面の情報を整形・認識する（データ構造化）。
+  status: pending
+  order: 1
+  inputs:
+  - name: sudoku_board
+    type: list[list[int or None]]
+    description: 4x4の初期数独盤面（空欄はNoneで表す）
+  outputs:
+  - name: board_structured
+    type: list[list[int or None]]
+    description: 構造化・バリデーション済みの4x4盤面データ
+- id: subtask_2
+  description: 構造化された盤面から、標準数独ルールで次に確定するべきマスおよびその数字を特定する。
+  status: pending
+  order: 2
+  inputs:
+  - name: board_structured
+    type: list[list[int or None]]
+    description: 入力盤面
+  outputs:
+  - name: next_move
+    type: dict
+    description: '次に置く数字: {row, col, digit} の辞書'
+  - name: updated_board
+    type: list[list[int or None]]
+    description: 数字を1つ置いた後の盤面
+- id: subtask_3
+  description: 盤面の更新結果を出力する（今後の追加制約適用のため保存・共有）。
+  status: pending
+  order: 3
+  inputs:
+  - name: updated_board
+    type: list[list[int or None]]
+    description: 1手進めた盤面
+  - name: next_move
+    type: dict
+    description: 次に置いた数字情報
+  outputs:
+  - name: result
+    type: dict
+    description: 最新盤面と履歴を含む情報セット

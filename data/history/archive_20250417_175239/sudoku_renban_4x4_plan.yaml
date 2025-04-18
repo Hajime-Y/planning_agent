@@ -1,0 +1,63 @@
+plan_id: sudoku_renban_4x4_plan
+task_id: sudoku_renban_4x4
+created_at: '2025-04-17T17:52:32.555670'
+updated_at: '2025-04-17T17:52:32.555670'
+version: 1
+status: in_progress
+subtasks:
+- id: st1
+  description: 初期盤面とRenbanライン制約・数独ルールをもとに、可能な全マス候補を決定し盤面をセットアップする
+  status: pending
+  order: 1
+  inputs:
+    initial_board: r2c1:2, その他空白
+    renban_lines:
+    - - r4c1
+      - r3c2
+      - r2c2
+      - r1c1
+    - - r2c3
+      - r2c4
+      - r1c4
+    - - r4c4
+      - r3c4
+      - r4c3
+    - - r1c2
+      - r1c3
+    sudoku_rules: 4x4標準数独ルール
+  outputs:
+    setup_board: 候補リスト付きの4x4盤面
+- id: st2
+  description: 盤面と候補から論理的に入ることが確定するマスを1つ決定し記入。解説つきで<ANSWER>タグ形式で出力。
+  status: pending
+  order: 2
+  inputs:
+    setup_board: 全マス候補リスト付き盤面
+  outputs:
+    filled_cell: '<ANSWER>タグ形式（例: <ANSWER> rXcY: Z）'
+    new_board: 更新済み盤面
+- id: st3
+  description: 書き込んだマスを踏まえて候補を再計算。盤面・Renbanライン・数独ルールすべてを反映し直す
+  status: pending
+  order: 3
+  inputs:
+    new_board: 直前の盤面
+  outputs:
+    updated_board: 候補情報を再計算した盤面
+- id: st4
+  description: 更新された盤面で、次に論理的に強制されるマスがあればst2→st3を繰り返す。詰まるまで継続
+  status: pending
+  order: 4
+  inputs:
+    updated_board: 手順3の結果盤面
+  outputs:
+    answer_steps: すべての記入ステップの<ANSWER>タグリスト
+- id: st5
+  description: 最終的に完成した盤面と各手順<ANSWER>出力のまとめを提示
+  status: pending
+  order: 5
+  inputs:
+    answer_steps: すべての<ANSWER>タグリスト
+    final_board: 完成盤面
+  outputs:
+    summary: 回答手順・完成盤面のまとめ

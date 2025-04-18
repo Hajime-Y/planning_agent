@@ -1,0 +1,23 @@
+task_id: sudoku_variant_4x4
+title: Solve 4x4 Sudoku Variant With Thermos and Dots
+description: 'A 4x4 Sudoku variant puzzle: Each row, column, and 2x2 box contains
+  the same 4-digit subset (from 1-9). Thermo lines: digit values strictly increase
+  from bulb end. Dots: Black between r4c3-r4c4 (2:1 ratio), White between r1c2-r2c2
+  (consecutive). A gray (even) square at r2c1. Given clues: visual thermos, a black
+  dot, a white dot, a gray even square.'
+constraints:
+- Grid is 4x4 with coordinates r1c1 (row 1, col 1) to r4c4 (row 4, col 4)
+- Each row contains the same four distinct digits (subset of 1-9, no repeats per row)
+- Each column contains the same four digits, no repeats
+- Each 2x2 box (quadrant) contains those four digits, no repeats
+- 'Thermo lines: in each, digits must strictly increase from bulb end toward tip'
+- 'A black dot is drawn between r4c3 and r4c4: those two digits obey the 2:1 ratio
+  constraint'
+- 'A white dot is drawn between r1c2 and r2c2: those two digits are consecutive'
+- A gray square at r2c1 contains an even number
+- All cells contain digits 1-9
+resources:
+- Puzzle grid layout (not specified further)
+- Locations of thermos, dots, and gray square as given
+created_at: '2025-04-16T20:52:34.643324'
+updated_at: '2025-04-16T20:52:34.643324'

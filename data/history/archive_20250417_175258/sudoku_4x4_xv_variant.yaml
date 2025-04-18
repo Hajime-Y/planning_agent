@@ -1,0 +1,26 @@
+task_id: sudoku_4x4_xv_variant
+title: Solve 4x4 Sudoku variant with X/V clues
+description: "Solve a 4x4 Sudoku puzzle variant where:\n - Normal sudoku rules do\
+  \ not apply.\n - Fill the grid with digits 1-9 so that no digit repeats within any\
+  \ row, column, or 2x2 box.\n - Each row, column, and box must use a unique set of\
+  \ digits (e.g., different combinations within each house).\n - The sum of digits\
+  \ in each row, column, and box is constant (but unknown, needs deduction).\n - If\
+  \ there's an X between two cells, their sum must be 10. If V, their sum must be\
+  \ 5.\n - Solve via step-by-step logical deductions, explaining each placement."
+constraints:
+- Grid is 4x4.
+- Fill using digits 1–9.
+- No digit may repeat in any row, column, or 2x2 box.
+- Each row, column, and box must contain a unique set of digits (no identical combination
+  in the houses).
+- Sum of digits in every row, column, and box is the same (unknown; deduce as part
+  of solution).
+- X-marked adjacent cells must sum to 10.
+- V-marked adjacent cells must sum to 5.
+- Proceed step-by-step, providing logical deductions and reasoning for each placement.
+resources:
+- Puzzle grid with initial clues (X/V marks between cells)
+- Rules as described
+- Logical reasoning & deduction techniques
+created_at: '2025-04-17T17:52:53.874291'
+updated_at: '2025-04-17T17:52:53.874291'

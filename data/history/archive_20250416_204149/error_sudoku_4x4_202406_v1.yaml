@@ -1,0 +1,47 @@
+plan_id: error_sudoku_4x4_202406_v1
+task_id: error_sudoku_4x4_202406
+created_at: '2025-04-16T20:40:38.365871'
+updated_at: '2025-04-16T20:40:38.365871'
+version: 1
+status: in_progress
+subtasks:
+- id: parse_and_initialize_grid
+  description: 空の4x4グリッドと全制約（数字配置回数記録、違反条件、箱領域、パリンドローム、和・不等号）をデータとして構造化し初期状態を作成する。
+  status: not_started
+  order: 1
+  inputs:
+  - 制約一覧（YAML読み込み）
+  outputs:
+  - 初期化された候補付きグリッド、全制約データ構造
+- id: generate_all_possible_digit_placements
+  description: 全ての数字配置候補（1〜4が4回ずつ使われるパターン、違反数条件も考慮）を生成または絞る。
+  status: not_started
+  order: 2
+  inputs:
+  - 初期化された候補付きグリッド、全制約データ構造
+  outputs:
+  - 可能な盤面配置候補リスト
+- id: filter_by_box_palindrome_inequalities
+  description: 箱領域制約、パリンドローム線、行・列の和/不等号ヒント等で候補をさらに絞り込む。
+  status: not_started
+  order: 3
+  inputs:
+  - 可能な盤面配置候補リスト
+  outputs:
+  - 全制約を満たしうる配置候補リスト
+- id: logically_identify_forced_cell
+  description: 残された候補配置を解析し、一意に数値が決まるマス（どの候補でも同じ数字になるマス）が存在するか検出する。
+  status: not_started
+  order: 4
+  inputs:
+  - 全制約を満たしうる配置候補リスト
+  outputs:
+  - 一意に決まる（論理的に強制される）マスと数字のリスト
+- id: output_confident_placement
+  description: 検出された一意マス・値からひとつ選び「このセルには必ずこの値が入る」と明示的に出力する。
+  status: not_started
+  order: 5
+  inputs:
+  - 一意に決まるマスと数字のリスト
+  outputs:
+  - '確信的な配置（例: r2c3=4 など）'

@@ -1,0 +1,53 @@
+plan_id: plan_euler_sudoku_4x4_thermo_odd
+task_id: euler_sudoku_4x4_thermo_odd
+created_at: '2025-04-17T17:39:03.316800'
+updated_at: '2025-04-17T17:39:03.316800'
+version: 1
+status: in_progress
+subtasks:
+- id: parse_puzzle_info
+  order: 1
+  description: 与えられた初期盤面、温度計配置、灰色円（奇数指定マス）配置をデータとして整理する。初期盤面は2次元リスト等に整形し、温度計は各パスを座標リスト、灰色円は座標集合としてまとめる。
+  status: pending
+  inputs:
+  - '初期盤面（例: . 2 4 . / . 1 . . / . 4 2 . / . . 1 .）'
+  - 温度計の配置図、灰色円の位置図
+  outputs:
+  - 整理済み初期盤面（2次元リスト等）
+  - 温度計一覧（各温度計ごとに盤面上の座標リスト）
+  - 灰色円の座標集合
+- id: model_constraints
+  order: 2
+  description: サブタスク1で整理した情報をもとに、行・列・ブロック・温度計・灰色円の制約としてプログラム内で扱える形にモデル化する。
+  status: pending
+  inputs:
+  - サブタスク1の出力（盤面・温度計・灰色円配置）
+  outputs:
+  - 全ての制約情報（リスト・集合・パラメータ等）
+- id: solve_puzzle
+  order: 3
+  description: モデル化された盤面と制約から、解探索アルゴリズム（バックトラッキング等）を実装し、ルールを全て満たす解を探索する。
+  status: pending
+  inputs:
+  - サブタスク1の盤面・配置情報
+  - サブタスク2の制約情報
+  outputs:
+  - 解答盤面（4x4の完成した数独盤）
+- id: validate_solution
+  order: 4
+  description: 得られた解答盤面がすべての制約（行・列・ブロック・温度計・灰色円）を満たしているか検証する
+  status: pending
+  inputs:
+  - サブタスク3の解答盤面
+  - サブタスク2の制約情報
+  outputs:
+  - 解答の正当性（True/False）、不正箇所（あれば）
+- id: output_result
+  order: 5
+  description: 検証済みの解をユーザーにわかりやすく出力する（例：整形出力、盤面表示）。
+  status: pending
+  inputs:
+  - サブタスク3の解答盤面
+  - サブタスク4の検証結果
+  outputs:
+  - 最終出力（解盤面＋検証結果）

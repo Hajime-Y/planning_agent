@@ -1,0 +1,45 @@
+plan_id: snake_4x4_sudoku_plan
+task_id: snake_4x4_sudoku
+created_at: '2025-04-17T17:45:37.636502'
+updated_at: '2025-04-17T17:45:37.636502'
+version: 1
+status: in_progress
+subtasks:
+- id: '1'
+  description: 各セルの行番号・列番号・ボックス番号・『フレンドリー』条件を一覧化し、フレンドリー・非フレンドリーセルを分類する
+  status: not_started
+  order: 1
+  inputs:
+  - 4x4盤面構造
+  outputs:
+  - 各セルの座標ごとの（行番号・列番号・ボックス番号・フレンドリー判定）
+  - フレンドリーセルリスト
+  - 非フレンドリーセルリスト
+- id: '2'
+  description: スネーク経路のルール（1セル幅、左上開始、全ボックス訪問、自己接触禁止）を満たす経路候補を生成する
+  status: not_started
+  order: 2
+  inputs:
+  - 非フレンドリーセルリスト
+  - スネーク経路制約
+  outputs:
+  - （非フレンドリーのみから成る）スネーク経路案リスト
+- id: '3'
+  description: スネーク経路案に合うように、4x4数独を通常ルールで解く
+  status: not_started
+  order: 3
+  inputs:
+  - 空の数独グリッド
+  - スネーク経路案リスト
+  - フレンドリーセル・非フレンドリーセル情報
+  outputs:
+  - （スネーク配置と両立する）数独解リスト
+- id: '4'
+  description: 成立した数独解＆スネークのセットを最終解として出力する
+  status: not_started
+  order: 4
+  inputs:
+  - 成立した数独解リスト
+  - 該当スネーク経路
+  outputs:
+  - 数独盤面＋スネーク経路の一意なセット

@@ -1,0 +1,54 @@
+plan_id: plan_sudoku_sunburn_4x4_001
+task_id: sudoku_sunburn_4x4_001
+created_at: '2025-04-17T11:48:42.682365'
+updated_at: '2025-04-17T11:48:42.682365'
+version: 1
+status: in_progress
+subtasks:
+- id: subtask_1
+  description: 4x4数独パズルの初期値とsunburnルール内容（サンマーク位置・内容）を整理・確認する
+  status: pending
+  order: 1
+  inputs:
+  - 初期配置（盤面と数字）
+  - 'sunburn位置（例: r2c2, r2c4, r3c4)'
+  - sunburnルール内容
+  outputs:
+  - 初期盤面状態（数値・サンマーク付与）
+  - 整理されたルール一覧
+- id: subtask_2
+  description: 各マスの初期候補数字（1～4から可能性を洗い出し）を作成する
+  status: pending
+  order: 2
+  inputs:
+  - 初期盤面状態（数値・サンマーク付与）
+  - 整理されたルール一覧
+  outputs:
+  - 各マスの候補数字リスト
+- id: subtask_3
+  description: 標準数独制約およびsunburn制約に基づき、候補数字リストを絞る
+  status: pending
+  order: 3
+  inputs:
+  - 各マスの候補数字リスト
+  - 整理されたルール一覧
+  outputs:
+  - 制約適用後の各マス候補数字リスト
+- id: subtask_4
+  description: 次に唯一候補のマスを見つけ、数字を確定させる
+  status: pending
+  order: 4
+  inputs:
+  - 制約適用後の各マス候補数字リスト
+  outputs:
+  - '確定する次のマスの位置（例: rxcx）、入る数字'
+- id: subtask_5
+  description: 導出結果を整形し、根拠付きで次の数字をレポートする
+  status: pending
+  order: 5
+  inputs:
+  - 確定する次のマス情報
+  - 制約適用後の各マス候補数字リスト
+  - 整理されたルール一覧
+  outputs:
+  - サマリー・レポート

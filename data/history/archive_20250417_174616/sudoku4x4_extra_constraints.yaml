@@ -1,0 +1,29 @@
+task_id: sudoku4x4_extra_constraints
+title: Solve the 4x4 Sudoku with Extra Constraints and Visual Elements
+description: 'Given a 4x4 sudoku puzzle with the following constraints:
+
+  - Each row, column, and 2x2 box contains the same 4-digit subset from 1-9.
+
+  - Visual elements: thermometers (increasing numbers from bulb to tip), black/white
+  dots (consecutive or 1-difference), gray square (even number required).
+
+  - Givens: r1c2=4, r1c3=5, r2c2=5, r3c2=8, r3c3=6, r4c3=8.'
+constraints:
+- The puzzle is a 4x4 sudoku grid.
+- Each row, column, and 2x2 box contains the same 4 distinct digits, subset of digits
+  from 1-9 (no repeats within each row/column/box).
+- 'Thermometer segments: digits increase from bulb to tip.'
+- Between connected cells with a white dot there must be a 1-difference (consecutive
+  digits).
+- Between connected cells with a black dot, digits must be in a 2:1 ratio.
+- Gray square must contain an even number.
+- 'Initial values: r1c2=4, r1c3=5, r2c2=5, r3c2=8, r3c3=6, r4c3=8.'
+- All extra constraints based on given visual elements (thermometers, dots, gray square)
+  must be enforced.
+resources:
+- Blank 4x4 sudoku grid.
+- List of given visual elements (thermometers, black/white dots, gray square).
+- 'Digit subset (implicit: four digits out of 1-9, to be deduced as part of the solve).'
+- Given cell values.
+created_at: '2025-04-17T17:46:06.777472'
+updated_at: '2025-04-17T17:46:06.777472'

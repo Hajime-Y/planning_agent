@@ -1,0 +1,23 @@
+task_id: sudoku_4x4_XV_unique_sum
+title: Solve 4x4 Sudoku-like puzzle with X/V and unique sum constraints
+description: "Solve an empty 4x4 grid where:\n1) Digits 1-9 are used. No repeats in\
+  \ any row, column, or 2x2 box.\n2) The set of digits in each row or column must\
+  \ be unique (no two rows/columns have same set, though order can differ).\n3) All\
+  \ rows, columns, and boxes sum to the same (unknown) constant x, which must be determined\
+  \ as part of the solution.\n4) Adjacent cells with 'X' must sum to 10; those with\
+  \ 'V' must sum to 5, at specified positions.\nProvided constraints:\n - 'V' between\
+  \ r1c1/r1c2 and r2c3/r3c3\n - 'X' between r2c2/r2c3, r1c4/r2c4, r3c2/r4c2\nInitial\
+  \ grid is empty."
+constraints:
+- Fill the 4x4 grid with digits 1-9
+- No repeated digits in any row, column, or 2x2 box
+- No two rows or columns have the same set of digits (regardless of order)
+- Sum of each row, column, and box is an unknown constant x (to determine)
+- 'Cells with ''X'' between them must sum to 10: (r2c2/r2c3, r1c4/r2c4, r3c2/r4c2)'
+- 'Cells with ''V'' between them must sum to 5: (r1c1/r1c2, r2c3/r3c3)'
+- Initial grid is empty, no given digits
+resources:
+- Empty 4x4 grid
+- Specification of X and V positions
+created_at: '2025-04-17T17:50:01.769173'
+updated_at: '2025-04-17T17:50:01.769173'

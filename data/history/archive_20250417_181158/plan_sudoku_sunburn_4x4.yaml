@@ -1,0 +1,44 @@
+plan_id: plan_sudoku_sunburn_4x4
+task_id: sudoku_sunburn_4x4
+created_at: '2025-04-17T18:11:53.027855'
+updated_at: '2025-04-17T18:11:53.027855'
+version: 1
+status: in_progress
+subtasks:
+- id: st1
+  order: 1
+  description: パズルの初期グリッド情報とSUNBURNセル情報を受け取り、内部表現（4x4数字配列/sun情報）を構築する
+  inputs:
+  - 初期4x4グリッド配列（不定なマスはNoneや0等）
+  - SUNBURNセル位置情報（4x4の論理値配列やリスト等）
+  outputs:
+  - 内部グリッド構造（数字配列）
+  - 内部sun情報構造（座標や配列）
+  status: not_started
+- id: st2
+  order: 2
+  description: 数独とSUNBURN両方の制約を検証可能な関数・評価器を作成する
+  inputs:
+  - 内部グリッド構造
+  - 内部sun情報構造
+  outputs:
+  - 制約評価関数群（指定状態でルール違反かどうかを返す関数セット）
+  status: not_started
+- id: st3
+  order: 3
+  description: 制約評価関数を用いて数独グリッドを全て満たす解を探索して導出する（解法ロジック本体）
+  inputs:
+  - 制約評価関数群
+  - 内部グリッド構造
+  - 内部sun情報構造
+  outputs:
+  - 完全な解答グリッド（4x4数字配列）
+  status: not_started
+- id: st4
+  order: 4
+  description: 導出した解答グリッドを求められるフォーマットで整形して出力する
+  inputs:
+  - 完全な解答グリッド（4x4配列など）
+  outputs:
+  - 出力フォーマット化された解答
+  status: not_started

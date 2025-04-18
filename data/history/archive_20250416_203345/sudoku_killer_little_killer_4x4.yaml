@@ -1,0 +1,18 @@
+task_id: sudoku_killer_little_killer_4x4
+title: 4x4 Sudoku-Killer-Little Killer Puzzle Solver
+description: Solve a 4x4 Sudoku variant puzzle that combines Killer and Little Killer
+  rules, given the defined cages (groups of cells with specified sums), cage sums,
+  diagonal sum hints, and an initially empty board.
+constraints:
+- Each row and each column must contain the digits 1-4 with no repeats.
+- Each outlined cage must contain digits summing to the given cage total, with no
+  repeated digits in a cage.
+- Some diagonals ('Little Killer' clues) specify the sum of the digits on that diagonal.
+- No cell is prefilled; all cells start empty.
+- Solution must satisfy normal Sudoku, Killer Sudoku, and Little Killer constraints.
+resources:
+- 'Puzzle constraints: definition of cages and their sums.'
+- Little Killer (diagonal) sum hints and their directions.
+- Empty 4x4 board.
+created_at: '2025-04-16T20:06:49.744234'
+updated_at: '2025-04-16T20:06:49.744234'

@@ -1,0 +1,51 @@
+plan_id: plan_4x4sudoku_countingcircles
+task_id: sudoku_4x4_counting_circles
+created_at: '2025-04-17T17:57:21.944066'
+updated_at: '2025-04-17T17:57:21.944066'
+version: 1
+status: in_progress
+subtasks:
+- id: analyze_constraints
+  description: Analyze standard and COUNTING CIRCLES Sudoku constraints to determine
+    inference rules.
+  status: not_started
+  order: 1
+  inputs:
+  - Sudoku grid size and regions
+  - Locations of circled cells
+  - COUNTING CIRCLES rule description
+  outputs:
+  - Formalized operational statement of Sudoku and circle constraints
+  - List of variables and constraint representations
+- id: enumerate_possible_circle_assignments
+  description: List all possible ways digits 1–4 can be assigned to circled cells,
+    satisfying the COUNTING CIRCLES constraint.
+  status: not_started
+  order: 2
+  inputs:
+  - List of circled cells
+  - COUNTING CIRCLES constraint formalized
+  outputs:
+  - Set of all possible valid digit assignments to circled cells (not necessarily
+    considering Sudoku rules yet)
+- id: propagate_sudoku_constraints
+  description: For each possible circled cell digit assignment, propagate Sudoku (row/column/box)
+    rules to further restrict possible entire-grid solutions.
+  status: not_started
+  order: 3
+  inputs:
+  - Possible circle assignments
+  - Sudoku rules
+  - Blank Sudoku grid
+  outputs:
+  - Reduced set of valid global assignments (whole grid)
+- id: find_final_solution
+  description: Determine which assignment(s), if any, result in a fully filled valid
+    Sudoku grid (with all constraints satisfied, including the circle rule).
+  status: not_started
+  order: 4
+  inputs:
+  - Reduced set of valid assignments
+  outputs:
+  - Solution(s) to the 4x4 Sudoku (with cell values)
+  - Indications of which cells are circled with which digit

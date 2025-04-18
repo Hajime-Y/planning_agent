@@ -1,0 +1,21 @@
+task_id: sudoku_4x4_countingcircles
+title: 4x4 Counting Circles Sudoku Solver
+description: 'Solve the provided 4x4 Sudoku with the ''counting circles'' constraint
+  and current board state: . 4 2 . / . 2 . . / . 1 3 . / . . 1 . Also requires use
+  of the provided circle positions.'
+constraints:
+- 'Standard 4x4 sudoku rules: Each row, column, and 2x2 box contains digits 1-4 exactly
+  once.'
+- 'Counting circles constraint: Each circle cell must satisfy additional count conditions
+  (details from provided circle positions).'
+- 'Initial board state is given: . 4 2 . / . 2 . . / . 1 3 . / . . 1 . (rows separated
+  by ''/'', ''.'' for blanks).'
+- Circle positions are provided and must be taken into account.
+- The completed solution must satisfy all rules and constraints.
+resources:
+- Initial board state
+- Circle positions and associated conditions
+- Standard sudoku solving techniques
+- Counting circles constraint definition
+created_at: '2025-04-17T17:41:40.632630'
+updated_at: '2025-04-17T17:41:40.632630'

@@ -1,0 +1,40 @@
+plan_id: plan_sudoku_antiknight_kropki_4x4
+task_id: sudoku_antiknight_kropki_4x4
+created_at: '2025-04-17T17:43:46.414056'
+updated_at: '2025-04-17T17:43:46.414056'
+version: 1
+status: in_progress
+subtasks:
+- id: prepare_grid
+  description: 初期状態で与えられた条件をもとに4x4の数独グリッド・制約条件・可能性リストを用意する
+  status: not_started
+  order: 1
+  inputs:
+  - 空の4x4グリッド
+  - r1c1=3
+  - 追加制約リスト
+  outputs:
+  - 初期グリッド状態
+  - 制約適用済みの候補リスト
+- id: find_single_confident_placement
+  description: 現在の状態から確実に一意に決まるセルに1つだけ値を入れ、その根拠を記録する
+  status: not_started
+  order: 2
+  inputs:
+  - 最新のグリッド状態
+  - 候補リスト
+  - 制約条件
+  outputs:
+  - 更新後のグリッド状態
+  - 配置したセル・数値・論理根拠
+- id: repeat_until_complete
+  description: 1つずつ確実な配置を繰り返し、グリッドが完成するまで続ける
+  status: not_started
+  order: 3
+  inputs:
+  - 部分的に埋まったグリッド
+  - 候補リスト
+  - 制約条件
+  outputs:
+  - 完成したグリッド
+  - 全配置履歴（根拠付き）

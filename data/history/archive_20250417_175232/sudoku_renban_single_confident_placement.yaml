@@ -1,0 +1,15 @@
+task_id: sudoku_renban_single_confident_placement
+title: Renban付き4x4数独で根拠のある単マス配置
+description: 与えられた4x4数独パズル（Renban線あり）について、マス・値・根拠付きで、確定的に置けるセルを1つ解答する。解答には配置根拠を説明し（座標とRenban線を参照）、どのセルにどの値を入れるかを明示する。
+constraints:
+- 4x4サイズの数独（一部セルは事前入力されている）
+- Renban線：線上の数字が連続した列（昇順・降順順不同）となるルールあり
+- 1箇所だけ値を確信を持って記入し、その根拠（通常の数独ルール＋Renban）を含めて解説する
+- 配置根拠説明はどのセル・どのRenban線が絡むか座標で明示
+resources:
+- 4x4 Sudokuパズルの初期盤面
+- Renban線の座標情報
+- 通常数独ルール解説
+- Renbanルールの解説
+created_at: '2025-04-17T17:52:31.652664'
+updated_at: '2025-04-17T17:52:31.652664'

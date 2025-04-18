@@ -1,0 +1,38 @@
+task_id: sudoku_antiknight_kropki_4x4_1
+title: Solve 4x4 Sudoku with Antiknight and Partial Kropki Constraints
+description: 'Given a 4x4 Sudoku board with antiknight and partial Kropki constraints,
+  provide a certain logical deduction to place a single digit in a cell. The board
+  and constraints are:
+
+  Board:
+
+  3 . 2 1
+
+  1 2 4 .
+
+  2 1 3 4
+
+  4 . . .
+
+  Kropki dots:
+
+  - White dot between r1c3 and r1c4
+
+  - Black dot between r3c1 and r4c1
+
+  Antiknight means no two identical digits a knight''s move apart.'
+constraints:
+- The board is a 4x4 sudoku (digits 1,2,3,4 used in each row, column, and box).
+- 'Antiknight constraint: identical digits cannot be placed a chess knight''s move
+  apart.'
+- 'Partial Kropki constraint: A white dot means the two cells are consecutive, a black
+  dot means one cell is double the other, only for given pairs.'
+- 'Two explicit Kropki dots: White between r1c3 and r1c4, Black between r3c1 and r4c1.'
+- Leave a full logical trail and only place a digit where it is unambiguous/certain.
+resources:
+- Initial sudoku board (4x4, with digits and blanks)
+- Kropki dot information (cell pairs and their dot types)
+- Definition/rules of antiknight sudoku
+- Rules for Kropki sudoku (only for marked pairs)
+created_at: '2025-04-17T18:12:01.508687'
+updated_at: '2025-04-17T18:12:01.508687'

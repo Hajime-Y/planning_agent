@@ -1,0 +1,40 @@
+plan_id: plan_sudoku_4x4_next_move
+task_id: sudoku_4x4_next_move
+created_at: '2025-04-17T17:50:58.336938'
+updated_at: '2025-04-17T17:50:58.336938'
+version: 1
+status: in_progress
+subtasks:
+- id: s1
+  description: 指定された4x4数独盤面（途中まで埋まった状態）を受け取り、入力形式/内容の妥当性を検証する
+  status: in_progress
+  order: 1
+  inputs:
+  - 4x4数独盤面（2次元配列または所定表記、空白セルは0やNoneなどで表す）
+  outputs:
+  - 妥当性判定（True/False）および、整形済み盤面データ or エラー情報
+- id: s2
+  description: 各空白マスについて、Sudokuルールを用いて入る可能性がある候補数字をリストアップする
+  status: waiting
+  order: 2
+  inputs:
+  - 整形済み盤面データ
+  outputs:
+  - 各空白セルごとの候補数字リスト
+- id: s3
+  description: 候補が1つしかないセル（next certain placement）を抽出する（複数ある場合は1つ選択）
+  status: waiting
+  order: 3
+  inputs:
+  - 各空白セルごとの候補数字リスト
+  - 整形済み盤面データ
+  outputs:
+  - 選択したセル位置・確定数字・候補が一意となる論理的根拠
+- id: s4
+  description: 所定の出力形式（セル位置、置く数字、論理的根拠）で結果を整形し出力する
+  status: waiting
+  order: 4
+  inputs:
+  - 選択したセル位置・確定数字・根拠
+  outputs:
+  - 『セル(行,列), 数字, 根拠』の形式による出力

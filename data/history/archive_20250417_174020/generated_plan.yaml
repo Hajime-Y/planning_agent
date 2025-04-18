@@ -1,0 +1,31 @@
+plan_id: generated_plan
+task_id: generated_task
+created_at: '2025-04-17T17:40:17.536020'
+updated_at: '2025-04-17T17:40:17.536020'
+version: 1
+status: in_progress
+subtasks:
+- id: subtask1
+  description: 初期4x4数独盤面とサークル位置リストを受け取り、内部データ構造をセットアップする
+  status: completed
+  order: 1
+  inputs:
+    sudoku_board: 4x4 board (received)
+    circle_locations: list (received)
+  outputs: {}
+- id: subtask2
+  description: セットアップされた内部データ構造を使い、盤面とサークル制約のバリデーションを実施する
+  status: pending
+  order: 2
+  inputs:
+    internal_data_structures: subtask1の出力
+  outputs:
+    is_valid: 盤面/制約が妥当ならTrue, 問題があればFalseや詳細メッセージ
+- id: subtask3
+  description: バリデーションがOKであれば数独を解き、解を出力する
+  status: pending
+  order: 3
+  inputs:
+    validated_data: subtask2の出力
+  outputs:
+    solution: 解答ボードまたは解なしの場合のメッセージ

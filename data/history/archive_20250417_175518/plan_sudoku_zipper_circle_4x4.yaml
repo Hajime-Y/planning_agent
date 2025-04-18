@@ -1,0 +1,52 @@
+plan_id: plan_sudoku_zipper_circle_4x4
+task_id: sudoku_zipper_circle_4x4
+created_at: '2025-04-17T17:55:15.626263'
+updated_at: '2025-04-17T17:55:15.626263'
+version: 1
+status: in_progress
+subtasks:
+- id: st1
+  description: Given puzzle input, parse initial 4x4 Sudoku grid, and extract (or
+    receive) zipper line and circle constraint information.
+  status: pending
+  order: 1
+  inputs:
+    puzzle_grid: . 4 1 . / . 1 . . / . 2 3 . / . . 2 .
+    zipper_info: path and rules for zipper line, if available
+    circle_info: positions and rules for any circle constraints, if available
+  outputs:
+    parsed_grid: 4x4 grid as list of lists (integers and None for blanks)
+    zipper_constraints: list/dict describing the zipper constraint, or blank if not
+      specified
+    circle_constraints: list/dict describing circle constraints, or blank if not specified
+- id: st2
+  description: Formulate all sudoku constraints in code-friendly format (rows, columns,
+    boxes, plus zipper and circle constraints as available).
+  status: pending
+  order: 2
+  inputs:
+    parsed_grid: from st1
+    zipper_constraints: from st1
+    circle_constraints: from st1
+  outputs:
+    constraints_obj: all constraints in an object or structure for use by solver
+- id: st3
+  description: Solve the Sudoku using all formulated constraints (standard and additional).
+  status: pending
+  order: 3
+  inputs:
+    parsed_grid: from st1
+    constraints_obj: from st2
+  outputs:
+    solved_grid: completed 4x4 grid
+- id: st4
+  description: Verify all solution constraints, and return solution (or report conflict
+    if unsolvable).
+  status: pending
+  order: 4
+  inputs:
+    solved_grid: from st3
+    constraints_obj: from st2
+  outputs:
+    verification_result: valid/invalid with explanation
+    final_solution: solved grid if valid

@@ -1,0 +1,50 @@
+plan_id: plan_sudoku_4x4_sun
+task_id: sudoku_4x4_sun_puzzle
+created_at: '2025-04-16T21:17:55.897764'
+updated_at: '2025-04-16T21:17:55.897764'
+version: 1
+status: in_progress
+subtasks:
+- id: st1
+  description: Define and represent the empty Sudoku grid, sun cell positions, and
+    all standard as well as sun constraints.
+  status: not_started
+  order: 1
+  inputs: []
+  outputs:
+  - sudoku_grid
+  - sun_positions
+  - sudoku_constraints
+- id: st2
+  description: Enumerate possible candidates for each cell based on Sudoku and sun
+    constraints.
+  status: not_started
+  order: 2
+  inputs:
+  - sudoku_grid
+  - sun_positions
+  - sudoku_constraints
+  outputs:
+  - cell_candidates
+- id: st3
+  description: Search for a valid grid solution by applying constraint propagation
+    and backtracking.
+  status: not_started
+  order: 3
+  inputs:
+  - cell_candidates
+  - sun_positions
+  - sudoku_constraints
+  outputs:
+  - solution_grid
+- id: st4
+  description: Verify and present the solution grid(s), ensuring all Sudoku and sun
+    constraints are satisfied.
+  status: not_started
+  order: 4
+  inputs:
+  - solution_grid
+  - sudoku_constraints
+  - sun_positions
+  outputs:
+  - final_answer_grid

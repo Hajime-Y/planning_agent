@@ -1,0 +1,15 @@
+task_id: sudoku_4x4_special_constraints
+title: 特殊制約付き4x4数独のステップバイステップ解法
+description: 4x4数独の初期盤面（. 3 4 2 / . 4 . 3 / 3 1 2 4 / . 2 3 .）を、4x4数独の通常ルール、1:2 black
+  dot ratio、colored lineのルールを守ってステップバイステップで解く。
+constraints:
+- 4x4数独ルール（各行・各列・全ての2x2ブロックで1〜4の数字が重複しない）
+- 1:2 black dot ratio（各行または各列または盤面全体で黒点が一定比率・数で配置される？詳細必要）
+- colored line rules（盤面上のcolored lineについてルールあり。詳細不明なら要確認）
+- 与えられた初期盤面を守って解く
+resources:
+- '初期盤面: [[''.'',3,4,2], [''.'',4,''.'',3], [3,1,2,4], [''.'',2,3,''.'']]'
+- 4x4数独解法の知識
+- black dot/colored lineの制約詳細情報
+created_at: '2025-04-17T18:07:34.188215'
+updated_at: '2025-04-17T18:07:34.188215'

@@ -1,0 +1,50 @@
+plan_id: sudoku_knight_thermo_4x4_plan
+task_id: sudoku_knight_thermo_4x4
+created_at: '2025-04-17T17:38:58.937228'
+updated_at: '2025-04-17T17:38:58.937228'
+version: 1
+status: in_progress
+subtasks:
+- id: st1
+  description: 初期盤面（与えられた入力）から、各マスの候補数字リストを全制約反映で作成する
+  status: pending
+  order: 1
+  inputs:
+  - initial board
+  - thermo locations
+  - all constraints
+  outputs:
+  - 'candidates_per_cell (dict): 各マスの可能候補数字'
+- id: st2
+  description: 候補リスト・盤面から、1つのみ確定可能なマス（ロジカルな根拠付き）を特定・決定する
+  status: pending
+  order: 2
+  inputs:
+  - candidates_per_cell
+  - board_state
+  outputs:
+  - chosen_cell
+  - placed_digit
+  - reasoning
+- id: st3
+  description: 新たな決定をもとに盤面を更新・候補を再計算する
+  status: pending
+  order: 3
+  inputs:
+  - chosen_cell
+  - placed_digit
+  - current_board
+  - previous_candidates
+  outputs:
+  - new_board_state
+  - new_candidates_per_cell
+- id: st4
+  description: これらのステップ（st2,st3）を、全マスが決まるまで繰り返す（配置ごとに理由も記録）
+  status: pending
+  order: 4
+  inputs:
+  - current_board
+  - current_candidates
+  outputs:
+  - full_solution_steps (list of {cell, digit, reason})
+  - completed_board

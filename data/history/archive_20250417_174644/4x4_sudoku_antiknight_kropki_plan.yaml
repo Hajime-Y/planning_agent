@@ -1,0 +1,41 @@
+plan_id: 4x4_sudoku_antiknight_kropki_plan
+task_id: 4x4_sudoku_antiknight_kropki
+created_at: '2025-04-17T17:46:33.519823'
+updated_at: '2025-04-17T17:46:33.519823'
+version: 1
+status: in_progress
+subtasks:
+- id: s1
+  description: 初期ボード状態・制約の再現と情報整理 (数独盤面, Anti-Knight, Kropki制約)
+  status: not_started
+  order: 1
+  inputs:
+    initial_board: r1c1=3, r1c3=2, r2c3=4, r3c3=3, r3c4=4, r4c1=4, 他空白
+    kropki_dots: 'white: r1c3<->r1c4, black: r3c1<->r4c1'
+  outputs:
+    parsed_board: 初期配置を全マスのリスト/マトリクス形式にまとめ、Kropki説明も含めた制約情報を構造化
+- id: s2
+  description: 全ての空きマス(初期値未設定セル)に対して各制約下での候補数字リスト作成
+  status: not_started
+  order: 2
+  inputs:
+    parsed_board: s1の出力
+  outputs:
+    cell_candidates: 各空きマスごとの候補数字リスト
+- id: s3
+  description: Kropki, Anti-Knight等の制約を順に適用し、候補数字を絞り込む（排除ステップ）
+  status: not_started
+  order: 3
+  inputs:
+    cell_candidates: s2の出力
+    parsed_board: s1の出力
+  outputs:
+    refined_candidates: 候補が明確に1つになったマス、候補数減の各マス情報
+- id: s4
+  description: 確実に一意に決まる空きマスがあるかの発見と、その根拠の記述
+  status: not_started
+  order: 4
+  inputs:
+    refined_candidates: s3の出力
+  outputs:
+    unique_placement: 一意に決まる空きマスと其の数字、および根拠の説明

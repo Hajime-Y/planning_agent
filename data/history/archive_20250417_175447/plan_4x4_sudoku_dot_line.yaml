@@ -1,0 +1,53 @@
+plan_id: plan_4x4_sudoku_dot_line
+task_id: 4x4_sudoku_dot_line_constraints
+created_at: '2025-04-17T17:54:40.577134'
+updated_at: '2025-04-17T17:54:40.577134'
+version: 1
+status: in_progress
+subtasks:
+- id: parse_input
+  order: 1
+  description: タスク説明の初期盤面・盤面構造・制約設定を内部表現（データ構造化）に変換する
+  status: not_started
+  inputs:
+  - タスク説明文
+  - 要件ファイル (requirements)
+  outputs:
+  - 構造化されたパズルデータ（盤面, 各制約, 座標系, ライン情報）
+- id: expand_constraints
+  order: 2
+  description: ドット制約・カラーライン制約をすべて論理制約式として明示的に展開する
+  status: not_started
+  inputs:
+  - 構造化されたパズルデータ
+  outputs:
+  - 論理制約式のリスト
+- id: prepare_domains
+  order: 3
+  description: 各マスに入る可能性のある値や初期状態での可否情報（ドメイン）を計算し、解答準備をする
+  status: not_started
+  inputs:
+  - 構造化されたパズルデータ
+  - 論理制約式のリスト
+  outputs:
+  - 制約伝搬後の値域（変数ドメイン情報）
+- id: solve_sudoku
+  order: 4
+  description: パズルの制約を用いて一意解を探索し、盤面を完成させる
+  status: not_started
+  inputs:
+  - 制約伝搬後の値域
+  - 論理制約式のリスト
+  outputs:
+  - 解答盤面
+- id: verify_and_output
+  order: 5
+  description: 得られた解答が基準を満たすか検証し、結果を出力整形する
+  status: not_started
+  inputs:
+  - 解答盤面
+  - タスク説明文
+  - 制約リスト
+  outputs:
+  - 検証レポート
+  - 最終出力（解答盤面）

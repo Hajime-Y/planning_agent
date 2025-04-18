@@ -1,0 +1,68 @@
+plan_id: killer_sudoku_4x4_stepplan_main
+task_id: killer_sudoku_4x4_stepplan
+created_at: '2025-04-17T18:11:02.739665'
+updated_at: '2025-04-17T18:11:02.739665'
+version: 1
+status: in_progress
+subtasks:
+- id: init-board-and-cages
+  description: 初期盤面データとケージ情報を入力として、解答開始時の状態として整形する。各座標(rXcY)のリストと埋まっているセル値の取得も行う。
+  status: not_started
+  order: 1
+  inputs:
+    board_raw: . 2 1 3 / . 3 . 4 / 2 4 3 1 / . 1 4 .
+    cages:
+    - - r1c2
+      - r1c3
+      - r2c3
+    - - r1c4
+      - r2c4
+      - r3c3
+      - r3c4
+      - r4c3
+      - r4c4
+    - - r2c2
+      - r3c2
+      - r4c1
+      - r4c2
+    - - r1c1
+      - r2c1
+      - r3c1
+  outputs:
+    board: 2次元配列（未確定はNone, 確定は数字1~4）の盤面
+    cages: 各ケージごとの座標リスト
+    empty_cells: 未確定セルの座標リスト
+- id: step_solve_one_cell
+  description: 現在の盤面・ケージ状態をもとに、論理的に必然と決まる一マスを特定し、その場所と値、理由を出力する。
+  status: not_started
+  order: 2
+  inputs:
+    board: 直前の盤面状態
+    cages: ケージ構成および割当素数和の候補情報（なければ推定）
+    empty_cells: 残り未確定セルリスト
+  outputs:
+    cell_to_fill: 次に確定できるセル(rXcY)
+    value: 埋める数字
+    logical_reason: その値に決まる論理的根拠
+- id: update_board_after_step
+  description: 確定した一手のセル・値を元に盤面・空欄セルリストを更新する。
+  status: not_started
+  order: 3
+  inputs:
+    board: ひとつ前の盤面状態
+    cell_to_fill: 埋めるセル座標
+    value: 埋める値
+    empty_cells: 前ステップの空欄セルリスト
+  outputs:
+    board: 新しい盤面状態
+    empty_cells: 新しい空欄セルリスト
+- id: check_solved
+  description: 盤面の全セルが埋まり、すべての数独・ケージ・素数条件を満たすかを検証する。
+  status: not_started
+  order: 4
+  inputs:
+    board: 最新盤面
+    cages: ケージ情報と割当素数和
+  outputs:
+    is_solved: True/False（クリアならTrue）
+    violations: もし不成立箇所があれば指摘

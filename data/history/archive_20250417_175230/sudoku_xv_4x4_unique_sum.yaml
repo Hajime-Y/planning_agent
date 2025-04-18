@@ -1,0 +1,25 @@
+task_id: sudoku_xv_4x4_unique_sum
+title: Solve 4x4 Sudoku with unique sum and constraint clues
+description: Solve a 4x4 Sudoku variant using digits 1-9 (no repeats per row/col/box,
+  all digits unique in row/col), where each row/column/box sums to an unknown total
+  x, which must be deduced, and specified V(XV) constraints (V:sum5, X:sum10) are
+  given between some cells. You must find a cell with only one possible value and
+  specify its placement.
+constraints:
+- Sudoku grid is 4x4.
+- Use digits 1-9. Each row, column, and box must not repeat digits.
+- The sum of each row, column, and box is the same unknown integer x (to be found).
+- Set of digits in each row/column is unique (no two rows or columns have the same
+  four digits).
+- 'V constraint: The two adjacent cells sum to 5.'
+- 'X constraint: The two adjacent cells sum to 10.'
+- 'Given constraints: V between r1c1-r1c2 and r2c3-r3c3; X between r2c2-r2c3, r1c4-r2c4,
+  r3c2-r4c2.'
+- Not all X's and V's are necessarily given.
+- Find and specify a cell that has only one possible value.
+resources:
+- Sudoku rules reference
+- Description of X and V Sudoku constraints
+- Paper or programmatic Sudoku solver
+created_at: '2025-04-17T17:52:30.401429'
+updated_at: '2025-04-17T17:52:30.401429'

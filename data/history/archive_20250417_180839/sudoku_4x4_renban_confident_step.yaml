@@ -1,0 +1,18 @@
+task_id: sudoku_4x4_renban_confident_step
+title: 4x4 Sudoku - Renban Line Confident Placement
+description: Solve the provided 4x4 Sudoku puzzle with standard Sudoku and Renban
+  line rules. Make a single confident placement based on logical deduction.
+constraints:
+- Input is a 4x4 Sudoku grid (possibly with Renban lines specified).
+- 'Standard Sudoku rules: each digit (1-4) appears once in each row, column, and 2x2
+  box.'
+- 'Renban line rules: All digits on a Renban line form a consecutive sequence (in
+  any order).'
+- The solution requires a single, logically deducible cell placement (use deduction,
+  no guess).
+- Output the step with justification for the confident placement.
+resources:
+- 4x4 Sudoku puzzle with possible Renban line indications
+- Sudoku and Renban rules reference
+created_at: '2025-04-17T18:08:33.904200'
+updated_at: '2025-04-17T18:08:33.904200'

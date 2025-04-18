@@ -1,0 +1,42 @@
+plan_id: plan_sudoku_4x4_error_sum_palindrome
+task_id: sudoku_4x4_error_sum_palindrome
+created_at: '2025-04-17T17:49:08.224209'
+updated_at: '2025-04-17T17:49:08.224209'
+version: 1
+status: in_progress
+subtasks:
+- id: subtask_1
+  description: 初期盤面および全制約（行/列合計、パリンドローム、エラー制約など）を整理・入力する
+  status: not_started
+  order: 1
+  inputs:
+    raw_board: '現在の盤面（例: . 1 3 . / . 2 . . / . 2 1 . / . . 4 .）'
+    constraint_info: 追加制約（行/列合計値、パリンドローム区間、エラー部分など）。
+  outputs:
+    parsed_board: 4x4の2次元リストとしての初期盤面
+    structured_constraints: 制約をプログラム的に扱えるデータ構造
+- id: subtask_2
+  description: 構造化された制約と初期盤面情報に基づき盤面の候補をリストアップし、制約違反を検出する
+  status: not_started
+  order: 2
+  inputs:
+    parsed_board: 初期盤面
+    structured_constraints: 全ての制約情報
+  outputs:
+    candidate_boards: 制約をすべて満たす可能性のある盤面群
+- id: subtask_3
+  description: 候補盤面から解の一意性を確認し、最終解盤面を決定する
+  status: not_started
+  order: 3
+  inputs:
+    candidate_boards: 候補盤面のリスト
+  outputs:
+    solution_board: 解と確定した盤面（唯一性も明示）
+- id: subtask_4
+  description: 最終解盤面を人に分かる形で出力・説明する
+  status: not_started
+  order: 4
+  inputs:
+    solution_board: 一意に確定した最終解盤面
+  outputs:
+    formatted_solution: 可読性の高い出力形式・説明

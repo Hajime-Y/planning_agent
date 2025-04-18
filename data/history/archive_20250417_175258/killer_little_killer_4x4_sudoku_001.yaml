@@ -1,0 +1,21 @@
+task_id: killer_little_killer_4x4_sudoku_001
+title: 4x4 Killer + Little Killer Sudoku Solver
+description: "Solve a 4x4 Sudoku puzzle combining Killer and Little Killer constraints.\n\
+  Board is empty. Killer cages:\n - (5) in r1c1 r1c2\n - (8) in r2c1 r2c2 r3c2\n -\
+  \ (4) in r2c4 r3c4\nLittle Killer: Diagonal (8) from r1c4 down-left (r1c4, r2c3,\
+  \ r3c2, r4c1)."
+constraints:
+- 'Standard 4x4 Sudoku rules: Each digit 1-4 appears once per row, column, and box.'
+- 'Killer cages: Sum constraints, digits no repeat within each cage.'
+- 'Cage (5): r1c1, r1c2'
+- 'Cage (8): r2c1, r2c2, r3c2'
+- 'Cage (4): r2c4, r3c4'
+- 'Little Killer: r1c4, r2c3, r3c2, r4c1 sum to 8 (no repeats).'
+- Board starts empty.
+resources:
+- Empty 4x4 Sudoku grid
+- Killer cage layout
+- Little Killer clue info
+- Sudoku/Killer/Little Killer deduction logic
+created_at: '2025-04-17T17:52:46.450192'
+updated_at: '2025-04-17T17:52:46.450192'

@@ -1,0 +1,71 @@
+plan_id: plan_sudoku_snake_friendly_4x4
+task_id: sudoku_snake_friendly_4x4
+created_at: '2025-04-17T17:44:04.994917'
+updated_at: '2025-04-17T17:44:04.994917'
+version: 1
+status: in_progress
+subtasks:
+- id: analyze_grid_structure
+  description: 'Define the structure of the 4x4 sudoku grid: cell coordinates, row/column/box
+    numbers, mapping boxes, and setup initial empty grid.'
+  status: pending
+  order: 1
+  inputs: []
+  outputs:
+  - grid_structure
+- id: determine_friendly_cells
+  description: For each cell in the grid, identify which digit placements make it
+    "friendly" (where digit matches row/col/box). Output a friendly cells map for
+    all digits.
+  status: pending
+  order: 2
+  inputs:
+  - grid_structure
+  outputs:
+  - friendly_cells_map
+- id: generate_snake_path_constraints
+  description: 'Formulate constraints for the snake: path starts at (1,1), passes
+    only through non-friendly cells, 1 cell wide, touches each 2x2 box at least once,
+    no branching, no orthogonal self-touch.'
+  status: pending
+  order: 3
+  inputs:
+  - grid_structure
+  - friendly_cells_map
+  outputs:
+  - snake_path_constraint
+- id: solve_sudoku_with_snake
+  description: Logically solve the sudoku applying standard rules plus the friendly
+    cell and snake constraints. Maintain candidate lists for each cell.
+  status: pending
+  order: 4
+  inputs:
+  - grid_structure
+  - snake_path_constraint
+  - friendly_cells_map
+  outputs:
+  - solving_progress
+- id: find_first_logical_placement
+  description: Identify the first cell where a digit can be uniquely and logically
+    placed considering all constraints.
+  status: pending
+  order: 5
+  inputs:
+  - solving_progress
+  outputs:
+  - cell_position
+  - digit_to_place
+  - reasoning
+- id: document_and_visualize_step
+  description: Document the logical reasoning and visualize the grid after the first
+    logical placement.
+  status: pending
+  order: 6
+  inputs:
+  - grid_structure
+  - cell_position
+  - digit_to_place
+  - reasoning
+  outputs:
+  - documentation
+  - visualization

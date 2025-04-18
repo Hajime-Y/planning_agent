@@ -1,0 +1,36 @@
+task_id: snake_4x4_sudoku_001
+title: Solve 4x4 Snake/Friendly Sudoku
+description: 'Solve the given 4x4 Sudoku puzzle with the snake/friendly constraint.
+  Normal sudoku rules apply. Additionally, a ''snake'' occupies all non-friendly cells
+  (cells not matching their row, column, or box number), starting at r1c1, visiting
+  every box at least once, containing only non-friendly cells, snaking orthogonally
+  without touching itself. Only non-friendly cells are on the snake; friendly cells
+  are not.The puzzle is:
+
+  . 1 4 3
+
+  . 3 . 1
+
+  3 4 1 2
+
+  . 2 3 .'
+constraints:
+- 'Standard 4x4 Sudoku rules: each row, column, and 2x2 box contains numbers 1-4 exactly
+  once.'
+- Given clues must be used as fixed values.
+- A 'friendly' cell is a cell whose value equals its row, column, or box number (1-based
+  indexing).
+- All NON-friendly cells must be visited by a single contiguous 'snake' path.
+- The snake starts in r1c1 (row 1, column 1).
+- The snake path must visit at least one cell in every 2x2 box.
+- The snake consists only of non-friendly cells and must not revisit/touch itself
+  orthogonally.
+- Only non-friendly cells are part of the snake; friendly cells are not on the snake.
+- Cells not on the snake (i.e., friendly cells) must not be orthogonally adjacent
+  to any other snake cell except via a snake head/tail.
+resources:
+- The given 4x4 Sudoku puzzle
+- Definition of 'friendly' and 'non-friendly' cells
+- Sudoku and snake path rules as above
+created_at: '2025-04-17T18:09:27.596981'
+updated_at: '2025-04-17T18:09:27.596981'

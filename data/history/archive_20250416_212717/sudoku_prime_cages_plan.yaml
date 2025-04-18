@@ -1,0 +1,42 @@
+plan_id: sudoku_prime_cages_plan
+task_id: sudoku_prime_cages
+created_at: '2025-04-16T21:26:45.916759'
+updated_at: '2025-04-16T21:26:45.916759'
+version: 1
+status: in_progress
+subtasks:
+- id: st1_define_structure
+  description: 4x4 Sudoku盤面とケージのレイアウト（各マスがどのケージに属するか）を定義する
+  status: not_started
+  order: 1
+  inputs: []
+  outputs:
+  - board_structure
+  - cage_map
+- id: st2_prime_sum_assignment
+  description: 各ケージに割り当て可能な素数の合計を、ダブりなく探索する
+  status: not_started
+  order: 2
+  inputs:
+  - cage_map
+  outputs:
+  - cage_prime_sums
+- id: st3_generate_cage_combinations
+  description: 各ケージについて指定された素数合計になる数字の組み合わせ（1-4, 繰り返し可）をリストアップする
+  status: not_started
+  order: 3
+  inputs:
+  - cage_map
+  - cage_prime_sums
+  outputs:
+  - cage_number_options
+- id: st4_search_full_solution
+  description: 数独ルール（各行・列に1-4が1つずつ）を守りつつ、ケージごとの数字割り当てを一致させて全体解を探索・決定する
+  status: not_started
+  order: 4
+  inputs:
+  - board_structure
+  - cage_map
+  - cage_number_options
+  outputs:
+  - solution

@@ -1,0 +1,40 @@
+plan_id: plan_euler_sudoku_4x4
+task_id: euler_sudoku_4x4
+created_at: '2025-04-17T18:11:34.277105'
+updated_at: '2025-04-17T18:11:34.277105'
+version: 1
+status: in_progress
+subtasks:
+- id: parse_board
+  description: 与えられた盤面情報（数字、サーモメーター、奇数制約）の取り込みと構造化
+  status: pending
+  order: 1
+  inputs:
+  - 盤面初期配置文字列
+  - サーモメーター・奇数制約の情報
+  outputs:
+  - 内部表現の初期盤面データ
+- id: analyze_constraints
+  description: 数字、色、サーモメーター、奇数、Euler制約などの全制約の構造化
+  status: pending
+  order: 2
+  inputs:
+  - 内部表現の初期盤面データ
+  outputs:
+  - すべてのセルごとの候補リスト
+- id: deduce_candidates
+  description: 論理的な除外や定義域減少を繰り返し、確定可能なセルを特定
+  status: pending
+  order: 3
+  inputs:
+  - すべてのセルごとの候補リスト
+  outputs:
+  - 現時点で確定して埋まるセルのリスト
+- id: find_definite_digit
+  description: どの空セルにも確実に入る数字があれば、それを見つける
+  status: pending
+  order: 4
+  inputs:
+  - 現時点で確定して埋まるセルのリスト
+  outputs:
+  - 空セルと、そのセルに確定できる数字

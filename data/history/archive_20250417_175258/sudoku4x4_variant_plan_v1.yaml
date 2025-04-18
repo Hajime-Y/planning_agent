@@ -1,0 +1,52 @@
+plan_id: sudoku4x4_variant_plan_v1
+task_id: sudoku4x4_variant
+created_at: '2025-04-17T17:52:57.378045'
+updated_at: '2025-04-17T17:52:57.378045'
+version: 1
+status: in_progress
+subtasks:
+- id: subtask1
+  description: 盤面とヒントをもとに初期状態（候補表）を作成する
+  status: not_started
+  order: 1
+  inputs:
+  - 盤面サイズ（4x4）
+  - 使用可能な数字（1-9）
+  - 各種制約（行・列・ボックスの合計＝X、重複禁止、一意なセット）
+  - V/Xヒントの位置
+  outputs:
+  - 各マスに入る可能性のある数字候補リスト
+- id: subtask2
+  description: すべての行・列・ボックスの組み合わせから和が等しいXを決定
+  status: not_started
+  order: 2
+  inputs:
+  - 各マスの候補リスト
+  outputs:
+  - 成立しうるXの候補値リスト
+- id: subtask3
+  description: VとXのヒントを考慮して候補をさらに絞り込む
+  status: not_started
+  order: 3
+  inputs:
+  - V/Xヒントの位置
+  - Xの候補値リスト
+  - 各マスの候補リスト
+  outputs:
+  - 絞り込まれた各マスの候補リスト
+- id: subtask4
+  description: 必要なら追加で制約（行・列の一意性など）を解析し、推論を進める
+  status: not_started
+  order: 4
+  inputs:
+  - 絞り込まれた各マスの候補リスト
+  outputs:
+  - 最終的に確定できる配置（1つでも確定マスがあればその内容）
+- id: subtask5
+  description: 最初の確定できるマスを報告する
+  status: not_started
+  order: 5
+  inputs:
+  - 確定した配置
+  outputs:
+  - '最初の確定配置（例: r2c3=5）'

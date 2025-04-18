@@ -1,0 +1,51 @@
+plan_id: sudoku_step_placement_plan
+task_id: sudoku_step_placement
+created_at: '2025-04-17T18:10:59.118751'
+updated_at: '2025-04-17T18:10:59.118751'
+version: 1
+status: in_progress
+subtasks:
+- id: st_1_initial_state
+  description: 初期状態と与えられた制約をもとに盤面と制約情報を整理する
+  status: not_started
+  order: 1
+  inputs:
+  - 初期盤面の数字配置
+  - 追加制約リスト
+  outputs:
+  - 整理済み盤面データ構造
+  - 制約データ構造
+- id: st_2_candidates
+  description: 各マスの候補値（1～4のうち重複しないもの）リストを作成する
+  status: not_started
+  order: 2
+  inputs:
+  - 整理済み盤面データ構造
+  outputs:
+  - 全マスの候補値リスト
+- id: st_3_constraints_propagation
+  description: 通常ルールと追加制約を用いて候補を絞り込む
+  status: not_started
+  order: 3
+  inputs:
+  - 全マスの候補値リスト
+  - 制約データ構造
+  outputs:
+  - 絞り込み後の候補値リスト
+- id: st_4_find_unique_cell
+  description: 候補値が1つに確定したマスを探し、その位置と値を特定する
+  status: not_started
+  order: 4
+  inputs:
+  - 絞り込み後の候補値リスト
+  outputs:
+  - 値が唯一となったマスの座標と値
+- id: st_5_place_number
+  description: 唯一値が確定したマスに、その値を記入して盤面を更新する
+  status: not_started
+  order: 5
+  inputs:
+  - 整理済み盤面データ構造
+  - 値が唯一となったマスの座標と値
+  outputs:
+  - 値を1つ記入した後の盤面

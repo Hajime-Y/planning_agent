@@ -1,0 +1,22 @@
+task_id: euler_sudoku_4x4_task
+title: 4x4 Euler Sudoku Puzzle Solver
+description: 'Solve the given 4x4 Euler Sudoku puzzle with the current board state
+  and the specified rules: Digits 1-4, Four colors, every digit/color combination
+  appears exactly once, standard sudoku region constraints, thermometer (thermo) constraints,
+  and odd-digit circle constraints. Each step should confidently place a single value.'
+constraints:
+- Digits 1-4 must appear exactly once in every row, column, and 2x2 box.
+- Each color must be assigned to every cell, and every digit/color combination appears
+  once in the grid.
+- 'Thermometer (thermo) constraints: values along each thermometer shape must increase
+  from bulb to tip.'
+- 'Odd-digit circle constraint: specified cells (with circles) must contain odd digits.'
+- Initial board state is provided (positions of some digits, colors, and clues).
+- Each response must place only one confident value.
+resources:
+- Current 4x4 sudoku board state (digits and colors)
+- List of thermometers (ordered cell positions for each thermometer)
+- List of cells with odd-digit (circle) constraint
+- Color/digit mapping table (if applicable)
+created_at: '2025-04-17T18:05:30.107718'
+updated_at: '2025-04-17T18:05:30.107718'

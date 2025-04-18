@@ -1,0 +1,59 @@
+plan_id: sudoku_sun_4x4_plan
+task_id: sudoku_sun_4x4
+created_at: '2025-04-16T21:27:56.072849'
+updated_at: '2025-04-16T21:27:56.072849'
+version: 1
+status: in_progress
+subtasks:
+- id: parse_input
+  description: Given the textual Sudoku grid and sun clue descriptions, parse and
+    structure them into a board representation and sun clue list.
+  status: pending
+  order: 1
+  inputs:
+    sudoku_grid_text: . 4 2 1 | . 2 . 3 | 2 3 1 4 | . 1 3 .
+    sun_clues:
+    - r2c2
+    - r2c4
+    - r3c4
+  outputs:
+    board: 2D list for cells, with int or None for unknown
+    sun_clues_structured: List with sun cell coordinates
+- id: generate_candidates
+  description: For each empty cell, generate possible candidates based on the basic
+    Sudoku rules.
+  status: pending
+  order: 2
+  inputs:
+    board: Sudoku board with initial values
+  outputs:
+    candidates: Dictionary mapping cell coordinates to a set of possible values
+- id: apply_sunburn_rules
+  description: 'Apply the sunburn clue logic: Ensure all ☀️ cells are 4, and enforce
+    summit/gradient constraints in related rows and columns.'
+  status: pending
+  order: 3
+  inputs:
+    board: Current board
+    sun_clues_structured: Sunburn clue positions
+    candidates: Initial candidates
+  outputs:
+    candidates_after_sunburn: Revised candidates after applying sunburn rules
+- id: find_forced_placement
+  description: Identify any cell where, by candidate elimination and sunburn logic,
+    only one placement/value is possible.
+  status: pending
+  order: 4
+  inputs:
+    candidates_after_sunburn: Reduced candidates per cell
+  outputs:
+    forced_move: Cell coordinate and value that is necessarily placed
+- id: summarize_result
+  description: Present the forced placement and the logical deduction path that led
+    to it.
+  status: pending
+  order: 5
+  inputs:
+    forced_move: The cell and value to be placed
+  outputs:
+    summary: Clear description of cell and its unique value, and why

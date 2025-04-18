@@ -1,0 +1,22 @@
+task_id: euler_sudoku_4x4
+title: 4x4 Euler Sudoku Solver with Colors and Visual Constraints
+description: 'Solve the provided 4x4 Euler Sudoku puzzle. The puzzle uses digits 1-4
+  and colors (each row, column, box contains each color once), with extra visual constraints
+  like thermos and odd/even indicators. Initial board: . 2 4 . / . 1 . . / . 4 2 .
+  / . . 1 . and visual elements.'
+constraints:
+- 'Standard 4x4 Sudoku: each digit 1-4 appears exactly once per row, column, and 2x2
+  box.'
+- 'Euler Sudoku color rule: each of 4 colors appears once per row, column, and 2x2
+  box.'
+- 'Given board state: . 2 4 . / . 1 . . / . 4 2 . / . . 1 .'
+- 'Additional visual constraints: thermos (digits must increase along marked thermometers),
+  odd (cells must have odd digits) or even circles, etc.'
+- All standard Sudoku and color/Euler rules must be satisfied together with the visual
+  constraints.
+resources:
+- Initial Sudoku grid (4x4) with given digits.
+- Description of visual constraint elements (thermo, odd/even markers, etc.)
+- Color assignment mechanism for 4x4 Sudoku.
+created_at: '2025-04-17T12:13:21.496946'
+updated_at: '2025-04-17T12:13:21.496946'

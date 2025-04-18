@@ -1,0 +1,24 @@
+task_id: sudoku_variant_4x4
+title: 4x4 Sudoku Variant Solver
+description: 'Solve the 4x4 sudoku variant with the following rules: Fill grid with
+  digits 1-9; no digit repeats in any row, column, or box; each row, column, and box
+  set is unique (no two have same set of digits); the sum of digits in each row, column,
+  and box is the same and must be determined; cells separated by V sum to 5, cells
+  separated by X sum to 10 (not all X/V given). Given board and X/V constraints as
+  per specification.'
+constraints:
+- 4x4 grid; each cell must be filled with a digit from 1 to 9 (inclusive).
+- No digit repeats within any row.
+- No digit repeats within any column.
+- No digit repeats within any 2x2 box (standard sudoku boxes).
+- For each row/column/box,数字集合が完全に一意（どれも同じセットの数字を持たない）。
+- 各行・列・ボックスの数字の合計が等しい（この値も自分で特定する必要あり）。
+- V記号で区切られたペア和=5、X記号で区切られたペア和=10（全てのV/Xが盤上に明示されているわけではない）。
+- '盤面初期値：r1: . 1 5 8, r2: . 7 . 2, r3: 5 4 2 7, r4: . 6 8 .'
+- V, Xヒント位置：V (r1c1-r1c2, r2c3-r3c3), X (r2c2-r2c3, r1c4-r2c4, r3c2-r4c2)。
+resources:
+- パズルの初期盤面情報
+- V, Xヒントのセル間接続情報
+- 標準数独と指定バリアントルール
+created_at: '2025-04-17T18:08:58.125947'
+updated_at: '2025-04-17T18:08:58.125947'

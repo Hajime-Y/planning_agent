@@ -1,0 +1,39 @@
+plan_id: plan_sudoku_antiknight_kropki_4x4
+task_id: sudoku_antiknight_kropki_4x4
+created_at: '2025-04-17T17:48:14.929574'
+updated_at: '2025-04-17T17:48:14.929574'
+version: 1
+status: in_progress
+subtasks:
+- id: subtask1
+  description: 4x4盤面のデータ構造を準備し、初期ヒント（r1c1=3, r1c3=2, r2c3=4, r3c3=3, r3c4=4, r4c1=4）をセットする。
+  status: not_started
+  order: 1
+  inputs: []
+  outputs:
+  - 初期化済みの4x4盤面データ
+- id: subtask2
+  description: 通常数独、Antiknight、部分Kropkiすべてを検証する制約チェック関数を実装する。
+  status: not_started
+  order: 2
+  inputs:
+  - 初期化済みの4x4盤面データ
+  outputs:
+  - 制約検証関数
+- id: subtask3
+  description: 制約検証関数を用いて全解候補を探索し、答えとなる盤面を導出する。
+  status: not_started
+  order: 3
+  inputs:
+  - 初期化済みの4x4盤面データ
+  - 制約検証関数
+  outputs:
+  - 完成した数独盤面（解答）
+- id: subtask4
+  description: 得られた盤面の解がすべての制約を満たしているか再度チェックし、フォーマット済みの答えを出力する。
+  status: not_started
+  order: 4
+  inputs:
+  - 完成した数独盤面（解答）
+  outputs:
+  - 最終的な答え（解答盤面の表形式など）

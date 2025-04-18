@@ -1,0 +1,79 @@
+plan_id: plan1
+task_id: task1
+created_at: '2025-04-17T17:59:23.551932'
+updated_at: '2025-04-17T17:59:23.551932'
+version: 1
+status: in_progress
+subtasks:
+- id: subtask1
+  description: 4x4数独グリッドの初期化、および日焼け（サンバーン）手がかりの記録
+  status: completed
+  order: 1
+  inputs: {}
+  outputs:
+    initial_grid:
+    - - null
+      - null
+      - null
+      - null
+    - - null
+      - null
+      - null
+      - null
+    - - null
+      - null
+      - null
+      - null
+    - - null
+      - null
+      - null
+      - null
+    sunburn_positions:
+    - !!python/tuple
+      - 1
+      - 1
+    - !!python/tuple
+      - 1
+      - 3
+    - !!python/tuple
+      - 2
+      - 3
+- id: subtask2
+  description: サンバーン手がかりから該当マスに色ヒントを付与し、グリッド候補値を更新する
+  status: pending
+  order: 2
+  inputs:
+    initial_grid:
+    - - null
+      - null
+      - null
+      - null
+    - - null
+      - null
+      - null
+      - null
+    - - null
+      - null
+      - null
+      - null
+    - - null
+      - null
+      - null
+      - null
+    sunburn_positions:
+    - !!python/tuple
+      - 1
+      - 1
+    - !!python/tuple
+      - 1
+      - 3
+    - !!python/tuple
+      - 2
+      - 3
+  outputs: {}
+- id: subtask3
+  description: 全体制約に基づいて候補値を絞り込む（伝播による消去）
+  status: pending
+  order: 3
+  inputs: {}
+  outputs: {}

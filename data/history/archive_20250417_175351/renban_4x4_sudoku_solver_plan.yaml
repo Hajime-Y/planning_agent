@@ -1,0 +1,53 @@
+plan_id: renban_4x4_sudoku_solver_plan
+task_id: renban_4x4_sudoku_solver
+created_at: '2025-04-17T17:53:49.643210'
+updated_at: '2025-04-17T17:53:49.643210'
+version: 1
+status: in_progress
+subtasks:
+- id: parse_board_and_renban
+  description: タスク説明から初期盤面とRenban線リストを具体的なデータ構造にパースする
+  status: pending
+  order: 1
+  inputs:
+    initial_board_text: 'r1: . 3 . .
+
+      r2: 2 . 3 .
+
+      r3: . . 1 3
+
+      r4: 3 . . .'
+    renban_lines_text:
+    - r4c1 r3c2 r2c2 r1c1
+    - r2c3 r2c4 r1c4
+    - r4c4 r3c4 r4c3
+    - r1c2 r1c3
+  outputs:
+    board_matrix: 4x4のリスト（未確定はNone）
+    renban_lines_indices: 各Renban線のマス位置インデックスリスト
+- id: formulate_constraints
+  description: 4x4数独およびRenban制約を入力データから数理的制約式として定式化する
+  status: pending
+  order: 2
+  inputs:
+    board_matrix: 前サブタスク出力
+    renban_lines_indices: 前サブタスク出力
+  outputs:
+    constraints: 数独規則＋Renban線ルールの制約情報
+- id: solve_sudoku_with_constraints
+  description: すべての制約下で盤面（board_matrix）の解を探索・決定する
+  status: pending
+  order: 3
+  inputs:
+    board_matrix: 初期盤面
+    constraints: 定式化済みの制約情報
+  outputs:
+    solution_board: 完成した盤面(4x4リスト)
+- id: validate_and_present_solution
+  description: 解が全てのルールを満たすことを検証し、可読な形式で提示する
+  status: pending
+  order: 4
+  inputs:
+    solution_board: 盤面完成形
+  outputs:
+    validated_solution: ルールに違反がないかのチェック結果と整形済み出力

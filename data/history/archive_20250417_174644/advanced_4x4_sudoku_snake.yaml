@@ -1,0 +1,28 @@
+task_id: advanced_4x4_sudoku_snake
+title: 4x4 Advanced Sudoku (Snake Constraint) Logical Deduction
+description: 'Solve the given 4x4 sudoku puzzle with additional constraints: Normal
+  sudoku rules, a 1-cell-wide snake as per the rules, and the definition of ''friendly''
+  cells. The snake is made of non-friendly cells and covers all non-friendly cells.
+  Place a single digit with logical certainty. Puzzle: . 1 4 . / . 3 . . / . 4 1 .
+  / . . 3 .'
+constraints:
+- 'Standard 4x4 sudoku rules: Each digit 1-4 must appear exactly once in every row,
+  column and each 2x2 box.'
+- A one-cell-wide 'snake' (series of orthogonally connected cells) starts in the top-left
+  cell (cell [0,0]).
+- The snake cannot branch, nor touch itself orthogonally (no 2 orthogonally adjacent
+  snake cells except consecutive).
+- The snake must visit every 2x2 box at least once.
+- A cell is 'friendly' if its digit equals its row (1-indexed), or column (1-indexed),
+  or box number (top-left box is 1, numbering left-to-right, top-to-bottom).
+- The snake consists of all and only those cells which are not 'friendly'.
+- 'Given initial board: ''. 1 4 . / . 3 . . / . 4 1 . / . . 3 .'' (rows are slash
+  (/) separated; dots are empty).'
+- 'The goal: Logically deduce and fill a single empty cell with confidence.'
+- Output should clearly indicate the chosen cell, the digit placed, and supporting
+  logical steps.
+resources:
+- The initial sudoku board state
+- Definitions for 'friendly' cells, snake constraints, and standard sudoku rules
+created_at: '2025-04-17T17:46:32.486894'
+updated_at: '2025-04-17T17:46:32.486894'

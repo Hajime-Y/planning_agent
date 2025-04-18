@@ -1,0 +1,46 @@
+plan_id: plan_killer_littlekiller_4x4_sudoku
+task_id: killer_littlekiller_4x4_sudoku
+created_at: '2025-04-17T18:04:31.147277'
+updated_at: '2025-04-17T18:04:31.147277'
+version: 1
+status: in_progress
+subtasks:
+- id: parse_inputs
+  description: 盤面・キラーケージ・リトルキラー条件をデータ構造に変換する
+  status: in_progress
+  order: 1
+  inputs:
+  - 初期盤面テキスト
+  - ケージ情報テキスト
+  - リトルキラー条件テキスト
+  outputs:
+  - 構造化された初期盤面
+  - ケージ情報
+  - リトルキラー条件情報
+- id: generate_candidates
+  description: ケージ・リトルキラーなどすべての制約を考慮した候補値リストの生成
+  status: in_progress
+  order: 2
+  inputs:
+  - 構造化された初期盤面
+  - ケージ情報
+  - リトルキラー条件情報
+  outputs:
+  - 全マスの候補値リスト
+- id: solve_puzzle
+  description: すべての制約を満たす解（唯一/全解）の探索
+  status: in_progress
+  order: 3
+  inputs:
+  - 候補値リスト
+  - 盤面構造・制約情報
+  outputs:
+  - 最終的な解答盤面（または全解リスト）
+- id: output_results
+  description: 解答盤面を指定フォーマットで出力
+  status: in_progress
+  order: 4
+  inputs:
+  - 最終的な解答盤面
+  outputs:
+  - 出力用文字列・データ

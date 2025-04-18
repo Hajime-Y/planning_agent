@@ -1,0 +1,49 @@
+plan_id: sudoku_zipper_circle_plan_v1
+task_id: sudoku_zipper_circle_v1
+created_at: '2025-04-17T18:07:55.276534'
+updated_at: '2025-04-17T18:07:55.276534'
+version: 1
+status: in_progress
+subtasks:
+- id: parse_inputs
+  description: パズルの初期盤面と特殊制約（ジッパーライン座標・サークルセル・初期数字）を受け取り解析し、内部表現に変換する
+  status: not_started
+  order: 1
+  inputs:
+    grid_string: '''. 4 1 2 / . 1 . 3 / 1 2 3 4 / . 3 2 .'''
+    circle_positions:
+    - r1c1
+    - r2c1
+    - r2c4
+    - r3c1
+    - r4c2
+    - r4c3
+    zipper_lines: '（問題文の視覚情報が必要、例: [[r1c2, r2c2, r3c2]] など）'
+  outputs:
+    internal_representation: 盤面（数値配列）、円位置リスト、ジッパーライン定義リスト
+- id: deduce_constraints
+  description: 標準数独・ジッパー・サークル条件を論理式として定式化し、各セルへの配置候補リストを生成。
+  status: not_started
+  order: 2
+  inputs:
+    internal_representation: サブタスク1の出力
+  outputs:
+    constraint_candidates: 各セルの候補数字リスト、及び制約情報
+- id: solve_sudoku
+  description: 得られた候補リストと制約条件から、数独を解く（必要に応じてバックトラッキング・制約伝播）。
+  status: not_started
+  order: 3
+  inputs:
+    constraint_candidates: サブタスク2の出力
+  outputs:
+    solution_grid: 完成した4x4盤面の数字配列
+- id: verify_solution
+  description: 得られた解が、通常の数独・ジッパーライン・サークルいずれの条件も満たすか確認する。
+  status: not_started
+  order: 4
+  inputs:
+    solution_grid: サブタスク3の出力
+    circle_positions: サブタスク1の出力
+    zipper_lines: サブタスク1の出力
+  outputs:
+    is_valid: 真偽値または、検証ログ

@@ -1,0 +1,29 @@
+plan_id: default
+task_id: default_task
+created_at: '2025-04-17T17:47:43.072606'
+updated_at: '2025-04-17T17:47:43.072606'
+version: 1
+status: in_progress
+subtasks:
+- id: '1'
+  description: r4c3に4を配置（パリンドローム制約と行合計制約に基づく）
+  status: completed
+  order: 1
+  inputs: {}
+  outputs: {}
+  comments: Placed 4 in r4c3 and, by palindrome constraint, also in r4c4.
+- id: '2'
+  description: r4c4に4を配置（パリンドローム制約のためr4c3と同値）
+  status: pending
+  order: 2
+  inputs:
+    cell: r4c4
+    value: 4
+    reason: palindrome constraint
+  outputs: {}
+- id: '3'
+  description: 行4の残りマスを他の制約（合計・重複など）に従い決定
+  status: pending
+  order: 3
+  inputs: {}
+  outputs: {}

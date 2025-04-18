@@ -1,0 +1,84 @@
+plan_id: default
+task_id: default_task
+created_at: '2025-04-17T17:44:24.207154'
+updated_at: '2025-04-17T17:44:24.207154'
+version: 1
+status: in_progress
+subtasks:
+- id: subtask_1
+  description: 4x4の空グリッド盤面を初期化し、各行・列番号を1から4で割り当て、各セルに2x2ボックス番号（TL=1, TR=2, BL=3, BR=4）を計算する。
+  status: completed
+  order: 1
+  inputs: {}
+  outputs:
+    empty_board: 4x4 list of lists (all empty)
+    row_nums:
+    - 1
+    - 2
+    - 3
+    - 4
+    col_nums:
+    - 1
+    - 2
+    - 3
+    - 4
+    box_nums:
+    - - 1
+      - 1
+      - 2
+      - 2
+    - - 1
+      - 1
+      - 2
+      - 2
+    - - 3
+      - 3
+      - 4
+      - 4
+    - - 3
+      - 3
+      - 4
+      - 4
+  comments: Initialized the board and calculated box numbers.
+- id: subtask_2
+  description: 各セルに関して「friendly」セルロジック（同じ行・列・ボックス内のセル集合を特定）を定義し、各セルごとにfriendly_cellsをリスト化する。
+  status: pending
+  order: 2
+  inputs:
+    row_nums:
+    - 1
+    - 2
+    - 3
+    - 4
+    col_nums:
+    - 1
+    - 2
+    - 3
+    - 4
+    box_nums:
+    - - 1
+      - 1
+      - 2
+      - 2
+    - - 1
+      - 1
+      - 2
+      - 2
+    - - 3
+      - 3
+      - 4
+      - 4
+    - - 3
+      - 3
+      - 4
+      - 4
+  outputs:
+    friendly_cells: セルごとに行・列・ボックスで重複なくインデックスリスト
+  comments: ''
+- id: subtask_3
+  description: （例）ルールやゲームに必要な追加ロジック、セル解決・候補値制約などを定義する。
+  status: pending
+  order: 3
+  inputs: {}
+  outputs: {}
+  comments: ''

@@ -1,0 +1,20 @@
+task_id: killer_little_killer_4x4_sudoku
+title: 4x4 Killer/Little Killer Sudoku Cell Deduction
+description: 'Solve the given 4x4 Sudoku puzzle with killer-cage and little killer-diagonal
+  constraints. The killer cages are: (sum 5) r1c1 r1c2; (sum 8) r2c1 r2c2 r3c2; (sum
+  4) r2c4 r3c4. There is a little killer diagonal from r1c4 to r4c1 which must sum
+  to 8. Goal: Deduce the unique placement for at least one cell step by step.'
+constraints:
+- Standard 4x4 Sudoku rules (each number 1-4 appears once per row, column, and box)
+- 'Killer cages: cells in cage must sum to given value; no repeats in a cage'
+- 'Killer cages: (sum 5) at r1c1, r1c2; (sum 8) at r2c1, r2c2, r3c2; (sum 4) at r2c4,
+  r3c4'
+- 'Little killer diagonal: cells r1c4, r2c3, r3c2, r4c1 sum to 8'
+- Deduce at least one cell value with logical step-by-step reasoning
+resources:
+- Initial grid size and location system (RxCy)
+- List of killer cages and their sums
+- Location of little killer diagonal and its sum constraint
+- List of Sudoku rules
+created_at: '2025-04-17T17:50:21.437187'
+updated_at: '2025-04-17T17:50:21.437187'

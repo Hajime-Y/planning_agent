@@ -1,0 +1,53 @@
+plan_id: plan_sudoku_snake_001
+task_id: sudoku_snake_task_001
+created_at: '2025-04-17T18:04:38.370264'
+updated_at: '2025-04-17T18:04:38.370264'
+version: 1
+status: in_progress
+subtasks:
+- id: subtask_1
+  order: 1
+  description: Organize and visualize the initial 4x4 board along with the standard
+    Sudoku rules and any known extra constraints (snake, friendly cells).
+  inputs:
+  - Initial 4x4 board
+  - Standard Sudoku rules
+  - Snake/friendly cells constraint (if available)
+  outputs:
+  - Clear representation of board state and constraints, ready for further deduction
+- id: subtask_2
+  order: 2
+  description: List all possible candidates for each unsolved cell based on standard
+    Sudoku rules.
+  inputs:
+  - Organized board state
+  - Standard Sudoku rules
+  outputs:
+  - Table/grid of possible candidate values for each unsolved cell
+- id: subtask_3
+  order: 3
+  description: Refine candidates in each unsolved cell considering the snake and friendly
+    cells constraint if details are present.
+  inputs:
+  - Candidate table
+  - Snake/friendly cells constraint details
+  outputs:
+  - Updated candidate grid for each cell (after extra constraints applied)
+- id: subtask_4
+  order: 4
+  description: Select one unsolved cell that can be uniquely determined; provide logical
+    deduction and step-by-step justification.
+  inputs:
+  - Updated candidate grid
+  outputs:
+  - Identification of one cell and the unique value it must contain with explanation
+- id: subtask_5
+  order: 5
+  description: Summarize deduction and update board state with the newly placed unique
+    value.
+  inputs:
+  - Cell/value pair with explanation
+  - Current board state
+  outputs:
+  - Updated board state
+  - Step-by-step summary of how this value was logically determined

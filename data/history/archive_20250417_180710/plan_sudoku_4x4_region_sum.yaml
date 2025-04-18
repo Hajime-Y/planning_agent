@@ -1,0 +1,56 @@
+plan_id: plan_sudoku_4x4_region_sum
+task_id: sudoku_4x4_region_sum
+created_at: '2025-04-17T18:07:09.545886'
+updated_at: '2025-04-17T18:07:09.545886'
+version: 1
+status: in_progress
+subtasks:
+- id: analyze_puzzle
+  description: 与えられた4x4数独初期盤面とRegion Sum Line情報を整理し、構造や制約条件をリストアップする
+  status: ready
+  order: 1
+  inputs:
+  - 数独初期盤面
+  - Region Sum Line位置・合計値情報
+  outputs:
+  - 整理された盤面表現
+  - 制約リスト
+- id: generate_candidates
+  description: 各未確定マスについて現時点の候補数字をすべて列挙する
+  status: pending
+  order: 2
+  inputs:
+  - 整理された盤面表現
+  - 制約リスト
+  outputs:
+  - ペンシルマーク（候補数字）一覧
+- id: apply_constraints
+  description: 一般的な数独制約とRegion Sum Line制約を組み合わせて、各マスの候補から不適切な数字を除外する
+  status: pending
+  order: 3
+  inputs:
+  - 候補数字一覧
+  - 制約リスト
+  outputs:
+  - フィルタ済み候補数字一覧
+- id: deduce_solution
+  description: 論理的推論により、少なくとも一つ以上のセルについて数字を確定させる
+  status: pending
+  order: 4
+  inputs:
+  - フィルタ済み候補数字一覧
+  - 整理された盤面表現
+  - 制約リスト
+  outputs:
+  - 確定した解答（セル位置・数字）
+- id: update_board_and_verify
+  description: 確定した数字を盤面に反映し、他マスへの影響と制約適合性を確認する
+  status: pending
+  order: 5
+  inputs:
+  - 確定した解答
+  - 整理された盤面表現
+  - 制約リスト
+  outputs:
+  - 更新後の盤面
+  - 制約違反有無

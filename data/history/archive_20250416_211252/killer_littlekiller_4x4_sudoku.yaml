@@ -1,0 +1,23 @@
+task_id: killer_littlekiller_4x4_sudoku
+title: 4x4 Killer + Little Killer Sudoku Puzzle Solving
+description: 'Solve a 4x4 grid sudoku puzzle applying all of the following constraints:
+
+  - Standard sudoku rules (no digits repeat in any row, column, or 2x2 box).
+
+  - Killer cages with specified sums and positions.
+
+  - Little Killer diagonal clue: top-right to bottom-left diagonal sums to 8.'
+constraints:
+- 'Standard sudoku rules: Each row, column, and 2x2 box must contain the digits 1-4
+  with no repeats.'
+- 'Killer cage (sum=5): r1c1, r1c2.'
+- 'Killer cage (sum=8): r2c1, r2c2, r3c2.'
+- 'Killer cage (sum=4): r2c4, r3c4.'
+- 'Little Killer (diagonal clue): r1c4, r2c3, r3c2, r4c1 sum to 8.'
+- No initial digits are given.
+resources:
+- Empty 4x4 sudoku grid.
+- List of killer cages with sums and cell locations.
+- Little Killer diagonal sum clue.
+created_at: '2025-04-16T21:12:04.819599'
+updated_at: '2025-04-16T21:12:04.819599'

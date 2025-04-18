@@ -1,0 +1,23 @@
+task_id: sudoku_4x4_variant
+title: Solve Advanced 4x4 variant Sudoku Puzzle with Additional Constraints
+description: 'Solve the given 4x4 variant Sudoku puzzle. The grid is partially filled:
+  . 1 5 8 / . 7 . 2 / 5 4 2 7 / . 6 8 . Digits must not repeat in any row, column,
+  or box. No two rows or columns can have the same set of digits. Rows, columns, and
+  boxes all sum to the same value (unknown, to be deduced). Digits separated by ''V''
+  must sum to 5, and those with ''X'' must sum to 10. Not all such V/X markers are
+  shown. Explicit X/V markers constrain certain cell pairs.'
+constraints:
+- 'Input grid: . 1 5 8 / . 7 . 2 / 5 4 2 7 / . 6 8 . （空欄を . で示す、左上から横一列ずつ並べたもの）'
+- 各行、列、ボックス内で数字の重複は禁止（通常の数独ルール）。
+- 任意の２つの行または列は、同じ数字の組み合わせを持ってはいけない（並び方は異なるが集合として一致もNG）。
+- 各行、各列、各ボックス（2x2）それぞれの合計値はすべて等しい（合計値は推測して求める）。
+- '''V''で区切られたセル対は数字の合計が5、''X''で区切られたセル対は合計が10になる。'
+- すべてのX/Vマーカーが示されているわけではない（隠れたX/Vの組み合わせも考慮）。
+- 指定されたセルペアにのみ明示的なX/Vマーカーあり（どことどこかは実際のパズル図や追加情報参照）
+- 使用する数字は1〜8（通常数独の4x4では1〜4 だが、与えられた例から8まで使用する）
+resources:
+- 部分的に埋められた4x4の数独盤面
+- XおよびVのマーカーのセル位置情報（明示的なもの）
+- ペンと紙／数独解法アルゴリズム
+created_at: '2025-04-16T21:21:22.576732'
+updated_at: '2025-04-16T21:21:22.576732'

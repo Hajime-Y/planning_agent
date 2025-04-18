@@ -1,0 +1,21 @@
+task_id: sudoku_4x4_sun_puzzle
+title: Solve 4x4 Sun Sudoku Puzzle
+description: 'Solve a 4x4 Sudoku puzzle with three suns (☀️) at r2c2, r2c4, and r3c4.
+  Rules: Each row, column, and 2x2 box contains 1-4 exactly once. A digit on a sun
+  indicates the number of surrounding cells that contain smaller digits. The initial
+  grid is fully empty.'
+constraints:
+- The puzzle is a 4x4 Sudoku.
+- Each row contains all digits 1-4 exactly once.
+- Each column contains all digits 1-4 exactly once.
+- Each 2x2 box contains all digits 1-4 exactly once.
+- 'Three special cells (suns ☀️) are at positions: row 2 col 2 (r2c2), row 2 col 4
+  (r2c4), row 3 col 4 (r3c4).'
+- A digit placed on a sun gives the number of adjacent cells (horizontally/vertically/diagonally
+  adjacent) that contain strictly smaller digits.
+- The initial grid is fully empty (no digits filled in).
+resources:
+- Sudoku puzzle grid (4x4)
+- 'Sun indicator positions: (2,2), (2,4), (3,4)'
+created_at: '2025-04-16T21:17:42.088863'
+updated_at: '2025-04-16T21:17:42.088863'

@@ -1,0 +1,55 @@
+plan_id: plan_sudoku_variant_001
+task_id: sudoku_variant_001
+created_at: '2025-04-17T17:48:01.689779'
+updated_at: '2025-04-17T17:48:01.689779'
+version: 1
+status: in_progress
+subtasks:
+- id: define_structure
+  description: Define the sudoku grid structure, location of special constraints (thermometers,
+    dots, gray cell), and initial digits.
+  status: open
+  order: 1
+  inputs:
+  - puzzle description (as above)
+  outputs:
+  - structured representation of grid, constraints, and givens
+- id: find_digit_subset
+  description: Identify all possible 4-digit subsets from 1–9 that could be used for
+    the puzzle.
+  status: open
+  order: 2
+  inputs:
+  - structured grid
+  - subset constraint
+  outputs:
+  - list of candidate 4-digit subsets
+- id: model_constraints
+  description: Model all grid constraints (grid subset, thermometer, dot, initial
+    digit, even cell, etc.) for the chosen 4-digit subset.
+  status: open
+  order: 3
+  inputs:
+  - structured grid info
+  - chosen subset
+  - full constraint list
+  outputs:
+  - constraint model or program input describing all rules
+- id: solve_puzzle
+  description: Search/compute a solution that satisfies all modeled constraints and
+    initial digits.
+  status: open
+  order: 4
+  inputs:
+  - constraint model
+  outputs:
+  - solved sudoku grid (as list, dict, or visualization)
+- id: verify_and_format
+  description: Verify the solution for all constraints and format it for output.
+  status: open
+  order: 5
+  inputs:
+  - solution grid
+  - constraint model
+  outputs:
+  - checked and formatted answer

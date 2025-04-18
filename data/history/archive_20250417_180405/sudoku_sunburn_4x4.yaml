@@ -1,0 +1,19 @@
+task_id: sudoku_sunburn_4x4
+title: 4x4 Sudoku Puzzle Solving with Sunburn Clues
+description: 'Solve a 4x4 Sudoku puzzle which is subject to standard Sudoku rules
+  and includes three special ‘sunburn’ clues: r2c2, r2c4, r3c4. A sunburn clue means
+  the digit at that cell indicates the number of its (orthogonally+diagonally) adjacent
+  cells with a smaller digit. Initial grid is empty. Provide all forced, logical placements.'
+constraints:
+- Each row, column, and 2x2 box contains digits 1-4 exactly once.
+- '‘Sunburn’ clues are at r2c2, r2c4, r3c4: for each, its digit equals how many adjacent
+  cells have a smaller digit.'
+- All remaining cells are empty (no initial clues except sunburn constraints).
+- All placements must be deduced logically (no guessing).
+- Provide forced placements for every empty cell if possible.
+resources:
+- Standard Sudoku solving logic
+- Sunburn clue checking & propagation
+- 4x4 Sudoku grid structure
+created_at: '2025-04-17T17:58:16.389179'
+updated_at: '2025-04-17T17:58:16.389179'

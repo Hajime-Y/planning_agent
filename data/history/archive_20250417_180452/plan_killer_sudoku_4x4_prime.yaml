@@ -1,0 +1,62 @@
+plan_id: plan_killer_sudoku_4x4_prime
+task_id: killer_sudoku_4x4_prime
+created_at: '2025-04-17T18:04:37.886902'
+updated_at: '2025-04-17T18:04:37.886902'
+version: 1
+status: in_progress
+subtasks:
+- id: st1
+  description: 初期盤面とケージ情報を構造化し、解析用データモデルを作成する
+  inputs:
+    初期盤面: . 2 1 3 / . 3 . 4 / 2 4 3 1 / . 1 4 .
+    ケージ情報:
+      '1':
+      - r1c2
+      - r1c3
+      - r2c3
+      '2':
+      - r1c4
+      - r2c4
+      - r3c3
+      - r3c4
+      - r4c3
+      - r4c4
+      '3':
+      - r2c2
+      - r3c2
+      - r4c1
+      - r4c2
+      '4':
+      - r1c1
+      - r2c1
+      - r3c1
+  outputs:
+    データモデル: 盤面とケージの構造化情報 (Pythonのデータ構造等)
+  order: 1
+  status: not_started
+- id: st2
+  description: 構造化情報から、各ケージに入る数字の候補組み合わせ（合計が素数で他と値が被らないもの全て）を列挙する
+  inputs:
+    データモデル: st1の出力
+  outputs:
+    ケージごとの素数組み合わせリスト: 候補充塡値と対応合計
+  order: 2
+  status: not_started
+- id: st3
+  description: 全ての制約（行・列・ケージ、素数和、一意性）を満たす盤面を探索し、唯一解を導く
+  inputs:
+    盤面構造と初期値: st1の出力
+    ケージごとの素数組み合わせ: st2の出力
+  outputs:
+    解答盤面: 完成した4x4盤面（配列 or 文字列など）
+  order: 3
+  status: not_started
+- id: st4
+  description: 求めた解答盤面と各ケージ和を出力し、全制約を満たしているか最終確認する
+  inputs:
+    解答盤面: st3の出力
+    ケージ割付情報: st1の出力
+  outputs:
+    解答サマリー: 盤面・ケージ・各種制約すべて満たしている結果要約
+  order: 4
+  status: not_started

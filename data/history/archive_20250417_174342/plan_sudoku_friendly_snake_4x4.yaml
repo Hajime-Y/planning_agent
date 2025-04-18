@@ -1,0 +1,65 @@
+plan_id: plan_sudoku_friendly_snake_4x4
+task_id: sudoku_friendly_snake_4x4
+created_at: '2025-04-17T17:43:32.116011'
+updated_at: '2025-04-17T17:43:32.116011'
+version: 1
+status: in_progress
+subtasks:
+- id: st1
+  description: 4x4数独グリッド、行/列/ボックス番号の定義、および空の盤面初期化
+  status: pending
+  order: 1
+  inputs: []
+  outputs:
+  - empty_board
+  - row_nums
+  - col_nums
+  - box_nums
+- id: st2
+  description: 全てのセルに対して『フレンドリー』かどうか（digit==row, digit==col, digit==box成立）を判定する関数の作成
+  status: pending
+  order: 2
+  inputs:
+  - row_nums
+  - col_nums
+  - box_nums
+  outputs:
+  - is_friendly_function
+- id: st3
+  description: 空の盤面に対して、スネークが通過可能なパス（出発点r1c1から各ボックスに最低1セルずつ訪れる、自己交差せずオーソゴナルな形）を生成しうるか検証し、条件をデータ構造に反映
+  status: pending
+  order: 3
+  inputs:
+  - empty_board
+  - is_friendly_function
+  outputs:
+  - snake_path_constraints
+- id: st4
+  description: 普通の数独制約（各行/列/ボックスに1-4が1回ずつ）と『スネーク』『フレンドリー』条件を統合し、矛盾の無い候補リストを各マスごとに作成
+  status: pending
+  order: 4
+  inputs:
+  - empty_board
+  - is_friendly_function
+  - snake_path_constraints
+  outputs:
+  - candidates_per_cell
+- id: st5
+  description: 現状の候補リスト、配置済みセル（最初はゼロ）をもとに、「必然的に決まる論理的強制手」を列挙（1手目を決定、マス位置と値を出す）
+  status: pending
+  order: 5
+  inputs:
+  - candidates_per_cell
+  outputs:
+  - first_move
+- id: st6
+  description: （追加実装用）以後の推論手筋や全解探索ロジックとの連携
+  status: optional
+  order: 6
+  inputs:
+  - first_move
+  - empty_board
+  - candidates_per_cell
+  - snake_path_constraints
+  outputs:
+  - solution_progression

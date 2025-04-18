@@ -1,0 +1,30 @@
+task_id: error_sudoku_4x4_001
+title: Solve a 4x4 Error Sudoku with error and clue constraints
+description: 'Solve a 4x4 Error Sudoku:
+
+  - Place digits 1-4 on a 4x4 grid so each appears exactly 4 times.
+
+  - Digits may not repeat in a row, column, or box except: For each digit N, exactly
+  N rule violations (errors) must occur (each violating pair counts as one error for
+  its digit).
+
+  - The grid has initial placements, row/column sum clues, and two palindrome lines.'
+constraints:
+- Each digit 1-4 must appear exactly 4 times in the entire grid.
+- Standard Sudoku rules apply (no repeats in row/column/box) except error rule.
+- For each digit N, exactly N pairs of the digit may violate the sudoku rule (repeat
+  in a row/column/box).
+- "Grid initial clues:\n r1: . 1 3 .\n r2: . 2 . .\n r3: . 2 1 .\n r4: . . 4 ."
+- 'Boxes are: (r3c1, r3c2, r4c1, r4c2) and (r3c3, r3c4, r4c3, r4c4)'
+- 'Palindrome lines must read the same forwards and backwards: [r4c3, r4c4], [r3c3,
+  r2c4]'
+- 'Sum clues: sum of r0c2 < 7, sum of r0c1 < 13, sum of r4c0 > 10, sum of r2c0 > 10'
+resources:
+- Grid structure with cell coordinates (rXcY, 1-indexed).
+- Initial given digits and location.
+- List of region (box) coordinates.
+- Description of error-pair counting for each digit.
+- Palindrome lines coordinates.
+- Sum clue target cell/row/column relationships.
+created_at: '2025-04-17T17:48:16.268437'
+updated_at: '2025-04-17T17:48:16.268437'

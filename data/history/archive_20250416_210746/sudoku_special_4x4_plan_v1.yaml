@@ -1,0 +1,72 @@
+plan_id: sudoku_special_4x4_plan_v1
+task_id: sudoku_special_4x4_001
+created_at: '2025-04-16T21:05:35.109013'
+updated_at: '2025-04-16T21:05:35.109013'
+version: 1
+status: in_progress
+subtasks:
+- id: st1
+  description: 初期盤面と全制約情報の整理・構造化
+  status: not_started
+  order: 1
+  inputs:
+    初期盤面:
+    - - .
+      - '3'
+      - '4'
+      - '2'
+    - - .
+      - '4'
+      - .
+      - '3'
+    - - '3'
+      - '1'
+      - '2'
+      - '4'
+    - - .
+      - '2'
+      - '3'
+      - .
+    黒点ペア情報:
+    - !!python/tuple
+      - r4c1
+      - r4c2
+    palegreen_line:
+    - r3c1
+    - r3c2
+    - r4c3
+    plum_line:
+    - r2c2
+    - r2c3
+    - r3c4
+    - r4c4
+  outputs:
+    parsed_board: 数独盤面のデータ構造
+    constraints_struct: 制約のデータ構造
+- id: st2
+  description: 標準数独ルール＋黒点＋colored line（各条件）の適用/候補値リストアップ
+  status: not_started
+  order: 2
+  inputs:
+    parsed_board: st1の出力
+    constraints_struct: st1の出力
+  outputs:
+    candidates_dict: 各マスごとの候補値リスト
+- id: st3
+  description: すべての制約の下で、必然的に確定できるマスを探索
+  status: not_started
+  order: 3
+  inputs:
+    candidates_dict: st2の出力
+    parsed_board: st1の出力
+    constraints_struct: st1の出力
+  outputs:
+    certain_cell: 確定配置できるマス（座標・値ペア）
+- id: st4
+  description: '解答フォーマット <ANSWER>rXcY: Z</ANSWER> で出力'
+  status: not_started
+  order: 4
+  inputs:
+    certain_cell: st3の出力
+  outputs:
+    formatted_answer: 出力用文字列

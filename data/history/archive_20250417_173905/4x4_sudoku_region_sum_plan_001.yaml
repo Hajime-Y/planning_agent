@@ -1,0 +1,44 @@
+plan_id: 4x4_sudoku_region_sum_plan_001
+task_id: 4x4_sudoku_region_sum_001
+created_at: '2025-04-17T17:38:58.377914'
+updated_at: '2025-04-17T17:38:58.377914'
+version: 1
+status: in_progress
+subtasks:
+- id: parse_input
+  description: 与えられた初期盤面文字列とリージョンサムラインのルールを解釈し、盤面データ構造や制約条件として整理する。
+  status: not_started
+  order: 1
+  inputs:
+    grid_string: '与えられた初期盤面（例: . 3 1 . / . 1 . . / . 4 2 . / . . 4 .）'
+    sum_line_info: リージョンサムラインの情報・構造（※問題で与えられている場合。無ければ仮定または推定が必要）
+  outputs:
+    grid: 盤面を2次元配列で表現
+    region_sum_constraints: リージョンサムライン構造および各制約条件データ構造
+- id: analyze_constraints
+  description: 盤面初期配置と数独・リージョンサムラインの制約を全て洗い出し、解法戦略を決定する。
+  status: not_started
+  order: 2
+  inputs:
+    grid: parse_inputサブタスクの出力
+    region_sum_constraints: parse_inputサブタスクの出力
+  outputs:
+    constraint_model: 全制約条件を反映した論理モデル
+- id: solve_sudoku
+  description: 制約条件下で数独を解き、唯一解（あるいは全解）を探索する。
+  status: not_started
+  order: 3
+  inputs:
+    constraint_model: analyze_constraintsサブタスクの出力
+  outputs:
+    solution_grid: 完成した解答（2次元配列または文字列表現）
+- id: validate_solution
+  description: 完成盤面がすべての数独ルールおよびリージョンサムラインの条件を満たすか検証する。
+  status: not_started
+  order: 4
+  inputs:
+    solution_grid: solve_sudokuサブタスクの出力
+    region_sum_constraints: parse_inputサブタスクの出力
+  outputs:
+    is_valid: True/False（解が正しいか）
+    validation_report: 検証内容の詳細説明

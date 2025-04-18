@@ -1,0 +1,85 @@
+plan_id: plan_sudoku_variant_4x4
+task_id: sudoku_variant_4x4
+created_at: '2025-04-17T18:04:41.183012'
+updated_at: '2025-04-17T18:04:41.183012'
+version: 1
+status: in_progress
+subtasks:
+- id: st1_analyze_grid_and_constraints
+  description: Analyze the given starting grid and enumerate all special constraints
+    (thermo, black/white dots, even cell, 4-digit subset) with their cell positions.
+  status: not_started
+  order: 1
+  inputs:
+    starting_grid:
+    - - null
+      - 4
+      - 5
+      - 6
+    - - null
+      - 5
+      - null
+      - 8
+    - - 4
+      - 8
+      - 6
+      - 5
+    - - null
+      - 6
+      - 8
+      - null
+    constraints: &id001
+    - Each row, column, and 2x2 box must contain exactly the same 4 digits (subset
+      of 1–9), no repeats per house.
+    - 'Thermometer: digits on each thermometer strictly increase from the bulb to
+      the tip.'
+    - 'Black dot (between r4c3 and r4c4): those two cells must contain numbers in
+      a 2:1 ratio (one cell is twice the value of the other).'
+    - 'White dot (between r1c2 and r2c2): those two cells must be consecutive numbers
+      (difference of 1).'
+    - Cell r2c1 (gray square) must be an even number.
+    - Initial digits as given in grid must be preserved.
+    - 'Sudoku rules adapted for 4x4 grid: each house uses 4 digits drawn from 1–9.'
+  outputs:
+    positions_by_constraint: 詳細な制約ごとのセル番地一覧、適用条件、使う数字セット、開始配置の整理
+- id: st2_determine_digit_subset
+  description: Determine the set of 4 digits (from 1–9) that must be used in every
+    row, column, and 2x2 box, based on starters and constraints.
+  status: not_started
+  order: 2
+  inputs:
+    starting_grid: Starting grid as above
+    constraint_mapping: Positions and requirements from subtasks 1
+  outputs:
+    digit_subset: 定まった4桁セット
+- id: st3_generate_candidates_per_cell
+  description: For each empty cell, generate a list of candidate digits based on Sudoku
+    constraints, initial digits, constraints.
+  status: not_started
+  order: 3
+  inputs:
+    starting_grid: 同上
+    digit_subset: From subtask 2
+    positions_by_constraint: From subtask 1
+  outputs:
+    candidates_dict: 各空きマスの候補数字リスト
+- id: st4_constraint_propagation_and_solution
+  description: Apply all constraints and propagate deductions (thermo, ratio, consecutive,
+    even, no repeats, starting grid) to determine the unique solution.
+  status: not_started
+  order: 4
+  inputs:
+    candidates_dict: From subtask 3
+    constraint_mapping: From subtask 1
+  outputs:
+    solved_grid: 完成した4x4グリッド
+- id: st5_solution_verification_and_presentation
+  description: Verify the solution meets all the constraints, and present the final
+    completed grid.
+  status: not_started
+  order: 5
+  inputs:
+    solved_grid: From subtask 4
+    constraints: *id001
+  outputs:
+    verified_grid: 最終完成・検証済みグリッド

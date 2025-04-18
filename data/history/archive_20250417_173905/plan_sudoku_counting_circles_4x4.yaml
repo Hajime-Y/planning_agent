@@ -1,0 +1,61 @@
+plan_id: plan_sudoku_counting_circles_4x4
+task_id: sudoku_counting_circles_4x4
+created_at: '2025-04-17T17:38:59.993422'
+updated_at: '2025-04-17T17:38:59.993422'
+version: 1
+status: in_progress
+subtasks:
+- id: subtask1_input_receive
+  description: 初期盤面（入力、0やNoneで未確定マスを表現）とサークルマス位置リストを受け取る
+  status: pending
+  order: 1
+  inputs:
+  - 4x4盤面（初期値。確定数値または未確定マス）
+  - 'サークル位置リスト（例: [(0,1),(1,2),...]）'
+  outputs:
+  - 初期盤面データ
+  - サークル位置リスト
+- id: subtask2_setup
+  description: 盤面・サークル情報から内部データ構造をセットアップする
+  status: pending
+  order: 2
+  inputs:
+  - 初期盤面データ
+  - サークル位置リスト
+  outputs:
+  - 内部盤面モデル
+  - サークルインデックスセット
+- id: subtask3_sudoku_constraint_validate
+  description: 現在の盤面が通常数独ルール（行・列・ボックス重複なし）を満たしているか判定する
+  status: pending
+  order: 3
+  inputs:
+  - 内部盤面モデル
+  outputs:
+  - '通常数独ルールの妥当性: bool'
+- id: subtask4_counting_circles_validate
+  description: 現在の盤面がCOUNTING CIRCLES制約を満たしているか判定する
+  status: pending
+  order: 4
+  inputs:
+  - 内部盤面モデル
+  - サークルインデックスセット
+  outputs:
+  - 'COUNTING CIRCLES制約の妥当性: bool'
+- id: subtask5_search_solution
+  description: 全制約を満たす盤面の探索（解があるか探索。なければ失敗を返す）
+  status: pending
+  order: 5
+  inputs:
+  - 初期盤面データ
+  - サークル位置リスト
+  outputs:
+  - 解となる盤面（またはNone/解なし情報）
+- id: subtask6_output_answer
+  description: 解答結果（盤面）をフォーマットして出力する
+  status: pending
+  order: 6
+  inputs:
+  - 解となる盤面
+  outputs:
+  - '可読な解答出力（例: テキストや行列）'

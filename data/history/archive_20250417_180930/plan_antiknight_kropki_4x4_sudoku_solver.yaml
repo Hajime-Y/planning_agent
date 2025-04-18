@@ -1,0 +1,44 @@
+plan_id: plan_antiknight_kropki_4x4_sudoku_solver
+task_id: antiknight_kropki_4x4_sudoku_solver
+created_at: '2025-04-17T18:09:22.335677'
+updated_at: '2025-04-17T18:09:22.335677'
+version: 1
+status: in_progress
+subtasks:
+- id: st1_parse_grid
+  order: 1
+  description: 初期盤面とKropkiドット・Antiknight制約を内部で利用できる形へ変換する
+  inputs:
+    initial_state: タスク説明から得られる初期配置情報・Kropkiドット位置・制約ルール一覧
+  outputs:
+    parsed_puzzle: 数独盤面と全制約を適用できる内部モデル
+- id: st2_generate_candidates
+  order: 2
+  description: 各セルの現時点での配置候補リストと制約適用状況を生成
+  inputs:
+    parsed_puzzle: 前ステップで作成した内部モデル
+  outputs:
+    candidates: セルごとの可能候補リスト
+- id: st3_logical_placement
+  order: 3
+  description: 配置候補から論理的に一意が確定するセルを特定し配置。配置理由も格納
+  inputs:
+    candidates: 前ステップの候補リスト
+    parsed_puzzle: 元データ
+  outputs:
+    updated_puzzle: 数字を新たに配置した盤面
+    step_explanation: 配置理由の説明
+- id: st4_update_and_repeat
+  order: 4
+  description: 盤面と候補を再計算し、論理配置サイクルを続ける
+  inputs:
+    updated_puzzle: 直前までの盤面
+  outputs:
+    solved_puzzle: 最終完成もしくは次の配置判断へ渡す盤面・候補
+- id: st5_backtrack_if_needed
+  order: 5
+  description: 論理配置で詰まった場合のみバックトラック手法で分岐探査
+  inputs:
+    current_puzzle: 詰まった段階の盤面
+  outputs:
+    solved_puzzle: 解決済み盤面

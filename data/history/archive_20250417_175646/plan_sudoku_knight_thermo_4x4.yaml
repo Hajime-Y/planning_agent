@@ -1,0 +1,53 @@
+plan_id: plan_sudoku_knight_thermo_4x4
+task_id: sudoku_knight_thermo_4x4
+created_at: '2025-04-17T17:56:30.115489'
+updated_at: '2025-04-17T17:56:30.115489'
+version: 1
+status: in_progress
+subtasks:
+- id: st1
+  description: 全体制約の詳細分析と盤面内の影響まとめ
+  status: pending
+  order: 1
+  inputs:
+  - タスク説明（要件定義）
+  - 4x4数独盤面の座標系
+  - サーモの起点・経路情報
+  outputs:
+  - 制約一覧（形式化済み）
+  - 各セルにかかる制約のマッピング情報
+- id: st2
+  description: サーモセルの候補値のリストアップ（各セルごとに可能な値と順列の洗い出し）
+  status: pending
+  order: 2
+  inputs:
+  - st1の出力：制約一覧・制約マップ
+  outputs:
+  - 各サーモセルごとの候補値セット
+  - サーモ全体の許容パターン
+- id: st3
+  description: ナイト制約下での盤面全体候補値領域の計算・削減
+  status: pending
+  order: 3
+  inputs:
+  - st2の出力
+  - ナイト制約対応表（4x4用）
+  outputs:
+  - 全セルの候補値リスト（制約反映済み）
+- id: st4
+  description: 一意性制約による更なる絞り込みと盤面探索戦略の策定
+  status: pending
+  order: 4
+  inputs:
+  - st3の出力
+  outputs:
+  - 確定解生成もしくは、総当たり不要な論理的埋め方の計画
+- id: st5
+  description: 実際の解答例・経路のアウトプット
+  status: pending
+  order: 5
+  inputs:
+  - st4の出力
+  outputs:
+  - 解答例（盤面完成）
+  - 論証プロセスの記録

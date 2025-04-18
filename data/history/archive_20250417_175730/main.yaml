@@ -1,0 +1,32 @@
+plan_id: main
+task_id: sudoku_riddle
+created_at: '2025-04-17T17:57:29.710339'
+updated_at: '2025-04-17T17:57:29.710339'
+version: 1
+status: in_progress
+subtasks:
+- id: '1'
+  description: 初期グリッドと領域sum lineのセットアップ分析
+  status: completed
+  order: 1
+  inputs: {}
+  outputs: {}
+  remarks: 全セル候補{1,2,3,4}、sum line3本はそれぞれ2ボックスを横断、交点攻略が鍵（この段階で即時削除は発生せず）
+- id: '2'
+  description: sum lineの交点や絡みを利用した候補削減ロジック検討
+  status: pending
+  order: 2
+  inputs: {}
+  outputs: {}
+- id: '3'
+  description: 具体的な候補数の絞り込みと仮置き、矛盾有無の検証
+  status: pending
+  order: 3
+  inputs: {}
+  outputs: {}
+- id: '4'
+  description: 完成解の再確認・全手順記録
+  status: pending
+  order: 4
+  inputs: {}
+  outputs: {}

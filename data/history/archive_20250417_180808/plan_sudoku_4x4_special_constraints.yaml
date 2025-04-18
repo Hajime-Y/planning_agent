@@ -1,0 +1,66 @@
+plan_id: plan_sudoku_4x4_special_constraints
+task_id: sudoku_4x4_special_constraints
+created_at: '2025-04-17T18:07:55.795222'
+updated_at: '2025-04-17T18:07:55.795222'
+version: 1
+status: in_progress
+subtasks:
+- id: subtask_1
+  description: 与えられた盤面と特殊ルール（black dot/colored line）を正しく認識・整理し、解答に必要な条件を明示する
+  status: not_started
+  order: 1
+  inputs:
+    initial_board:
+    - - .
+      - 3
+      - 4
+      - 2
+    - - .
+      - 4
+      - .
+      - 3
+    - - 3
+      - 1
+      - 2
+      - 4
+    - - .
+      - 2
+      - 3
+      - .
+    constraints:
+    - 4x4数独ルール（各行・各列・全ての2x2ブロックで1〜4の数字が重複しない）
+    - 1:2 black dot ratio（各行または各列または盤面全体で黒点が一定比率・数で配置される？詳細必要）
+    - colored line rules（盤面上のcolored lineについてルールあり。詳細不明なら要確認）
+    - 与えられた初期盤面を守って解く
+    resources:
+    - '初期盤面: [[''.'',3,4,2], [''.'',4,''.'',3], [3,1,2,4], [''.'',2,3,''.'']]'
+    - 4x4数独解法の知識
+    - black dot/colored lineの制約詳細情報
+  outputs:
+    整理済みルール説明: テキスト説明
+    解析済み盤面情報: '盤面+特殊マーク情報（例: black dot, colored line位置など）'
+- id: subtask_2
+  description: black dot ratio/colored lineルールを盤面に反映し、可能な箇所への候補を限定する（制約プロパゲーション）
+  status: not_started
+  order: 2
+  inputs:
+    解析済み盤面情報: subtask_1の成果物
+  outputs:
+    候補が絞られた盤面: possible numbers/candidates per cell
+- id: subtask_3
+  description: 一般的な数独論理（唯一候補、隠れたシングル等）を用いて盤面を段階的に埋める。各ステップでの変化を記録。
+  status: not_started
+  order: 3
+  inputs:
+    候補が絞られた盤面: subtask_2の成果物
+  outputs:
+    盤面解答のステップ記録: 各ステップ毎の盤面変化履歴
+- id: subtask_4
+  description: 完成盤面が全制約（数独/black dot/colored line）を満たすか自動検証する
+  status: not_started
+  order: 4
+  inputs:
+    最終解答盤面: subtask_3の成果物（最終盤面）
+    整理済みルール説明: subtask_1の成果物
+  outputs:
+    バリデーション結果: 合格/不合格と理由

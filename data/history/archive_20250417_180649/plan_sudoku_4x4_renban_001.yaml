@@ -1,0 +1,50 @@
+plan_id: plan_sudoku_4x4_renban_001
+task_id: sudoku_4x4_renban_001
+created_at: '2025-04-17T18:06:48.753439'
+updated_at: '2025-04-17T18:06:48.753439'
+version: 1
+status: in_progress
+subtasks:
+- id: st1
+  order: 1
+  description: 初期盤面とRenbanライン、標準数独/連番ルール等必要な解決要素を整理・明示する
+  inputs:
+  - タスク説明に記載された初期盤面文字列
+  - タスク説明に記載されたRenbanライン指定
+  - ルール要件（4x4標準数独+Renban規則）
+  outputs:
+  - 整形済み初期盤面データ（例：2次元配列）
+  - Renbanライン情報リスト
+  - ルール要約
+- id: st2
+  order: 2
+  description: 各空白セルに対して、標準数独ルール／Renbanルールをすべて適用した候補数字リストを作成する
+  inputs:
+  - 整形済み初期盤面データ
+  - Renbanライン情報リスト
+  - ルール要約
+  outputs:
+  - 各セルの候補数字リスト（セルごとのマッピング）
+- id: st3
+  order: 3
+  description: 候補数字リストを全セル分検討し、唯一の候補となるマスを列挙する
+  inputs:
+  - 各セルの候補数字リスト
+  outputs:
+  - 唯一候補となったセルおよび数字のリスト
+- id: st4
+  order: 4
+  description: “論理的に次に確定できるマス”を選び、その値を決定する
+  inputs:
+  - 唯一候補となったセルのリスト
+  - 各セルの候補数字リスト
+  outputs:
+  - 次に確定できるセルと値（位置・数字）
+- id: st5
+  order: 5
+  description: 次に確定できるセルの座標・値と、その根拠の概要をまとめて出力する
+  inputs:
+  - 次に確定できるセルと値
+  - 根拠（経路/理由の説明）
+  outputs:
+  - 次に値が確定するマスの内容と、ステップ解説

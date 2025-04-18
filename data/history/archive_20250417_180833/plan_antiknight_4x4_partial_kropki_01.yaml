@@ -1,0 +1,45 @@
+plan_id: plan_antiknight_4x4_partial_kropki_01
+task_id: antiknight_4x4_partial_kropki_01
+created_at: '2025-04-17T18:08:30.098977'
+updated_at: '2025-04-17T18:08:30.098977'
+version: 1
+status: in_progress
+subtasks:
+- id: st1
+  description: パズルの初期盤面・制約リストを内部データ構造として整理する
+  status: ready
+  order: 1
+  inputs:
+  - 要件データ（initial board/制約・ドットの定義等）
+  outputs:
+  - 内部盤面表現
+  - 制約条件のデータ構造
+- id: st2
+  description: 現状確定できそうなセルを候補として抽出、根拠ごとに列挙
+  status: waiting
+  order: 2
+  inputs:
+  - 内部盤面表現
+  - 制約条件のデータ構造
+  outputs:
+  - 候補セル・確定値リスト
+  - 各候補ごとの確定論理の要約
+- id: st3
+  description: 絶対に確定するセル・値を1つ選び、その根拠を厳密に検証
+  status: waiting
+  order: 3
+  inputs:
+  - 候補セル・確定値リスト
+  - 各候補ごとの論理要約
+  outputs:
+  - 確定セルの位置
+  - その値
+  - 確定根拠の説明文
+- id: st4
+  description: 結果を取りまとめ報告フォーマットで出力
+  status: waiting
+  order: 4
+  inputs:
+  - 確定セル&値&根拠
+  outputs:
+  - レポート用フォーマットデータ

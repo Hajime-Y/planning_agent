@@ -1,0 +1,19 @@
+task_id: sudoku_4x4_renban
+title: 4x4 Sudoku Puzzle with Renban Lines Solver
+description: 'Solve the given 4x4 Sudoku puzzle with Renban lines. The board is: .
+  3 4 2 / 2 4 3 . / 4 2 1 3 / 3 . . . The Renban lines are: (1) r4c1 r3c2 r2c2 r1c1,
+  (2) r2c3 r2c4 r1c4, (3) r4c4 r3c4 r4c3, (4) r1c2 r1c3. Place a definite value in
+  any empty cell, showing working as needed.'
+constraints:
+- Sudokuルール（各行・列・区画に1-4が一度ずつ）を守ること
+- Renban線上のセルには連続した整数列（順不同、例：1 2 3）を配置すること
+- 与えられた初期盤面（. 3 4 2 / 2 4 3 . / 4 2 1 3 / 3 . . . ）を使うこと
+- 'Renban線の構成セル: (1) r4c1 r3c2 r2c2 r1c1, (2) r2c3 r2c4 r1c4, (3) r4c4 r3c4 r4c3,
+  (4) r1c2 r1c3'
+- 空白セルのどれかに確定値を置き、根拠を示すこと
+resources:
+- 4x4盤面と初期値リスト
+- 対象のRenban線リスト
+- 解法アルゴリズム/推論ロジック
+created_at: '2025-04-16T20:42:03.902066'
+updated_at: '2025-04-16T20:42:03.902066'

@@ -1,0 +1,22 @@
+task_id: zipper_4x4_sudoku
+title: Zipper 4x4 Sudoku Solver
+description: Solve the 4x4 Sudoku puzzle with special zipper and circle clues. Normal
+  Sudoku rules apply (no repeats in rows, columns, or boxes). On the zipper line,
+  digits at equal distance from the center sum to the central digit. If a digit is
+  placed in a circle, its value is the count of circles containing that digit. The
+  board is initially empty.
+constraints:
+- '4x4 Sudoku grid: fills with digits 1-4'
+- No repeats in any row, column, or 2x2 box (Standard Sudoku rules)
+- A designated Zipper Line exists (gray line).
+- 'On the Zipper Line: For any pair of cells equally distant from the center, their
+  sum equals the digit in the center cell of the line.'
+- 'Circle constraint: If a digit sits in a circled cell, that digit indicates how
+  many circles it appears in on the grid.'
+- The initial board starts empty (no givens).
+resources:
+- Empty 4x4 Sudoku grid
+- Definitions/rules for Zipper Line
+- Definitions/rules for Circle clues
+created_at: '2025-04-17T17:51:59.860640'
+updated_at: '2025-04-17T17:51:59.860640'

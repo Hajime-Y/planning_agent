@@ -1,0 +1,40 @@
+plan_id: plan_4x4_sudoku_202406
+task_id: 4x4_sudoku_202406
+created_at: '2025-04-17T18:08:31.873204'
+updated_at: '2025-04-17T18:08:31.873204'
+version: 1
+status: in_progress
+subtasks:
+- id: st1_read_and_analyze_initial_board
+  description: 初期盤面および特殊条件（Zipperライン・Circle配置）を読み取り、現時点で確定できるマスを探索し、確定できる数字・マス・根拠説明および新しい盤面を出力する。
+  status: not_started
+  order: 1
+  inputs:
+  - 初期盤面（3 4 1 2 / . 1 . 3 / 1 2 3 4 / . 3 2 .）
+  - 'Zipperライン情報: r1c1 r2c1 r3c1 r4c1 r4c2 r4c3 r4c4, r2c2 r2c3 r3c3'
+  - 'Circle位置情報: r1c1, r2c1, r3c1, r4c2, r4c3, r2c4'
+  outputs:
+  - '（1手目として）新たに確定したマス位置（例: r2c1）とその数字'
+  - 確定根拠の説明
+  - 新しい盤面の状態
+- id: st2_determine_next_cell
+  description: 前ステップの盤面・条件を引き継ぎ、次に絶対確定できるマス・値・根拠説明を導出し、盤面を1つ埋める。
+  status: not_started
+  order: 2
+  inputs:
+  - 直前の盤面状態
+  - Zipperライン・Circle制約の情報
+  outputs:
+  - （2手目として）新たに確定したマス位置と値
+  - 確定根拠説明
+  - 更新後盤面
+- id: stN_repeat_until_solved
+  description: 盤面が完全に埋まるまで、前の状態を受け、ステップ2同様に逐次一手だけ絶対確定できる箇所を根拠と共に繰り返し推論＆盤面更新。完了時に一連の解答プロセスをまとめて出力。
+  status: not_started
+  order: 999
+  inputs:
+  - 直前までの盤面
+  - Zipperライン・Circle制約
+  outputs:
+  - 全てのマスが埋まった最終盤面
+  - 各ステップ/配置ごとの根拠説明一覧

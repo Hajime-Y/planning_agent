@@ -1,0 +1,34 @@
+plan_id: auto_generated
+task_id: auto_generated
+created_at: '2025-04-17T18:11:22.871754'
+updated_at: '2025-04-17T18:11:22.871754'
+version: 1
+status: in_progress
+subtasks:
+- id: '1'
+  description: 初期4x4盤面とRenbanライン構造の内部データ表現を作成する
+  status: completed
+  order: 1
+  inputs: {}
+  outputs:
+    grid: 4x4の数独盤面データ構造
+    renban_lines: Renbanライン定義
+- id: '2'
+  description: 盤面とRenbanラインを用いて基本的な候補値除外ロジックを実装・適用する
+  status: pending
+  order: 2
+  inputs:
+    grid: 4x4盤面データ構造
+    renban_lines: Renbanライン定義
+  outputs:
+    candidates: 各セルの候補値テーブル
+- id: '3'
+  description: 全体盤面に矛盾がないか検証し、解が得られるか探索するアルゴリズムを実装する
+  status: pending
+  order: 3
+  inputs:
+    candidates: 各セルの候補値テーブル
+    grid: 4x4盤面データ構造
+    renban_lines: Renbanライン定義
+  outputs:
+    solution: 完成した盤面（または解なし判定）

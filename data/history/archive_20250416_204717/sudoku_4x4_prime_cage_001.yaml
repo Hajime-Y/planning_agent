@@ -1,0 +1,21 @@
+task_id: sudoku_4x4_prime_cage_001
+title: Solve 4x4 Sudoku with Prime-Sum Unique Cage Constraints
+description: Solve the given 4x4 sudoku puzzle with provided clues and special cage
+  constraints. Each row and column must contain digits 1-4 once each. Within each
+  cage, cell values sum to a prime number, no two cages have the same prime sum, and
+  digits within a cage MAY repeat. The cage structure and clues are provided.
+constraints:
+- Each row contains digits 1-4 exactly once.
+- Each column contains digits 1-4 exactly once.
+- 'Cage: group of cells; sum of digits in a cage must be a prime number.'
+- No two cages can have the same prime sum.
+- Digits inside a cage MAY repeat (unlike classic sum cages).
+- 'Provided clues (to be handled as input): . 2 1 3 | . 3 . 4 | 2 4 3 1 | . 1 4 .'
+- Cage structure must be provided together with clues.
+resources:
+- Sudoku 4x4 grid
+- Cage structure & cage assignment
+- Clues for initial filled cells
+- List of 2-digit and 1-digit prime numbers for possible cage sums
+created_at: '2025-04-16T20:46:17.009576'
+updated_at: '2025-04-16T20:46:17.009576'

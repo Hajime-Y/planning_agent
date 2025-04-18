@@ -1,0 +1,52 @@
+plan_id: 4x4_euler_sudoku_plan
+task_id: 4x4_euler_sudoku
+created_at: '2025-04-17T18:12:35.682700'
+updated_at: '2025-04-17T18:12:35.682700'
+version: 1
+status: in_progress
+subtasks:
+- id: subtask1
+  description: 初期盤面と各種制約（ルール）の内部データ構造への変換
+  status: not_started
+  order: 1
+  inputs:
+  - 初期数独盤面（与えられた数字配列）
+  - サーモメーター起点セル・経路情報
+  - グリッド上の奇数指定セル位置
+  - 色割り当ての可能な候補リスト（4色）
+  outputs:
+  - 内部ボードオブジェクト（各マスの値・色・メタ情報を含むデータ構造）
+  - 全制約情報の連結データ
+- id: subtask2
+  description: 各マスごとに配置可能な数字・色の候補セットを列挙
+  status: not_started
+  order: 2
+  inputs:
+  - サブタスク1の出力（内部盤面データ、制約情報）
+  outputs:
+  - 各マスごとの配置候補リスト
+- id: subtask3
+  description: サーモメーター・奇数（gray circle）制約および初期盤面をもとに候補を絞り込む
+  status: not_started
+  order: 3
+  inputs:
+  - サブタスク2の出力（各マスの配置候補リスト）
+  - 制約：サーモメーター/奇数/初期値
+  outputs:
+  - 各マスで有効な候補に絞り込まれたリスト
+- id: subtask4
+  description: 全体を一貫させた解答盤面（数字・色・ペア条件含む）を求解する
+  status: not_started
+  order: 4
+  inputs:
+  - サブタスク3の出力（絞り込んだ各マス候補）
+  outputs:
+  - 完成した解答盤面（数字・カラー情報の4x4配列)
+- id: subtask5
+  description: '解答として整形出力（わかりやすい形式にする。例: printable table, ペアリスト など）'
+  status: not_started
+  order: 5
+  inputs:
+  - サブタスク4の出力（完成盤面）
+  outputs:
+  - 最終的な出力結果（例：テーブル状のグリッド、ペアリスト）

@@ -1,0 +1,44 @@
+plan_id: plan_sudoku_regsum_stepnext
+task_id: sudoku_region_sum_line_next_forced
+created_at: '2025-04-17T18:04:41.650966'
+updated_at: '2025-04-17T18:04:41.650966'
+version: 1
+status: in_progress
+subtasks:
+- id: parse_inputs
+  description: 与えられた盤面・ルール・ライン情報を標準的なデータ構造に変換する
+  status: not_started
+  order: 1
+  inputs:
+    board_state: 与えられた4x4盤面の初期状態（例：'. 3 1 4\n. 1 . 2\n3 4 2 1\n. 2 4 .'）
+    line_info: 青ラインのセル座標リスト、各ラインIDごと
+  outputs:
+    parsed_board: 4x4リスト形式の盤面データ
+    lines: ラインごとのセル位置リスト・ボックス分割情報
+- id: calc_candidates
+  description: パースした盤面・ライン情報から、各セルの候補値を絞り込む
+  status: not_started
+  order: 2
+  inputs:
+    parsed_board: 4x4リスト形式の盤面データ
+    lines: ラインごとのセル位置リスト・ボックス分割情報
+  outputs:
+    candidates_per_cell: 各セル（空欄）の可能な数字の集合
+- id: search_forced_placement
+  description: 現在の候補から、ルールをすべて考慮して生じる『次の一意な強制配置』を決定する
+  status: not_started
+  order: 3
+  inputs:
+    parsed_board: 4x4リスト形式の盤面データ
+    candidates_per_cell: 各セル（空欄）の可能な数字の集合
+    lines: ラインごとのセル位置リスト・制約情報
+  outputs:
+    forced_placement: 確定配置セルの座標と入る数字（1セルのみ）
+- id: output_result
+  description: 次の一意な確定配置を明示的に出力する
+  status: not_started
+  order: 4
+  inputs:
+    forced_placement: 確定配置セルの座標と入る数字
+  outputs:
+    result_msg: 出力用メッセージ（例：'セル(2, 2)に3を配置'

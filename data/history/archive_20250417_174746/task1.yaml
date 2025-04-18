@@ -1,0 +1,56 @@
+plan_id: task1
+task_id: task1
+created_at: '2025-04-17T17:47:38.216614'
+updated_at: '2025-04-17T17:47:38.216614'
+version: 1
+status: in_progress
+subtasks:
+- id: subtask1
+  description: 初期盤面・制約条件の整理
+  status: completed
+  order: 1
+  inputs: []
+  outputs: []
+  remarks: 'Initial board: [[None,1,3,None],[None,2,None,None],[None,2,1,None],[None,None,4,None]].
+    Variants: Error Sudoku (each digit 1-4 appears 4 times, makes exactly N errors
+    for digit N; error is a pair of matching digits violating row/col/box), row/column
+    sums, and palindrome line for r4c3-r4c4-r3c3-r2c4. Regions: 2x2 subgrids at r3c1,r3c2,r4c1,r4c2;
+    and r3c3,r3c4,r4c3,r4c4. Sums: r1<13, r1<7, r4>10, r2>10.'
+- id: subtask2
+  description: 制約を論理式・数式として列挙（判定関数設計）
+  status: pending
+  order: 2
+  inputs:
+  - 初期盤面
+  - 全ての追加ルール・制約条件
+  outputs:
+  - 判定関数tip・各制約条件リスト
+- id: subtask3
+  description: 解法アルゴリズムの構成案提示
+  status: pending
+  order: 3
+  inputs:
+  - 判定関数
+  - 制約条件リスト
+  outputs:
+  - アルゴリズム手順案
+- id: subtask4
+  description: 実装およびソルバー動作確認
+  status: pending
+  order: 4
+  inputs:
+  - アルゴリズム手順
+  - 判定関数
+  outputs:
+  - 動作するソルバーのコード
+  - 一例として得られる解
+- id: subtask5
+  description: 結果検証および最終報告
+  status: pending
+  order: 5
+  inputs:
+  - ソルバーコード
+  - 得られた解
+  outputs:
+  - 検証レポート
+  - 最終成果物（報告書・コード等まとめ）

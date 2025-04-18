@@ -1,0 +1,43 @@
+plan_id: euler_sudoku_plan_v1
+task_id: euler_sudoku_4x4_digits_colors
+created_at: '2025-04-17T17:56:00.456668'
+updated_at: '2025-04-17T17:56:00.456668'
+version: 1
+status: in_progress
+subtasks:
+- id: analyze_constraints
+  description: すべての配置制約（標準数独、色、オイラー、サーモメーター、奇数サークル等）を詳細に分析し、どのルールがどこのセルや全体に影響するか整理する
+  status: pending
+  order: 1
+  inputs:
+    grid_size: 4
+    digits:
+    - 1
+    - 2
+    - 3
+    - 4
+    colors:
+    - A
+    - B
+    - C
+    - D
+    thermometer_positions: To be specified by puzzle instance
+    odd_circle_position: To be specified by puzzle instance
+  outputs:
+    detailed_constraints: 全ての制約をセル・構造ごとに整理した表又は記述
+- id: find_forced_placements
+  description: 制約分析から、サーモメーター・奇数サークル等による強制配置/矛盾排除となるセルや値の特定を行う
+  status: pending
+  order: 2
+  inputs:
+    detailed_constraints: analyze_constraintsの出力
+  outputs:
+    forced_placements_candidates: 特定された強制配置または除外情報のリスト
+- id: make_first_placement
+  description: 強制配置が決まっている部分があれば実際にグリッドに最初の一手を行い、その配置内容を規定形式で出力する
+  status: pending
+  order: 3
+  inputs:
+    forced_placements_candidates: find_forced_placementsの出力
+  outputs:
+    first_placement: 「セル位置＋配置内容（数字・色）」の形式の情報

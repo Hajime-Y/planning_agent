@@ -1,0 +1,50 @@
+plan_id: sudoku-circle-constraint-plan
+task_id: sudoku-circle-constraint
+created_at: '2025-04-17T17:56:43.961606'
+updated_at: '2025-04-17T17:56:43.961606'
+version: 1
+status: in_progress
+subtasks:
+- id: st1
+  order: 1
+  description: 問題の初期状態とサークル座標の受け取り・構造化（4x4盤面・サークル座標リスト）
+  status: pending
+  inputs:
+  - 初期4x4数独盤面（欠損部分は空白or 0 など）
+  - 'サークルセル座標リスト（例: [(1,1),(1,2),...]）'
+  outputs:
+  - 構造化された盤面データ
+  - サークル座標リスト
+- id: st2
+  order: 2
+  description: 標準数独制約による可能値リストの各セルごとの生成
+  status: pending
+  inputs:
+  - 構造化された盤面データ
+  outputs:
+  - 各セルの可能な数字候補集合
+- id: st3
+  order: 3
+  description: サークル制約：サークルセルの値と、その数字のサークル内出現回数が一致するかのフィルタリング／式追加
+  status: pending
+  inputs:
+  - 各セルの可能な数字候補集合
+  - サークル座標リスト
+  outputs:
+  - サークル制約を満たした各セルの候補リスト
+- id: st4
+  order: 4
+  description: 論理的または全探索による盤面解の生成・検証
+  status: pending
+  inputs:
+  - サークル制約を満たした各セルの候補リスト
+  outputs:
+  - 完成した唯一の（もしくは全ての）盤面解
+- id: st5
+  order: 5
+  description: 完成解の出力（4x4盤面として）
+  status: pending
+  inputs:
+  - 完成した盤面解
+  outputs:
+  - 4x4解答盤面

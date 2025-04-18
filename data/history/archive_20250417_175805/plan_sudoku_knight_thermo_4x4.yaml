@@ -1,0 +1,38 @@
+plan_id: plan_sudoku_knight_thermo_4x4
+task_id: sudoku_knight_thermo_4x4
+created_at: '2025-04-17T17:58:02.957268'
+updated_at: '2025-04-17T17:58:02.957268'
+version: 1
+status: in_progress
+subtasks:
+- id: subtask1_grid_and_constraints
+  order: 1
+  description: 4x4の空の数独グリッドと全てのルール・サーモパス・ナイト移動制約を形式化する。
+  inputs: []
+  outputs:
+  - grid_with_constraints
+  status: not_started
+- id: subtask2_candidates_search
+  order: 2
+  description: 各セルにルール・サーモ・ナイト制約を考慮して可能な候補数字リストを算出する。
+  inputs:
+  - grid_with_constraints
+  outputs:
+  - candidates_per_cell
+  status: not_started
+- id: subtask3_candidates_filter
+  order: 3
+  description: 候補リストを各制約（ナイト移動、サーモ増加）で再絞り込み、一意確定セルを検出する。
+  inputs:
+  - candidates_per_cell
+  outputs:
+  - cells_with_single_candidate
+  status: not_started
+- id: subtask4_place_digit
+  order: 4
+  description: 一意に決まるセルに数字を配置し、配置内容・理由を記述する。
+  inputs:
+  - cells_with_single_candidate
+  outputs:
+  - placed_digit_info
+  status: not_started
