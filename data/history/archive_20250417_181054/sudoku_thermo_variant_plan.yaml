@@ -1,0 +1,34 @@
+plan_id: sudoku_thermo_variant_plan
+task_id: sudoku_thermo_variant_analyze
+created_at: '2025-04-17T18:10:52.351239'
+updated_at: '2025-04-17T18:10:52.351239'
+version: 1
+status: in_progress
+subtasks:
+- id: subtask_1_analyze_rules
+  description: パズル盤面・全ての特別ルール（サーモ、黒白ドット、偶数マス）を整理・可視化し、盤面の状態を把握する
+  status: not_started
+  order: 1
+  inputs:
+  - 数独盤面初期データ（マスごとの数字または空欄情報）
+  - サーモメーター配置情報
+  - 黒/白ドット配置情報
+  - 灰色偶数マス配置情報
+  outputs:
+  - 整理された盤面レイアウトとマスの条件リスト
+- id: subtask_2_logical_deduction
+  description: 各種制約（数独・サーモ・黒白ドット・偶数）をもとに、配置可能な数字を論理的に洗い出す
+  status: not_started
+  order: 2
+  inputs:
+  - 整理された盤面レイアウトとマスの条件リスト
+  outputs:
+  - 各マスごとの候補数字リスト（制約ごとに絞ったもの）
+- id: subtask_3_confident_placement
+  description: 十分な根拠付けを持って、1つのマスについて唯一確定する数字があればその配置を決定し、推論プロセスを詳細説明する
+  status: not_started
+  order: 3
+  inputs:
+  - 各マスごとの候補数字リスト（制約ごとに絞ったもの）
+  outputs:
+  - 確定配置とその根拠となる論理的推論プロセス詳細

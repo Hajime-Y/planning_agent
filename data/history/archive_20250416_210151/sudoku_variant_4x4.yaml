@@ -1,0 +1,37 @@
+task_id: sudoku_variant_4x4
+title: Solve 4x4 Sudoku Variant with Special Rules
+description: 'Solve the given 4x4 Sudoku variant puzzle which includes the following:
+
+  - Standard Sudoku constraints for a 4x4 grid.
+
+  - Subset (region) clues: certain regions may have additional restrictions.
+
+  - Thermometer clues: specific cell sequences where digits must strictly increase
+  from bulb to tip.
+
+  - Dot clues: cells connected with a white or black dot indicating a 1-difference
+  or 2-difference relation.
+
+  - Even constraint in r2c1 (cell at row 2, column 1 must be even).
+
+  - Initial grid: . 4 5 6 | . 5 . 8 | 4 8 6 5 | . 6 8 . (read left-to-right, row by
+  row).Cells marked ''.'' are unsolved.'
+constraints:
+- 'Standard 4x4 Sudoku rule: Each row, column, and 2x2 box contains digits 1–4 without
+  repetition.'
+- There are subset (region) clues with extra restrictions (details required).
+- Thermometer clues define cell sequences; digits must strictly increase from bulb
+  to end.
+- Dot clues indicate consecutive or 2-apart digits between connected cells.
+- Cell r2c1 (second row, first column) must contain an even digit.
+- 'Initial grid values are given: row 1 [. 4 5 6], row 2 [. 5 . 8], row 3 [4 8 6 5],
+  row 4 [. 6 8 .].'
+- All variant constraints must be considered in solution.
+resources:
+- Initial grid (numerical values for 4x4 cells, '.' for empty).
+- Definition of subset, thermometer, dot clues (specifics may be required from puzzle
+  diagram).
+- Standard Sudoku solving techniques.
+- Description of all special constraints.
+created_at: '2025-04-16T20:58:33.556843'
+updated_at: '2025-04-16T20:58:33.556843'

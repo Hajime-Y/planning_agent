@@ -1,0 +1,76 @@
+plan_id: plan_sudoku_knights_thermo_4x4
+task_id: sudoku_knights_thermo_4x4
+created_at: '2025-04-17T18:11:51.840862'
+updated_at: '2025-04-17T18:11:51.840862'
+version: 1
+status: in_progress
+subtasks:
+- id: subtask_1
+  description: 初期盤面・サーモ情報・制約情報のデータセットアップ（構造化オブジェクト生成）
+  status: pending
+  order: 1
+  inputs:
+    raw_board:
+    - - null
+      - 1
+      - 4
+      - 3
+    - - null
+      - 4
+      - null
+      - 2
+    - - 4
+      - 3
+      - 2
+      - 1
+    - - null
+      - 2
+      - 3
+      - null
+    raw_thermos:
+    - - !!python/tuple
+        - 3
+        - 1
+      - !!python/tuple
+        - 2
+        - 1
+      - !!python/tuple
+        - 1
+        - 1
+    - - !!python/tuple
+        - 1
+        - 2
+      - !!python/tuple
+        - 2
+        - 2
+  outputs:
+    board: 初期状態で空きマスはNoneの4x4盤面リスト
+    thermos: サーモごとにセル位置を格納したリスト（0-indexed）
+    constraints: ナイト移動座標リストと他制約情報
+- id: subtask_2
+  description: 標準・ナイト・サーモ制約のバリデーション関数の作成
+  status: pending
+  order: 2
+  inputs:
+    board: subtask_1の出力盤面データ
+    thermos: subtask_1の出力サーモリスト
+  outputs:
+    validators: 各制約ごとの検証用関数群
+- id: subtask_3
+  description: 数独パズル解法アルゴリズム（制約付きバックトラッキング）による検索と解候補決定
+  status: pending
+  order: 3
+  inputs:
+    board: subtask_1の出力盤面データ
+    validators: subtask_2の検証関数群
+  outputs:
+    solution: 完成盤面（解が存在すれば1件、複数解/無解情報も含める）
+- id: subtask_4
+  description: 求まった解の妥当性チェックおよびフォーマット整形・出力
+  status: pending
+  order: 4
+  inputs:
+    solution: subtask_3の完成盤面データ
+    constraints: subtask_1のその他制約
+  outputs:
+    final_output: 人間が見やすい形式での完成結果、備考やエラー情報など

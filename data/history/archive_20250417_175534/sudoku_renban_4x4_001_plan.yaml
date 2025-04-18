@@ -1,0 +1,104 @@
+plan_id: sudoku_renban_4x4_001_plan
+task_id: sudoku_renban_4x4_001
+created_at: '2025-04-17T17:55:30.034885'
+updated_at: '2025-04-17T17:55:30.034885'
+version: 1
+status: in_progress
+subtasks:
+- id: st1
+  description: 初期盤面データの生成とヒント値・レンバン線情報の付与
+  status: pending
+  order: 1
+  inputs:
+    board_size: 4
+    givens:
+    - row: 1
+      col: 2
+      value: 3
+    - row: 2
+      col: 1
+      value: 2
+    - row: 2
+      col: 3
+      value: 3
+    - row: 3
+      col: 3
+      value: 1
+    - row: 3
+      col: 4
+      value: 3
+    - row: 4
+      col: 1
+      value: 3
+    renban_lines:
+    - - !!python/tuple
+        - 4
+        - 1
+      - !!python/tuple
+        - 3
+        - 2
+      - !!python/tuple
+        - 2
+        - 2
+      - !!python/tuple
+        - 1
+        - 1
+    - - !!python/tuple
+        - 2
+        - 3
+      - !!python/tuple
+        - 2
+        - 4
+      - !!python/tuple
+        - 1
+        - 4
+    - - !!python/tuple
+        - 4
+        - 4
+      - !!python/tuple
+        - 3
+        - 4
+      - !!python/tuple
+        - 4
+        - 3
+    - - !!python/tuple
+        - 1
+        - 2
+      - !!python/tuple
+        - 1
+        - 3
+  outputs:
+    board: 4x4初期盤面（ヒント反映・レンバン線含むデータ構造）
+- id: st2
+  description: 通常数独ルール（行・列・ボックス）の候補絞り込み
+  status: pending
+  order: 2
+  inputs:
+    board: st1の出力
+  outputs:
+    board_candidates: 各マスの現時点候補集合
+- id: st3
+  description: レンバン線ごとの候補組み合わせの検証・候補絞り込み
+  status: pending
+  order: 3
+  inputs:
+    board_candidates: st2の出力
+    renban_lines: st1のinputsもしくは盤面情報に格納
+  outputs:
+    board_candidates: レンバン線制約後の各マス候補
+- id: st4
+  description: 全制約を反映させた盤面の解決探索（バックトラック等）
+  status: pending
+  order: 4
+  inputs:
+    board_candidates: st3の出力
+  outputs:
+    solution: 完成した4x4盤面解答
+- id: st5
+  description: 完成盤面の検証・フォーマット出力
+  status: pending
+  order: 5
+  inputs:
+    solution: st4の出力
+  outputs:
+    result: 最終解答（盤面）

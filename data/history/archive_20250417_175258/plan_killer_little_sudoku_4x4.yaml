@@ -1,0 +1,74 @@
+plan_id: plan_killer_little_sudoku_4x4
+task_id: killer_little_sudoku_4x4
+created_at: '2025-04-17T17:52:54.025723'
+updated_at: '2025-04-17T17:52:54.025723'
+version: 1
+status: in_progress
+subtasks:
+- id: subtask_01
+  order: 1
+  description: Create initial data structures for the 4x4 Sudoku board and encode
+    all constraints (Sudoku, cages, little killer).
+  status: open
+  inputs:
+    board_size: 4
+    killer_cages:
+    - cells:
+      - !!python/tuple
+        - r1c1
+        - r1c2
+      sum: 5
+    - cells:
+      - !!python/tuple
+        - r2c1
+        - r2c2
+        - r3c2
+      sum: 8
+    - cells:
+      - !!python/tuple
+        - r2c4
+        - r3c4
+      sum: 4
+    little_killer:
+      direction: diagonal
+      cells:
+      - !!python/tuple
+        - r1c4
+        - r2c3
+        - r3c2
+        - r4c1
+      sum: 8
+  outputs:
+    board: Empty 4x4 Sudoku board as a suitable data structure
+    constraints: List/structure of all constraints encoded for the solver
+- id: subtask_02
+  order: 2
+  description: Apply initial constraint propagation (e.g., eliminate impossible values
+    by analyzing killer cage and little killer sums) to reduce candidates for each
+    cell.
+  status: open
+  inputs:
+    board: Board from subtask_01
+    constraints: Constraints from subtask_01
+  outputs:
+    candidates: For each cell, updated possible digit candidates
+- id: subtask_03
+  order: 3
+  description: Search for a solution using constraint-based and backtracking strategy,
+    considering all constraints.
+  status: open
+  inputs:
+    candidates: Candidates from subtask_02
+    constraints: Constraints from subtask_01
+  outputs:
+    solution: One completed 4x4 Sudoku grid that meets all the constraints
+- id: subtask_04
+  order: 4
+  description: Validate and format the solution, ensuring all constraints are satisfied
+    and outputting the result clearly.
+  status: open
+  inputs:
+    solution: Solution from subtask_03
+    constraints: Constraints from subtask_01
+  outputs:
+    validation_result: Validity check (True/False), and formatted board

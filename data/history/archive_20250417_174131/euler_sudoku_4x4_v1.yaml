@@ -1,0 +1,45 @@
+task_id: euler_sudoku_4x4_v1
+title: '4x4 Euler Sudoku with Thermometers: Logical Placement Plan'
+description: 'Solve the 4x4 Euler Sudoku puzzle with the current board state:
+
+  3 2 4 1
+
+  . 1 . .
+
+  . 4 2 .
+
+  . . 1 .
+
+  - Each row, column, and 2x2 box must have digits 1-4 and 4 different colors once
+  each, no repeats.
+
+  - Every digit/color combo unique on the grid.
+
+  - Thermometers: digits must strictly increase from bulbs at r1c2, r2c2, r3c4.
+
+  - Digit in any gray circle must be odd.
+
+  Provide logical sequential placements to fully solve the puzzle.'
+constraints:
+- Each row, column, and 2x2 box contains digits 1-4 exactly once each.
+- Each row, column, and 2x2 box contains each color exactly once.
+- Every digit/color combination is unique in the grid (digit-color pair does not repeat).
+- 'Thermometer lines: digits strictly increase from bulb to tip, with bulbs at r1c2,
+  r2c2, r3c4.'
+- The digit in any gray circle cell must be odd (cell(s) not specified, to be considered
+  if present).
+- Initial filled cells must not be changed.
+resources:
+- 'Initial board state (digit placements):
+
+  3 2 4 1
+
+  . 1 . .
+
+  . 4 2 .
+
+  . . 1 .'
+- 'Thermometer bulb cells: r1c2, r2c2, r3c4, with shapes defined by the puzzle.'
+- Access to logic reasoning for sudoku, thermometers, Euler color constraints.
+created_at: '2025-04-17T17:41:24.039118'
+updated_at: '2025-04-17T17:41:24.039118'

@@ -1,0 +1,55 @@
+plan_id: plan_sudoku_4x4_knight_thermo
+task_id: sudoku_4x4_knight_thermo
+created_at: '2025-04-17T17:57:31.401761'
+updated_at: '2025-04-17T17:57:31.401761'
+version: 1
+status: in_progress
+subtasks:
+- id: subtask1_parse_rules
+  description: 全制約（行・列・ボックス・ナイト制約・サーモ制約）を形式的に仕様化し判定用ロジック入力用にまとめる。
+  status: not_started
+  order: 1
+  inputs:
+  - タスク要件(制約・リソース)
+  outputs:
+  - 制約仕様リスト
+  - グリッド座標仕様
+  - サーモ構造定義
+- id: subtask2_initialize_grid
+  description: 4x4空白グリッドを初期化し、全マス(16マス)を未決定とする。
+  status: not_started
+  order: 2
+  inputs:
+  - グリッド座標仕様
+  outputs:
+  - 初期化済み空白グリッド
+- id: subtask3_solver_implementation
+  description: 全制約を反映した解法ロジック（バックトラックまたは制約伝播）を設計し、候補値確定の仕組みを設ける。
+  status: not_started
+  order: 3
+  inputs:
+  - 初期化済み空白グリッド
+  - 制約仕様リスト
+  - サーモ構造定義
+  - 数字セット
+  outputs:
+  - 完成したグリッド解(候補が唯一の時)
+- id: subtask4_validate_solution
+  description: 得られた解が全制約（標準・ナイト・サーモ）を満たしているか自動検証。
+  status: not_started
+  order: 4
+  inputs:
+  - 完成したグリッド解
+  - 制約仕様リスト
+  - サーモ構造定義
+  outputs:
+  - 検証レポート(合格/不合格+理由)
+- id: subtask5_uniqueness_check
+  description: 解が唯一であることを全探索または証明的に確認。
+  status: not_started
+  order: 5
+  inputs:
+  - 完成したグリッド解
+  - 解法アルゴリズム
+  outputs:
+  - 解の一意性に関する報告

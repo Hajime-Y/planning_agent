@@ -1,0 +1,53 @@
+plan_id: plan_sudoku_puzzle_xv_4x4
+task_id: sudoku_puzzle_xv_4x4
+created_at: '2025-04-17T18:08:06.729187'
+updated_at: '2025-04-17T18:08:06.729187'
+version: 1
+status: in_progress
+subtasks:
+- id: subtask_1
+  description: 初期盤面・手がかり・制約を整理し、盤面情報データを構造化する
+  status: not_started
+  order: 1
+  inputs:
+  - 与えられた初期盤面配置（4x4, 空白は. 表記）
+  - X/Vクローの位置・種類情報
+  - 数独ルール（各行・列・ボックスの一意性、和が未知）
+  outputs:
+  - '初期盤面をデータ構造化（例: 2次元リスト）'
+  - X/Vクローの制約リスト（位置関係付き）
+  - 盤面上の全座標・既知値・未定マス一覧
+- id: subtask_2
+  description: 全制約（X/V/一意性/未知和）をデータ形式で整理、推論用制約セットを作る
+  status: not_started
+  order: 2
+  inputs:
+  - subtask_1の出力
+  outputs:
+  - 各マスに適用される制約セット一覧
+  - 論理推論に使う初期条件リスト
+- id: subtask_3
+  description: 候補数削減アルゴリズムや数独的論理推論を段階的に適用し、各マスの候補可能値リストを更新
+  status: not_started
+  order: 3
+  inputs:
+  - subtask_2の出力
+  outputs:
+  - 各マスごとの現在の候補数字のセット
+- id: subtask_4
+  description: 一意解導出まで数独解法（仮置き+総当たり含む）で盤面完成を目指す
+  status: not_started
+  order: 4
+  inputs:
+  - subtask_3の出力
+  outputs:
+  - 完成した4x4盤面（全マス値確定）
+- id: subtask_5
+  description: 完成盤面が与えられた全制約(X/V/一意性/和)を満たすことを検証
+  status: not_started
+  order: 5
+  inputs:
+  - subtask_4の出力
+  - subtask_2の出力
+  outputs:
+  - 検証結果（合格/不合格、および不合格時の違反理由）

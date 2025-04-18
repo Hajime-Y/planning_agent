@@ -1,0 +1,81 @@
+plan_id: sudoku_4x4_sum_x_cage_plan
+task_id: sudoku_4x4_sum_x_cage
+created_at: '2025-04-17T17:53:29.745513'
+updated_at: '2025-04-17T17:53:29.745513'
+version: 1
+status: in_progress
+subtasks:
+- id: parse_input
+  order: 1
+  description: 盤面初期配置とX/Vヒント情報を構造化データ（座標・制約リスト）へ変換する
+  status: pending
+  inputs:
+    raw_board: . 1 5 . / . 7 . . / . 4 2 . / . . 8 .
+    xv_hints:
+    - type: V
+      cells:
+      - !!python/tuple
+        - r1c1
+        - r1c2
+    - type: V
+      cells:
+      - !!python/tuple
+        - r2c3
+        - r3c3
+    - type: X
+      cells:
+      - !!python/tuple
+        - r2c2
+        - r2c3
+    - type: X
+      cells:
+      - !!python/tuple
+        - r1c4
+        - r2c4
+    - type: X
+      cells:
+      - !!python/tuple
+        - r3c2
+        - r4c2
+  outputs:
+    board_matrix: 2次元配列の盤面、Noneは空欄、その他は数字
+    xv_constraint_list: 各ヒント種別・座標ペア付き
+- id: analyze_structure
+  order: 2
+  description: 盤面のボックス分割・全ペア可能なX/V場所・行列抽出（構造情報集約）
+  status: pending
+  inputs:
+    board_matrix: 初期盤面の2次元配列
+    xv_constraint_list: X/V制約ペアのリスト
+  outputs:
+    structure_info: 行、列、ボックス、ペア候補、ヒント位置の構造情報
+- id: candidate_sum_x_detection
+  order: 3
+  description: 初期配置＋制約のもと、Xの値（各行・列・ボックスの和）の候補を絞る
+  status: pending
+  inputs:
+    structure_info: 構造情報
+    board_matrix: 盤面配列
+  outputs:
+    possible_X_values: Xの候補整数値リスト
+- id: constraint_sudoku_solver
+  order: 4
+  description: 初期盤面、X/V、ユニーク和、ユニーク数セット制約付き4x4数独を解く。複数候補あれば全解探索
+  status: pending
+  inputs:
+    board_matrix: 盤面配列
+    xv_constraint_list: ヒント制約ペア
+    structure_info: 行・列・ボックス一覧
+    possible_X_values: Xの候補リスト
+  outputs:
+    solutions: 盤面配置の完全解リスト（1または複数）
+- id: solution_verification
+  order: 5
+  description: 得られた解が全ての制約（盤面重複・X/V・和・ユニークセット）を本当に満たすか検証する
+  status: pending
+  inputs:
+    solutions: 解候補リスト
+    structure_info: 構造情報
+    xv_constraint_list: V/X制約ペア
+  outputs:
+    valid_solutions: 制約を満たす最終的な有効解リスト

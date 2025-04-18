@@ -1,0 +1,49 @@
+plan_id: plan_killer_littlekiller_4x4_sudoku
+task_id: killer_littlekiller_4x4_sudoku
+created_at: '2025-04-16T21:12:19.729105'
+updated_at: '2025-04-16T21:12:19.729105'
+version: 1
+status: in_progress
+subtasks:
+- id: st1
+  description: 問題仕様を形式化する（グリッド、ケージ、リトルキラー情報を構造体/辞書として準備）
+  status: ready
+  order: 1
+  inputs: []
+  outputs:
+  - problem_spec
+- id: st2
+  description: グリッドの各マスの初期候補値リスト（1-4）を生成する
+  status: waiting
+  order: 2
+  inputs:
+  - problem_spec
+  outputs:
+  - candidates_grid
+- id: st3
+  description: 制約伝播（行・列・ボックス・ケージ・リトルキラー制約）による候補値の絞り込み
+  status: waiting
+  order: 3
+  inputs:
+  - candidates_grid
+  - problem_spec
+  outputs:
+  - reduced_candidates_grid
+- id: st4
+  description: 論理的手法による盤面への数字確定、必要に応じて探索・バックトラック
+  status: waiting
+  order: 4
+  inputs:
+  - reduced_candidates_grid
+  - problem_spec
+  outputs:
+  - solution_grid
+- id: st5
+  description: 解答の検証（全ての制約を満たしているか確認）
+  status: waiting
+  order: 5
+  inputs:
+  - solution_grid
+  - problem_spec
+  outputs:
+  - is_valid

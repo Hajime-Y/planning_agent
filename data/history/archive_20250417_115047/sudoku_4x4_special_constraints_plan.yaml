@@ -1,0 +1,52 @@
+plan_id: sudoku_4x4_special_constraints_plan
+task_id: sudoku_4x4_special_constraints
+created_at: '2025-04-17T11:49:50.035326'
+updated_at: '2025-04-17T11:49:50.035326'
+version: 1
+status: in_progress
+subtasks:
+- id: subtask_1
+  description: 初期盤面のセットアップと特殊制約情報の整理（盤面・黒点・カラーパス情報を構造化）
+  status: not_started
+  order: 1
+  inputs:
+  - 与えられた初期値(r1c2=3, r1c3=4, r2c2=4, r3c2=1, r3c3=2, r4c3=3)
+  - 4x4数独盤面
+  - 黒点・カラーパスの位置情報
+  outputs:
+  - 構造化された初期盤面データ
+  - 黒点・カラーパスの抽象化データ
+- id: subtask_2
+  description: 通常の4x4数独ルールでの候補絞り込み処理（初期値の反映と排他条件チェック）
+  status: not_started
+  order: 2
+  inputs:
+  - 構造化された初期盤面データ
+  outputs:
+  - 通常ルールを満たす候補盤面リスト or 候補リスト
+- id: subtask_3
+  description: 黒点(1:2比率)制約の適用と候補盤面の間引き
+  status: not_started
+  order: 3
+  inputs:
+  - 通常ルールを満たす候補盤面リスト
+  - 黒点の位置と比率ルール
+  outputs:
+  - 黒点制約も満たす候補盤面リスト
+- id: subtask_4
+  description: カラーパス(差分カウント制約)の適用、各線ごとの制約計算＆適合判定
+  status: not_started
+  order: 4
+  inputs:
+  - 黒点制約も満たす候補盤面リスト
+  - カラーパス情報（palegreen, plum）
+  outputs:
+  - 全ての制約を満たす解答盤面リスト
+- id: subtask_5
+  description: 最終結果（数独解答盤面）の提示
+  status: not_started
+  order: 5
+  inputs:
+  - 全ての制約を満たす解答盤面リスト
+  outputs:
+  - 完成した4x4数独盤面（答え）

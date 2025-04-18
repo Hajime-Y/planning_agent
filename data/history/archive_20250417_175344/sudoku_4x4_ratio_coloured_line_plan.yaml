@@ -1,0 +1,60 @@
+plan_id: sudoku_4x4_ratio_coloured_line_plan
+task_id: sudoku_4x4_ratio_coloured_line
+created_at: '2025-04-17T17:53:40.148696'
+updated_at: '2025-04-17T17:53:40.148696'
+version: 1
+status: in_progress
+subtasks:
+- id: st1
+  description: 初期盤面と制約条件（標準および追加）を整理し、Sudoku解法に必要な構造化データに変換する。
+  status: pending
+  order: 1
+  inputs:
+    board_string: . 3 4 . / . 4 . . / . 1 2 . / . . 3 .
+    black_dot_position:
+    - !!python/tuple
+      - r4c1
+      - r4c2
+    palegreen_line:
+    - r3c1
+    - r3c2
+    - r4c3
+    plum_line:
+    - r2c2
+    - r2c3
+    - r3c4
+    - r4c4
+    sudoku_size: 4
+  outputs:
+    structured_board: 盤面を座標辞書形式で表したもの
+    constraints: 追加ルールも含めた全制約リスト
+- id: st2
+  description: 整理した盤面・制約に基づき、候補値生成と標準Sudoku解法（行・列・ボックス重複の排除）を行う。
+  status: pending
+  order: 2
+  inputs:
+    structured_board: st1の出力
+    constraints: st1の出力
+  outputs:
+    candidates_board: 各マスへの候補数字リスト
+- id: st3
+  description: 黒丸の比ルール、カラードライン特殊条件を盤面候補に適用し、矛盾排除や候補削減を行う。
+  status: pending
+  order: 3
+  inputs:
+    candidates_board: st2の出力
+    black_dot_position: st1の入力
+    palegreen_line: st1の入力
+    plum_line: st1の入力
+  outputs:
+    reduced_candidates_board: 追加制約まで適用した後の候補盤面
+- id: st4
+  description: 全制約を満たす一意解を確定・検証し、完成したSudoku盤面を出力。
+  status: pending
+  order: 4
+  inputs:
+    reduced_candidates_board: st3の出力
+    constraints: st1の出力
+  outputs:
+    solution_board: 完成したSudoku盤面
+    is_unique: 一意解かどうかの真偽値

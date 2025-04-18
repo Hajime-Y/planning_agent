@@ -1,0 +1,52 @@
+plan_id: plan_euler_sudoku_4x4
+task_id: euler_sudoku_4x4
+created_at: '2025-04-17T17:40:29.175621'
+updated_at: '2025-04-17T17:40:29.175621'
+version: 1
+status: in_progress
+subtasks:
+- id: extract_grid_and_constraints
+  description: Extract the initial Sudoku grid with clues, thermos, box/cell mapping,
+    and the gray circle position. Prepare data for solving.
+  status: not_started
+  order: 1
+  inputs:
+  - task_description
+  - resources
+  - constraints
+  outputs:
+  - parsed_grid
+  - clue_cells
+  - thermo_data
+  - circle_position
+- id: assign_color_domains
+  description: Enumerate all possible 4 colors, and assign them as variables to each
+    cell with respect to the unique digit/color combination constraint.
+  status: not_started
+  order: 2
+  inputs:
+  - parsed_grid
+  - clue_cells
+  outputs:
+  - grid_with_color_domains
+- id: generate_possible_solutions
+  description: Combine digit and color entries under all constraints (row/col/box
+    uniqueness, unique digit/color combo, thermo, circle). Generate valid solution(s)
+    if any.
+  status: not_started
+  order: 3
+  inputs:
+  - grid_with_color_domains
+  - thermo_data
+  - circle_position
+  - constraints
+  outputs:
+  - valid_solution_grids
+- id: output_final_solution
+  description: Present the final grid solution(s) with digits and color assignments.
+  status: not_started
+  order: 4
+  inputs:
+  - valid_solution_grids
+  outputs:
+  - solved_sudoku_grid_with_colors

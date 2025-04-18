@@ -1,0 +1,26 @@
+task_id: sudoku_zipperline_circle
+title: Solve 4x4 Sudoku Puzzle with Zipper Line and Circle Constraints
+description: 'Solve the given 4x4 sudoku puzzle using standard rules, with additional
+  zipper line and circle constraints. The puzzle board is:
+
+  . 4 1 . | . 1 . . | . 2 3 . | . . 2 .
+
+  Zipper line: (r1c1, r2c1, r3c1, r4c1, r4c2, r4c3, r4c4; r2c2, r2c3, r3c3)
+
+  Circles at: r1c1, r2c1, r3c1, r4c2, r4c3, r2c4'
+constraints:
+- 'Standard 4x4 sudoku rules: each row, column, and 2x2 box contains digits 1-4 once
+  each.'
+- 'Zipper line: The specified path (r1c1, r2c1, r3c1, r4c1, r4c2, r4c3, r4c4; r2c2,
+  r2c3, r3c3) adds an extra constraint (unspecified in the description - typically
+  either unique, consecutive, sum, etc., must clarify if known).'
+- 'Circles: Cells at specified positions may have additional constraints (e.g., even,
+  odd, certain values; needs clarification if known).'
+- 'Start grid: . 4 1 . | . 1 . . | . 2 3 . | . . 2 .'
+- 'Visual elements: Zipper line path, circles at specified cells.'
+resources:
+- Sudoku solving logic
+- Zipper line constraint logic
+- Circle constraint logic
+created_at: '2025-04-17T12:15:06.508296'
+updated_at: '2025-04-17T12:15:06.508296'

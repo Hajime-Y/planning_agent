@@ -1,0 +1,18 @@
+task_id: snake_4x4_sudoku
+title: 4x4数独＋スネーク問題の解決
+description: 'Solve the 4x4 sudoku puzzle with snake constraint: Normal sudoku, draw
+  a 1-cell-wide orthogonally connected snake from top-left, snake consists of all
+  and only ''non-friendly'' cells (where digit≠row, column, or box number), visits
+  all 2x2 boxes, does not branch or touch itself orthogonally. Empty initial grid.'
+constraints:
+- 通常の4x4数独ルール（各行・各列・各2x2ボックスに1-4を一つずつ）
+- スネークは1セル幅で、直交隣接する連結経路（自己交差・分岐・直交隣接禁止）
+- スネークは左上セルから始まり、全ての2x2ボックスを1回以上訪問
+- セルが「フレンドリー」の条件：そのセルの数字が「その行番号」または「その列番号」または「そのボックス番号」と一致。番号は1-indexed
+- スネークは、ちょうど全ての『非フレンドリー』セルのみから成る。フレンドリーセルは含まない
+- 初期グリッドは空
+resources:
+- 空の4x4数独グリッド
+- セル座標・行番号・列番号・ボックス番号の対応表
+created_at: '2025-04-17T17:45:37.635422'
+updated_at: '2025-04-17T17:45:37.635422'

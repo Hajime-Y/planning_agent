@@ -1,0 +1,48 @@
+plan_id: plan_error_sudoku_4x4_001
+task_id: error_sudoku_4x4_001
+created_at: '2025-04-17T17:48:34.736585'
+updated_at: '2025-04-17T17:48:34.736585'
+version: 1
+status: in_progress
+subtasks:
+- id: subtask_1
+  order: 1
+  description: 整理：初期配置・ルール・盤面情報・手がかり・条件を全てリストアップし、解釈の曖昧点がないようにする。
+  inputs:
+    task_requirements_file: data/requirements/error_sudoku_4x4_001.yaml
+  outputs:
+    parsed_grid: セル座標→値（未定義はNone）
+    regions: ボックスのセルリスト
+    digits: 1~4
+    error_rule_spec: 各数字ごとのエラー数ルール
+    palindrome_lines: 対象セル列のリスト
+    sum_clues: '位置と条件(例: ''r0c2 < 7'')'
+- id: subtask_2
+  order: 2
+  description: 全ての空きマスへの、原則として有効な候補となる数字リストを生成する（標準数独とエラールール込みで）。
+  inputs:
+    parsed_grid: subtask_1.outputs.parsed_grid
+    digits: subtask_1.outputs.digits
+    regions: subtask_1.outputs.regions
+    error_rule_spec: subtask_1.outputs.error_rule_spec
+  outputs:
+    cell_candidates: セル座標ごとの候補数字リスト
+- id: subtask_3
+  order: 3
+  description: 各候補配置についてエラーペア・手がかり（合計・パリンドローム）・枠外出現数を検証し、ルールをすべて満たす盤面候補を列挙する。
+  inputs:
+    cell_candidates: subtask_2.outputs.cell_candidates
+    palindrome_lines: subtask_1.outputs.palindrome_lines
+    sum_clues: subtask_1.outputs.sum_clues
+    digits: subtask_1.outputs.digits
+    regions: subtask_1.outputs.regions
+    error_rule_spec: subtask_1.outputs.error_rule_spec
+  outputs:
+    valid_placements: 全ルールを満たす盤面配置リスト
+- id: subtask_4
+  order: 4
+  description: 得られた正当な盤面配置候補から、１つ以上のセルの確定数字（または全候補盤面）を抜き出す。
+  inputs:
+    valid_placements: subtask_3.outputs.valid_placements
+  outputs:
+    deduced_cells: 確定できたセル＝(座標, 確定数字)、または全候補盤面

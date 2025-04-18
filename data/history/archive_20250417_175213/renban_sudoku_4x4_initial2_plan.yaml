@@ -1,0 +1,53 @@
+plan_id: renban_sudoku_4x4_initial2_plan
+task_id: renban_sudoku_4x4_initial2
+created_at: '2025-04-17T17:52:11.483495'
+updated_at: '2025-04-17T17:52:11.483495'
+version: 1
+status: in_progress
+subtasks:
+- id: init_setup
+  description: 初期盤面（4x4マス、r2c1=2）と各レンバン線のセル座標リストを整理・記録する
+  status: not_started
+  order: 1
+  inputs: []
+  outputs:
+  - initial_board
+  - renban_lines
+- id: collect_renban_candidates
+  description: レンバン線ごとに許される数字の並び候補を抽出する
+  status: not_started
+  order: 2
+  inputs:
+  - initial_board
+  - renban_lines
+  outputs:
+  - renban_candidates
+- id: prune_with_sudoku_rules
+  description: 数独ルールで行・列・ボックスの候補制限を反映する
+  status: not_started
+  order: 3
+  inputs:
+  - renban_candidates
+  - initial_board
+  outputs:
+  - pruned_candidates
+- id: find_critical_placement
+  description: 配置を進展させるための決定的マス配置を1つ特定する
+  status: not_started
+  order: 4
+  inputs:
+  - pruned_candidates
+  - initial_board
+  outputs:
+  - critical_placement
+- id: update_board_and_candidates
+  description: 判明した配置を盤面と候補に反映・更新する
+  status: not_started
+  order: 5
+  inputs:
+  - critical_placement
+  - initial_board
+  - pruned_candidates
+  outputs:
+  - updated_board
+  - updated_candidates

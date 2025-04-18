@@ -1,0 +1,43 @@
+plan_id: active
+task_id: sudoku_sumline_4x4
+created_at: '2025-04-16T20:36:10.839054'
+updated_at: '2025-04-16T20:36:10.839054'
+version: 1
+status: in_progress
+subtasks:
+- id: '1'
+  description: 4x4空グリッド構造の作成と、3本の合計線指定を構造化データで生成する
+  status: completed
+  order: 1
+  inputs: []
+  outputs:
+  - structured_board (empty 4x4 grid)
+  - line_segments (3 region sum lines)
+- id: '2'
+  description: 4x4数独標準ルール（行・列・2x2各ボックスに1-4が一度ずつ）を論理表現/構造化データとして設定
+  status: pending
+  order: 2
+  inputs:
+  - structured_board (empty 4x4 grid)
+  - line_segments (3 region sum lines)
+  outputs:
+  - sudoku_constraints (standard 4x4 rules as logic constraints)
+- id: '3'
+  description: '問題の全仕様（盤面、合計線、ルール）を一括で論理記述（例: CSPデータ）としてまとめる'
+  status: pending
+  order: 3
+  inputs:
+  - structured_board
+  - line_segments
+  - sudoku_constraints
+  outputs:
+  - full_problem_spec (logic/CSP representation)
+- id: '4'
+  description: 問題データを確認し、テスト入力例や検証用データ生成
+  status: pending
+  order: 4
+  inputs:
+  - full_problem_spec
+  outputs:
+  - testdata
+  - validation_report

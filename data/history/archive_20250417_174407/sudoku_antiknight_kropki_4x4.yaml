@@ -1,0 +1,20 @@
+task_id: sudoku_antiknight_kropki_4x4
+title: Solve 4x4 Sudoku with Antiknight & Partial Kropki Constraints
+description: 'Solve the given 4x4 Sudoku puzzle with the following constraints: classic
+  Sudoku rules, antiknight constraint, a white Kropki dot between r1c3-r1c4, and a
+  black Kropki dot between r3c1-r4c1. The starting grid is: r1c1=3, all other cells
+  empty. At each step, a single confident placement must be provided.'
+constraints:
+- 'Classic 4x4 Sudoku: each number 1-4 appears once per row, column, and box.'
+- 'Antiknight: cells a chess knight’s move apart cannot contain the same digit.'
+- 'Partial Kropki: white dot between r1c3 and r1c4 (consecutive digits), black dot
+  between r3c1 and r4c1 (digits in 1:2 ratio).'
+- 'Starting grid: r1c1=3, all other cells empty.'
+- At each step, only one cell can be confidently filled (single placement per step).
+resources:
+- Sudoku solving knowledge (classic, antiknight, Kropki variants)
+- Logical deduction at every step
+- Record of previous placements and reasoning
+- Ability to represent and update the grid state step-by-step
+created_at: '2025-04-17T17:43:46.412733'
+updated_at: '2025-04-17T17:43:46.412733'

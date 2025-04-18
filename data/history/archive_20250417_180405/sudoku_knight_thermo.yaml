@@ -1,0 +1,29 @@
+task_id: sudoku_knight_thermo
+title: Solve 4x4 Sudoku with Knight and Thermo Rules
+description: 'Solve the given 4x4 Sudoku puzzle with the following rules:
+
+  1. Each row, column, and 2x2 box must contain the digits 1-4 exactly once.
+
+  2. Digits separated by a chess knight''s move may not repeat.
+
+  3. Digits along a thermo strictly increase from the bulb.
+
+  Thermo 1: starts at r4c2 and goes through r3c2, r2c2.
+
+  Thermo 2: starts at r2c3 and goes through r3c3.'
+constraints:
+- Each row contains digits 1-4 exactly once.
+- Each column contains digits 1-4 exactly once.
+- Each 2x2 box contains digits 1-4 exactly once.
+- Digits placed at knight's-move distance cannot repeat.
+- Digits along each thermo must strictly increase from the bulb position.
+- 'Thermo 1 path: r4c2 → r3c2 → r2c2.'
+- 'Thermo 2 path: r2c3 → r3c3.'
+resources:
+- A blank 4x4 Sudoku grid (rows r1...r4, columns c1...c4).
+- 'List of 2x2 boxes: (r1c1-r2c2), (r1c3-r2c4), (r3c1-r4c2), (r3c3-r4c4).'
+- 'Thermo 1 position list: [(4,2), (3,2), (2,2)]'
+- 'Thermo 2 position list: [(2,3), (3,3)]'
+- Knight's move positions for each cell
+created_at: '2025-04-17T17:58:08.094751'
+updated_at: '2025-04-17T17:58:08.094751'

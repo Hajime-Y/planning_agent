@@ -1,0 +1,16 @@
+task_id: sudoku_killer_littlekiller_4x4
+title: Killer/Little Killer条件付き4x4数独の一意解候補推定
+description: 与えられた4x4数独パズル（初期配置, Killer Cage, Little Killer条件付き）において、現時点で論理的に確定して記入できる
+  ('one certain digit') 数字を一つ推定する。
+constraints:
+- 各行・各列・各ボックス（2x2）は1〜4の数字を重複なく並べること
+- Killer Cage：枠に記載されたマスの合計がケージ合計に等しく、ケージ内で数字は重複不可
+- Little Killer：指定された斜め一連のマスの合計がヒントの合計値になる
+- 論理的に確定できるもののみ記入＝仮定推測禁止
+- 解く対象は . 2 1 . / . 4 . . / . 3 4 . / . . 3 . からスタート
+resources:
+- 数独盤：初期値配置（4x4グリッド）
+- Killer Cage情報（ケージ番号・マス座標・合計）
+- Little Killer ヒント（合計値・参加マス座標）
+created_at: '2025-04-17T17:53:37.559507'
+updated_at: '2025-04-17T17:53:37.559507'

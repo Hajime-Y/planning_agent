@@ -1,0 +1,45 @@
+plan_id: sudoku
+task_id: sudoku
+created_at: '2025-04-16T21:04:10.367541'
+updated_at: '2025-04-16T21:04:10.367541'
+version: 1
+status: in_progress
+subtasks:
+- id: '1'
+  description: パズルのボード・特殊記号・本数・条件等を内部構造へパースする
+  status: completed
+  order: 1
+  inputs:
+  - 生テキストのパズル情報（4x4ボード・サーモ・ドット等）
+  outputs:
+  - 構造化済みボード
+  - サーモリスト
+  - 黒/白ドット座標
+  - 偶数マス座標
+  detail_comment: 'Board: [[8,4,5,6],[.,5,.,8],[4,8,6,5],[.,6,8,.]]; Thermos: [[r3c1,r2c1],[r4c1,r4c2,r3c2],[r4c4,r3c4],[r2c3,r2c2],[r2c3,r3c3],[r1c3,r1c4,r2c4]];
+    Black dot: (r4c3,r4c4); White dot: (r1c2,r2c2); Even: r2c1'
+- id: '2'
+  description: 構造化データを用いて初期候補集合を生成し、各制約（サーモ、黒/白ドット、偶数、盤既定値）を反映する
+  status: pending
+  order: 2
+  inputs:
+  - 構造化ボードと制約リスト
+  outputs:
+  - 各セルごとの候補値リスト（制約反映済）
+- id: '3'
+  description: 候補集合を使ってソルバー手順（確定埋め、制約伝播、backtrack探索等）で唯一解探索を行う
+  status: pending
+  order: 3
+  inputs:
+  - セルごとの候補値リスト
+  - 構造的制約
+  outputs:
+  - パズルの解
+- id: '4'
+  description: 満たすべき要件（正当性・一意性）の検証と結果の人可読整形出力
+  status: pending
+  order: 4
+  inputs:
+  - パズルの解
+  outputs:
+  - 可視ボード形式 or 解説文など

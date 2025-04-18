@@ -1,0 +1,25 @@
+task_id: euler-sudoku-4x4-thermo-color
+title: '4x4 Euler Sudoku with Thermometers and Colors: First Placement Deduction'
+description: Solve a 4x4 Euler Sudoku using digits 1-4 and four colors, with each
+  digit/color combination appearing exactly once. Each row, column, and box must have
+  all digits and all colors. 3 thermometers (r1c2→r2c3, r2c2→r3c3), gray circles (odd
+  digit) in r1c2, r2c2, r3c4. Deduce the first certain placement and provide it with
+  reason.
+constraints:
+- 4x4 Sudoku grid; fill each cell with one digit (1-4) and one color (out of 4).
+- Each row, column, and 2x2 box must contain every digit exactly once.
+- Each row, column, and 2x2 box must contain each color exactly once.
+- Every digit/color combination must appear exactly once in the grid (i.e., (digit,color)
+  uniqueness).
+- 'Three thermometers: Thermo1 r1c2→r2c3, Thermo2 r2c2→r3c3. On each thermometer,
+  digits strictly increase from bulb to tip.'
+- 'Gray circles in r1c2, r2c2, r3c4: these cells must have odd digits (1 or 3).'
+- First certain placement to be deduced must include cell, digit, color, and logical
+  justification.
+resources:
+- Sudoku solving knowledge (row/col/box rules)
+- Euler Sudoku digit/color pairing constraint
+- Thermometer Sudoku logic
+- Given odd cells as gray circle constraint
+created_at: '2025-04-17T17:56:58.924023'
+updated_at: '2025-04-17T17:56:58.924023'

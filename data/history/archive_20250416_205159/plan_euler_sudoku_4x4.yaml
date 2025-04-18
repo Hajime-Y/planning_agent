@@ -1,0 +1,46 @@
+plan_id: plan_euler_sudoku_4x4
+task_id: euler_sudoku_4x4
+created_at: '2025-04-16T20:49:34.030239'
+updated_at: '2025-04-16T20:49:34.030239'
+version: 1
+status: in_progress
+subtasks:
+- id: subtask_1
+  description: グリッドや使用する数字・色、2x2 box, thermo線・奇数条件など全制約のフォーマット定義（タスク要件分析→構造体作成）
+  status: not_started
+  order: 1
+  inputs:
+  - '要件ファイル: data/requirements/euler_sudoku_4x4.yaml'
+  outputs:
+  - グリッド構造データ（4x4座標、行/列/ブロック定義リスト）
+  - 色と数字セット
+  - 制約ルール一覧（thermo指定、奇数セルなどがマークされた構造体）
+- id: subtask_2
+  description: 全制約条件をプログラム的に判定する関数の設計・初期化（カラー・数字・thermo増加等）
+  status: not_started
+  order: 2
+  inputs:
+  - グリッド構造データ
+  - 色と数字セット
+  - 制約ルール一覧
+  outputs:
+  - 制約を検証する判定関数セット
+- id: subtask_3
+  description: 候補解生成アルゴリズム（例：バックトラッキングや制約充足問題フレームワーク）で解探索ロジックの組立
+  status: not_started
+  order: 3
+  inputs:
+  - グリッド構造データ
+  - 色と数字セット
+  - 制約ルール一覧
+  - 制約検証関数
+  outputs:
+  - グリッドへの色・数字配置候補（解）
+- id: subtask_4
+  description: 得られた解を整形し、出力用にフォーマットする
+  status: not_started
+  order: 4
+  inputs:
+  - グリッドへの色・数字配置候補（解）
+  outputs:
+  - 最終的な解（標準的なグリッド形式・カラーマッピング付き）

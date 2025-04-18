@@ -1,0 +1,19 @@
+task_id: sudoku_sunburn_4x4
+title: 4x4 sudoku puzzle with Sunburn constraints
+description: Solve a 4x4 sudoku puzzle with normal sudoku rules and Sunburn constraints.
+  Suns are at r2c2, r2c4, and r3c4. Each sun's digit equals the number of surrounding
+  cells containing strictly smaller digits. Starting grid is empty.
+constraints:
+- '4x4 sudoku: Each digit 1-4 appears exactly once in each row, column, and 2x2 box.'
+- 'Sunburn constraints: At each sun cell (r2c2, r2c4, r3c4), the digit must equal
+  the number of strictly smaller digits in its 8 neighboring cells (surrounding in
+  all 8 directions; edge/corner cells may have fewer neighbors).'
+- Grid is empty to start.
+- Only one solution is to be found (unique solution).
+resources:
+- Sudoku solver implementation (custom or existing)
+- Ability to model and count strictly smaller neighbors for given cells
+- Standard sudoku rules
+- 4x4 grid representation
+created_at: '2025-04-17T17:57:19.409099'
+updated_at: '2025-04-17T17:57:19.409099'

@@ -1,0 +1,48 @@
+plan_id: sudoku_4x4_special_plan
+task_id: sudoku_4x4_special
+created_at: '2025-04-17T12:16:52.459815'
+updated_at: '2025-04-17T12:16:52.459815'
+version: 1
+status: in_progress
+subtasks:
+- id: st1
+  order: 1
+  description: 初期盤面および付随情報（サーモメーター・黒白丸・灰色マス）の整理・記録
+  inputs:
+  - 初期盤面の文字列表現
+  - 視覚制約情報
+  outputs:
+  - 構造化された盤面・制約情報データ
+- id: st2
+  order: 2
+  description: 使用する4種類の数字（1～9から）すべての組み合わせを列挙
+  inputs:
+  - 構造化された盤面・制約情報データ
+  outputs:
+  - 4数字セット（組み合わせ）リスト
+- id: st3
+  order: 3
+  description: サーモ・黒白・偶数など追加制約を反映して各数字セットごとの配置可能候補リストを作成
+  inputs:
+  - 4数字セット（組み合わせ）リスト
+  - 構造化された盤面・制約情報データ
+  outputs:
+  - 各4数字セットごとの盤面候補リスト
+- id: st4
+  order: 4
+  description: 候補盤面を検証・分岐しながらパズルを解答
+  inputs:
+  - 各4数字セットごとの盤面候補リスト
+  - 構造化された盤面・制約情報データ
+  outputs:
+  - 完全な解答盤面
+  - 主要な論理的手順や分岐記録
+- id: st5
+  order: 5
+  description: 最終解の出力と正しさ検証
+  inputs:
+  - 完全な解答盤面
+  - 主要な論理的手順や分岐記録
+  outputs:
+  - 正当な解（答え）
+  - 検証証明（制約遵守の説明）

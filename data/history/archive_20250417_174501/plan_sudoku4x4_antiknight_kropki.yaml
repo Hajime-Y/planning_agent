@@ -1,0 +1,39 @@
+plan_id: plan_sudoku4x4_antiknight_kropki
+task_id: sudoku4x4_antiknight_kropki
+created_at: '2025-04-17T17:44:57.312285'
+updated_at: '2025-04-17T17:44:57.312285'
+version: 1
+status: in_progress
+subtasks:
+- id: subtask_1
+  description: パズルルール・初期状態・ドットなど制約情報の定義
+  status: not_started
+  order: 1
+  inputs: []
+  outputs:
+  - puzzle_definition
+- id: subtask_2
+  description: 定義した内容を用い制約ソルバー用のモデル/入力を作成
+  status: not_started
+  order: 2
+  inputs:
+  - puzzle_definition
+  outputs:
+  - solver_model
+- id: subtask_3
+  description: 制約ソルバー・ロジックを実行してパズルを解く
+  status: not_started
+  order: 3
+  inputs:
+  - solver_model
+  outputs:
+  - solution
+- id: subtask_4
+  description: 得られた解答が全てのルール・制約を満たすか検証する
+  status: not_started
+  order: 4
+  inputs:
+  - solution
+  - puzzle_definition
+  outputs:
+  - validation_report

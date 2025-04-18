@@ -1,0 +1,46 @@
+plan_id: plan_euler_sudoku_4x4_thermo_odd
+task_id: euler_sudoku_4x4_thermo_odd
+created_at: '2025-04-17T11:48:49.428786'
+updated_at: '2025-04-17T11:48:49.428786'
+version: 1
+status: in_progress
+subtasks:
+- id: '1'
+  order: 1
+  description: 初期盤面、サーモ配置、グレーサークル位置を受け取り、内部データ構造へ変換する
+  status: pending
+  inputs:
+    board_str: '初期盤面文字列（例: . 2 4 . / . 1 . . / . 4 2 . / . . 1 .）'
+    thermo_info: 'サーモメーター配置情報（例: [[(0,0),(1,0),(2,0)], ...]）'
+    gray_circle_info: 'グレイサークル（奇数指定）位置リスト（例: [(1,2),(3,1)]）'
+  outputs:
+    board: 4x4初期盤面（list of list）
+    thermo_list: サーモ各本のセル座標リスト
+    odd_cells: 奇数指定セル座標リスト
+- id: '2'
+  order: 2
+  description: 入力情報から、全制約（数独＋Euler＋サーモ＋奇数）を表現する制約システムを構成する
+  status: pending
+  inputs:
+    board: 4x4初期盤面（list of list）
+    thermo_list: サーモ各本のセル座標リスト
+    odd_cells: 奇数指定セル座標リスト
+  outputs:
+    constraints: 全制約条件付きの内部表現データ
+- id: '3'
+  order: 3
+  description: 制約充足のもと、全探索またはバックトラックで唯一解を導出する
+  status: pending
+  inputs:
+    constraints: 全制約条件付きの内部表現データ
+  outputs:
+    solution: 完成した4x4盤面（list of list、解無しの場合はNone）
+- id: '4'
+  order: 4
+  description: 得られた解の妥当性（全制約クリア）を検証し、最終的な答えとして出力形式へ変換
+  status: pending
+  inputs:
+    solution: 完成した4x4盤面（list of list、解無しの場合はNone）
+    constraints: 全制約条件付きの内部表現データ
+  outputs:
+    final_output: 書式化された答え、もしくは解無しメッセージ

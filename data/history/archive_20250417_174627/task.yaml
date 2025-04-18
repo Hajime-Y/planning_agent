@@ -1,0 +1,51 @@
+plan_id: task
+task_id: task
+created_at: '2025-04-17T17:46:16.873777'
+updated_at: '2025-04-17T17:46:16.873777'
+version: 1
+status: in_progress
+subtasks:
+- id: '1'
+  description: 全ての制約条件（数独・サーモ・黒白点・グレー/偶数など）と論理的含意を整理・分析する
+  status: completed
+  order: 1
+  inputs: {}
+  outputs: {}
+  comments:
+  - 'Step 1 complete: All core constraints and their logical implications have been
+    analyzed.'
+  - '- Each row, column, and 2x2 box must contain the SAME subset of 4 digits from
+    1–9—meaning only 4 different digits are used throughout the solution, appearing
+    in all rows/columns/boxes in some permutation.'
+  - '- Thermometer lines: Digits must strictly increase from the bulb end.'
+  - '- Black dot: The two adjacent cells must be in a 2:1 ratio, i.e., one is double
+    the other (between r4c3 and r4c4).'
+  - '- White dot: The two adjacent cells must be consecutive (between r1c2 and r2c2).'
+  - '- Gray square (at r2c1) must be even.'
+  - '- Light gray circles and lines are decorative/for theming; functional dots and
+    constraints above capture all hard restrictions needed for solving.'
+- id: '2'
+  description: 1–9から異なる4桁のサブセット（繰り返しなし）を全て列挙する。各サブセットで論理的な妥当性を確認できるか調べる。
+  status: pending
+  order: 2
+  inputs:
+    分析済み制約: サブタスク1の分析結果
+  outputs:
+    可能な4桁のサブセット候補リスト: 全数または有望なもののみ
+- id: '3'
+  description: 各サブセット候補に対して実際に配置できる盤面パターンを列挙し、追加制約（サーモ,2:1,連続,偶数マスなど）で消去・フィルタリングする
+  status: pending
+  order: 3
+  inputs:
+    サブセット候補リスト: サブタスク2出力
+  outputs:
+    有効盤面パターン: 条件を満たす盤面の候補
+- id: '4'
+  description: 最終解（または全候補）を整形して出力する。制約ごとの理由付けもコメントする。
+  status: pending
+  order: 4
+  inputs:
+    有効盤面パターン: サブタスク3出力
+  outputs:
+    最終答案: ''
+    途中経過の説明: ''

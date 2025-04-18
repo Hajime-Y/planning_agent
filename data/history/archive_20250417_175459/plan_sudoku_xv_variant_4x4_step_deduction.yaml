@@ -1,0 +1,52 @@
+plan_id: plan_sudoku_xv_variant_4x4_step_deduction
+task_id: sudoku_xv_variant_4x4_step_deduction
+created_at: '2025-04-17T17:54:57.882649'
+updated_at: '2025-04-17T17:54:57.882649'
+version: 1
+status: in_progress
+subtasks:
+- id: subtask1
+  order: 1
+  description: 問題の初期盤面・X/V制約・合計制約情報の整理とフォーマット化
+  status: not_started
+  inputs:
+  - 与えられた4x4数独の初期盤面（ヒント値付き）
+  - X/V constraints（どのマスの間にX(和10)、V(和5)があるかの情報）
+  - 各行・列・ボックスの合計値
+  outputs:
+  - 盤面情報の標準フォーマット（2次元リスト等）
+  - X/V制約情報のリスト or 隣接マス組リスト
+  - 合計制約情報のリスト・辞書
+- id: subtask2
+  order: 2
+  description: 各種制約（X/V制約、一意配置、合計制約）の論理モデル化
+  status: not_started
+  inputs:
+  - subtask1の出力
+  outputs:
+  - 各制約を論理式やフィルタとして表現したモデル
+- id: subtask3
+  order: 3
+  description: 現在の盤面状況に基づく各セルの候補値リストアップ（消去法）
+  status: not_started
+  inputs:
+  - subtask1の出力
+  - subtask2の出力
+  outputs:
+  - 各セルごとの候補値リスト
+- id: subtask4
+  order: 4
+  description: サブタスク3の候補値・制約から確定できるマスとその根拠（手筋）の論理的推論
+  status: not_started
+  inputs:
+  - subtask3の出力
+  outputs:
+  - このステップで必然的に決まるマスの座標と値、その論理的根拠の記述
+- id: subtask5
+  order: 5
+  description: 確定マス・根拠の出力（説明付きで提示）
+  status: not_started
+  inputs:
+  - subtask4の出力
+  outputs:
+  - 次のステップで配置すべきマス、値、理由を明示したアウトプット

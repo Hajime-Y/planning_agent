@@ -1,0 +1,52 @@
+plan_id: sudoku_sunburn_4x4_plan
+task_id: sudoku_sunburn_4x4
+created_at: '2025-04-17T17:58:31.384394'
+updated_at: '2025-04-17T17:58:31.384394'
+version: 1
+status: in_progress
+subtasks:
+- id: define_problem
+  description: Define the initial 4x4 Sudoku grid (all empty), and specify sunburn
+    clue locations (r2c2, r2c4, r3c4).
+  status: pending
+  order: 1
+  inputs: []
+  outputs:
+  - initial_grid
+  - sunburn_positions
+- id: generate_candidates
+  description: Generate all possible solutions that satisfy standard 4x4 Sudoku constraints.
+  status: pending
+  order: 2
+  inputs:
+  - initial_grid
+  outputs:
+  - sudoku_candidates
+- id: apply_sunburn_constraints
+  description: Filter candidates to only those where the sunburn constraints at r2c2,
+    r2c4, r3c4 are satisfied.
+  status: pending
+  order: 3
+  inputs:
+  - sudoku_candidates
+  - sunburn_positions
+  outputs:
+  - valid_candidates
+- id: deduce_forced_placements
+  description: For each empty cell, determine if there is a forced placement (unique
+    value among all solutions), and provide those placements.
+  status: pending
+  order: 4
+  inputs:
+  - valid_candidates
+  outputs:
+  - forced_placements
+- id: format_output
+  description: Present the forced placements and solved puzzle grid in a readable
+    format.
+  status: pending
+  order: 5
+  inputs:
+  - forced_placements
+  outputs:
+  - final_output

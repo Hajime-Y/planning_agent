@@ -1,0 +1,25 @@
+task_id: euler_sudoku_4x4_with_thermo_and_colors
+title: 4x4 Euler Sudoku puzzle with digits, colors, thermo, odd digit constraints
+description: 'Solve a 4x4 Euler Sudoku, filling each cell with a digit (1-4) and a
+  color (four different colors), such that each digit/color combination appears exactly
+  once on the board, and each row, column, and 2x2 box has all four digits and all
+  four colors. Additional constraints: ''thermo'' lines (with increasing digits from
+  bulb), and gray circles (cells that must be odd digits) at r1c2, r2c2, r3c4. The
+  starting board is empty.'
+constraints:
+- The Sudoku board is 4x4.
+- Each cell contains both a digit (1-4) and a color (one of four different colors).
+- Each digit/color combination appears exactly once on the board.
+- Each row, column, and 2x2 box contains all four digits and all four colors (no repeats
+  per row/col/box).
+- 'Thermo: Along each lightgray line (thermo), digits must increase from the bulb
+  towards the end.'
+- 'Gray circles at cells r1c2, r2c2, r3c4 enforce: digit must be odd (1 or 3).'
+- The initial board is empty.
+resources:
+- Sudoku solving knowledge and heuristics for digits and colors.
+- Understanding of Euler (greek) Sudoku constraints.
+- Thermo logic and odd cell constraints.
+- Ability to represent and track candidates for each cell.
+created_at: '2025-04-17T17:57:29.748258'
+updated_at: '2025-04-17T17:57:29.748258'

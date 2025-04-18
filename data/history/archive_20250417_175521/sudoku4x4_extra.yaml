@@ -1,0 +1,37 @@
+task_id: sudoku4x4_extra
+title: Solve 4x4 Sudoku-like Puzzle with Extra Constraints
+description: 'Solve the 4x4 sudoku-like puzzle:
+
+  - Each row, column, and 2x2 box: unique digits (no repeats), plus unique sets of
+  digits per row/col/box (no two rows/columns/boxes have the same combination of 4
+  digits).
+
+  - The sum of digits in each row/column/box is the same unknown value X (to be determined
+  during solution).
+
+  - Special clues: cells with ''V'' between them sum to 5; cells with ''X'' between
+  them sum to 10 (like killer sudoku pairs).
+
+  - Initial board: . 1 5 . / . 7 . . / . 4 2 . / . . 8 .
+
+  - Visual constraints given: V between r1c1-r1c2 and r2c3-r3c3; X between r2c2-r2c3,
+  r1c4-r2c4, r3c2-r4c2.
+
+  - Confident placements should be provided one at a time.'
+constraints:
+- Each row, column, and 2x2 box contains the digits 1-8 uniquely (no repeats).
+- No two rows, columns, or boxes have the same set of 4 digits.
+- The sum of the digits in each row, column, and 2x2 box is the same unknown value
+  X.
+- Cells with a V between must sum to 5.
+- Cells with an X between must sum to 10.
+- 'Initial board is: . 1 5 . / . 7 . . / . 4 2 . / . . 8 . (rows top-down)'
+- Provide placements one at a time with confidence.
+- 'V clues: (r1c1,r1c2), (r2c3,r3c3).'
+- 'X clues: (r2c2,r2c3), (r1c4,r2c4), (r3c2,r4c2).'
+resources:
+- Puzzle rules as provided.
+- Initial board configuration.
+- V/X clues and placement.
+created_at: '2025-04-17T17:55:18.496693'
+updated_at: '2025-04-17T17:55:18.496693'

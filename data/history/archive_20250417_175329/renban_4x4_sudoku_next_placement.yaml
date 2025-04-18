@@ -1,0 +1,22 @@
+task_id: renban_4x4_sudoku_next_placement
+title: 4x4 スドク + Renban線 次の論理的配置
+description: 'Given a 4x4 Sudoku grid with specific violet Renban lines and certain
+  filled digits, deduce and make the next step (a single, uniquely forced placement)
+  according to standard Sudoku and Renban rules. Renban lines: cells listed as in
+  the task statement.'
+constraints:
+- Standard 4x4 Sudoku rules (each row/column/box has digits 1–4, non-repeating)
+- 'Violet Renban lines: cells on each line must contain a set of consecutive digits
+  in any order (not necessarily sequential, but the set must be a block, e.g. 1-2-3
+  or 2-3-4)'
+- 'Only one digit is to be placed this step: it must be a uniquely forced placement
+  by logic under current constraints'
+- 'Input data: starting board (cell coordinates and known digits), list of Renban
+  line cell groups'
+resources:
+- Sudoku board parser for 4x4
+- Renban line cell group parser and validator
+- Logic deduction tools for constraint propagation
+- Visual or data representation for current board and candidates
+created_at: '2025-04-17T17:53:24.805064'
+updated_at: '2025-04-17T17:53:24.805064'

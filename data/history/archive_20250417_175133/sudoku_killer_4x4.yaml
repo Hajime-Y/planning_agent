@@ -1,0 +1,43 @@
+plan_id: sudoku_killer_4x4
+task_id: sudoku_killer_4x4
+created_at: '2025-04-17T17:51:20.689963'
+updated_at: '2025-04-17T17:51:20.689963'
+version: 1
+status: in_progress
+subtasks:
+- id: '1'
+  description: 4x4数独グリッドの初期化、すべての制約（数独ルール・キラーケージ・リトルキラー対角）情報を整理
+  status: completed
+  order: 1
+  inputs: {}
+  outputs:
+    constraints:
+    - 標準数独ルール
+    - 'killer cage: (r1c1 r1c2)=5'
+    - 'killer cage: (r2c1 r2c2 r3c2)=8'
+    - 'killer cage: (r2c4 r3c4)=4'
+    - 'little killer diagonal: (r1c4, r2c3, r3c2, r4c1) sum=8'
+- id: '2'
+  description: 抽出した制約情報をもとに、各セルの初期候補値（ペンシルマーク）を計算する
+  status: pending
+  order: 2
+  inputs:
+    constraints:
+    - 標準数独ルール
+    - 'killer cage: (r1c1 r1c2)=5'
+    - 'killer cage: (r2c1 r2c2 r3c2)=8'
+    - 'killer cage: (r2c4 r3c4)=4'
+    - 'little killer diagonal: (r1c4, r2c3, r3c2, r4c1) sum=8'
+  outputs: {}
+- id: '3'
+  description: 設定された初期候補から論理的に数字を決定し、数独全体を解く
+  status: pending
+  order: 3
+  inputs: {}
+  outputs: {}
+- id: '4'
+  description: 解が得られたら、グリッド表示や検証を行い答えを明示する
+  status: pending
+  order: 4
+  inputs: {}
+  outputs: {}

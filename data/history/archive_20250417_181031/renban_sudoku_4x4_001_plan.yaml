@@ -1,0 +1,53 @@
+plan_id: renban_sudoku_4x4_001_plan
+task_id: renban_sudoku_4x4_001
+created_at: '2025-04-17T18:10:31.062314'
+updated_at: '2025-04-17T18:10:31.062314'
+version: 1
+status: in_progress
+subtasks:
+- id: subtask1
+  description: 初期盤面とRenbanライン情報を整理し、盤面データ構造を作成する
+  status: not_started
+  order: 1
+  inputs:
+    初期盤面: . 3 4 2 / 2 4 3 . / 4 2 1 3 / 3 . . .
+    Renban lines: '[r4c1 r3c2 r2c2 r1c1], [r2c3 r2c4 r1c4], [r4c4 r3c4 r4c3], [r1c2
+      r1c3]'
+  outputs:
+    盤面データ構造: 各マスの値（または空欄）、Renbanラインを反映したデータ構造
+- id: subtask2
+  description: 数独ルール・Renban制約を用いて各マスの候補数字（候補リスト）を作成する
+  status: not_started
+  order: 2
+  inputs:
+    盤面データ構造: subtask1の出力
+  outputs:
+    各マスの候補リスト: 全マス候補数字リスト
+- id: subtask3
+  description: 論理的推論により、候補が唯一のマスや、Renban・数独ルールにより値が確定するマス・場所を決め、根拠を記録する
+  status: not_started
+  order: 3
+  inputs:
+    盤面データ構造: subtask1の出力
+    各マスの候補リスト: subtask2の出力
+  outputs:
+    強制配置情報: 配置したマスとその値・配置理由（論理的根拠）
+    配置後の盤面・候補リスト: 更新後の盤面と候補
+- id: subtask4
+  description: （必要に応じて）配置・除外を繰返し、全マス決定までサイクルする。根拠付きで解答を組み上げる
+  status: not_started
+  order: 4
+  inputs:
+    盤面・候補リスト（逐次更新）: subtask3の出力
+  outputs:
+    完成盤面: 全マス確定後の最終盤面
+    全配置根拠履歴: 全強制配置の論理的ステップ履歴
+- id: subtask5
+  description: 最終解答として、完成盤面と強制配置根拠・論証過程をまとめて提示する
+  status: not_started
+  order: 5
+  inputs:
+    完成盤面: subtask4の出力
+    全配置根拠履歴: subtask4の出力
+  outputs:
+    論理的ステップと盤面: 解答・解法過程まとめ

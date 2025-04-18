@@ -1,0 +1,52 @@
+plan_id: sudoku_variant_deduction_plan
+task_id: sudoku_variant_deduction
+created_at: '2025-04-17T17:44:35.885194'
+updated_at: '2025-04-17T17:44:35.885194'
+version: 1
+status: in_progress
+subtasks:
+- id: list_and_visualize_constraints
+  description: リストされた制約条件を明確化し、4x4グリッド上にどのように配置されているかをマッピングする（図や位置情報などで整理）。
+  status: not_started
+  order: 1
+  inputs:
+  - task_requirements
+  outputs:
+  - constraints_summary
+  - constraint_map
+- id: initialize_empty_grid
+  description: 4x4の空グリッドを作成し、各セルの候補値リスト（初期は1-9の全て）をもたせる。
+  status: not_started
+  order: 2
+  inputs:
+  - constraint_map
+  outputs:
+  - sudoku_grid_with_candidates
+- id: enumerate_possible_subsets
+  description: 1~9のうち異なる4つで構成される組み合わせを全列挙し、行・列・ボックスの候補セットを絞る。
+  status: not_started
+  order: 3
+  inputs:
+  - constraints_summary
+  outputs:
+  - possible_4digit_subsets
+- id: apply_special_constraints
+  description: サーモメーター・黒白ドット・灰マスといった追加制約をグリッドや候補値リストに反映する。
+  status: not_started
+  order: 4
+  inputs:
+  - sudoku_grid_with_candidates
+  - constraint_map
+  - possible_4digit_subsets
+  outputs:
+  - reduced_candidates_grid
+- id: deduce_and_commit_value
+  description: 全制約を反映したグリッドから、論理的に確定できるセルがあるか判定し、そのセルと値を決定する。
+  status: not_started
+  order: 5
+  inputs:
+  - reduced_candidates_grid
+  outputs:
+  - cell_position
+  - value
+  - deduction_explanation

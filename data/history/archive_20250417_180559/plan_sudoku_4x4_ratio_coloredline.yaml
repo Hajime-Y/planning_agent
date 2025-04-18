@@ -1,0 +1,63 @@
+plan_id: plan_sudoku_4x4_ratio_coloredline
+task_id: sudoku_4x4_ratio_coloredline
+created_at: '2025-04-17T18:05:55.827161'
+updated_at: '2025-04-17T18:05:55.827161'
+version: 1
+status: in_progress
+subtasks:
+- id: sub1
+  description: グリッドと制約（黒点・カラードライン）の入力/初期値を整形し、サブタスクで使いやすい構造体にする
+  status: not_started
+  order: 1
+  inputs:
+    initial_grid_str: . 3 4 2 | . 4 . 3 | 3 1 2 4 | . 2 3 .
+    black_dot_pair:
+    - r4c1
+    - r4c2
+    palegreen_line:
+    - r3c1
+    - r3c2
+    - r4c3
+    plum_line:
+    - r2c2
+    - r2c3
+    - r3c4
+    - r4c4
+  outputs:
+    grid: 構造化された4x4リスト (空白はNone等)
+    lines: 各カラードラインのセル座標、黒点ペア情報
+    box_map: 各セルがどの2x2ボックスに属するか
+- id: sub2
+  description: サブタスク1の出力より、標準4x4数独ルールであり得る各セルの候補数字セットを生成
+  status: not_started
+  order: 2
+  inputs:
+    grid: sub1の出力grid
+    box_map: sub1の出力box_map
+  outputs:
+    candidates: 各セルごとのあり得る数字集合
+- id: sub3
+  description: カラードラインの違い数制約、黒点制約を候補リストに反映する方法を設計し、そのフィルタリングを実装
+  status: not_started
+  order: 3
+  inputs:
+    candidates: sub2の出力
+    lines: sub1の出力lines
+  outputs:
+    filtered_candidates: すべての制約を考慮後の候補集合
+- id: sub4
+  description: 全制約を満たす解の探索・決定（backtracking等の手法により解を得る）
+  status: not_started
+  order: 4
+  inputs:
+    filtered_candidates: sub3の出力
+  outputs:
+    solution_grid: 完成した解（4x4グリッド）
+- id: sub5
+  description: 求めた解が要件を全て満たすことを検証し、ユーザーへ解答として表示
+  status: not_started
+  order: 5
+  inputs:
+    solution_grid: sub4の出力
+  outputs:
+    validated: True/False（および理由）、解答表示用テキスト

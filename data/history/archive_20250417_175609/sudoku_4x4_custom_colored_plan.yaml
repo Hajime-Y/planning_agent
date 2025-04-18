@@ -1,0 +1,48 @@
+plan_id: sudoku_4x4_custom_colored_plan
+task_id: sudoku_4x4_custom_colored
+created_at: '2025-04-17T17:56:01.469703'
+updated_at: '2025-04-17T17:56:01.469703'
+version: 1
+status: in_progress
+subtasks:
+- id: subtask_1
+  order: 1
+  description: 盤面と追加ルールを内部的なデータ構造へ変換・形式化する
+  inputs:
+    requirements: sudoku_4x4_custom_colored要件ファイル
+  outputs:
+    structured_board: 盤面と全ルールを表現するプログラム内部データ
+  status: pending
+- id: subtask_2
+  order: 2
+  description: 黒点・カラーパス制約を明示的に適用できる形で拡張する
+  inputs:
+    structured_board: subtask_1の出力
+  outputs:
+    extended_constraints: 問題に必要な全制約がプログラム的に表現されたデータ
+  status: pending
+- id: subtask_3
+  order: 3
+  description: カラーパス上の合法な数字配列（差ルールを満たすもの）の列挙・記述
+  inputs:
+    extended_constraints: subtask_2の出力
+  outputs:
+    valid_line_patterns: palegreen/plum各線上の合法数字パターンリスト
+  status: pending
+- id: subtask_4
+  order: 4
+  description: 全制約下での解探索（数独解の導出）
+  inputs:
+    valid_line_patterns: subtask_3の出力
+    extended_constraints: subtask_2の出力
+  outputs:
+    solved_board: 最終的な全セルの値（唯一解あるいは全解）
+  status: pending
+- id: subtask_5
+  order: 5
+  description: 答えとなる盤面の整形と出力
+  inputs:
+    solved_board: subtask_4の出力
+  outputs:
+    final_output: 人間が読める解答出力
+  status: pending

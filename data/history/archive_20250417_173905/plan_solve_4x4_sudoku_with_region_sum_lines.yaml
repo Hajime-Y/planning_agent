@@ -1,0 +1,57 @@
+plan_id: plan_solve_4x4_sudoku_with_region_sum_lines
+task_id: solve_4x4_sudoku_with_region_sum_lines
+created_at: '2025-04-17T17:39:02.341000'
+updated_at: '2025-04-17T17:39:02.341000'
+version: 1
+status: in_progress
+subtasks:
+- id: subtask_1_rules_init
+  description: 数独の基本ルール・region sum linesの詳細と初期グリッド（空白）情報を整理・明文化する
+  status: pending
+  order: 1
+  inputs:
+  - task要件 (requirements)
+  - region sum linesの詳細情報 (もし別途提示があれば)
+  outputs:
+  - ルール/制約の明文化
+  - 空白の初期4x4グリッド
+  - region sum linesごとのボックス内区間サム情報
+- id: subtask_2_constraints_analyze
+  description: region sum lines制約ごとに、可能な数字の組み合わせパターンを解析し記載する
+  status: pending
+  order: 2
+  inputs:
+  - 初期状態のグリッド
+  - region sum lines区間情報・区間サム
+  outputs:
+  - 各線・区間ごとの配置候補リスト
+- id: subtask_3_first_placement
+  description: 初期状態から、論理的に確定できる最初の数字配置候補を洗い出し、唯一確実なマスを選び配置する
+  status: pending
+  order: 3
+  inputs:
+  - 初期グリッド
+  - 候補パターン・region sum lines制約
+  outputs:
+  - 新しいグリッド状態（1つ配置済）
+  - 配置理由
+- id: subtask_4_iterative_placements
+  description: 配置ごとにグリッド全体・候補リストを更新し、次の一手ごとに繰り返す（論理的に唯一確実なマスを選ぶ）
+  status: pending
+  order: 4
+  inputs:
+  - 最新グリッド
+  - 候補リスト
+  outputs:
+  - 配置ごとの更新状態
+  - 配置理由・根拠リスト
+- id: subtask_5_finalization
+  description: グリッドが全て完成したとき、最終結果・配置の根拠付き手順リストとしてまとめる
+  status: pending
+  order: 5
+  inputs:
+  - 完成グリッド
+  - 手順記録
+  outputs:
+  - 最終解答グリッド
+  - 全配置手順・その根拠

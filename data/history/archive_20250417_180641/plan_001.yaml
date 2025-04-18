@@ -1,0 +1,43 @@
+plan_id: plan_001
+task_id: sudoku_thermo_dot_even_4x4
+created_at: '2025-04-17T18:06:33.753832'
+updated_at: '2025-04-17T18:06:33.753832'
+version: 1
+status: in_progress
+subtasks:
+- id: parse_and_prepare
+  description: 初期盤面と追加制約（サーモメーター/黒点/白点/灰色セル）を受け取り、内部表現に変換・整理する
+  status: not_started
+  order: 1
+  inputs:
+  - 初期盤面情報
+  - サーモメーター配置
+  - 黒点・白点ドット情報
+  - 灰色セル箇所
+  outputs:
+  - 内部データ構造（セル値と全制約情報）
+- id: deduce_candidates
+  description: 各セルに入りうる候補数字リストを、数独基本制約と全追加制約で可能な限り絞り込む
+  status: not_started
+  order: 2
+  inputs:
+  - 内部データ構造（セル値と全制約情報）
+  outputs:
+  - 各セルに対する候補数字のリスト
+- id: solve_sudoku
+  description: 候補情報と制約全体を元にロジック/探索で完全な解を出す（必要に応じてバックトラック）
+  status: not_started
+  order: 3
+  inputs:
+  - 内部データ構造（候補リスト含む）
+  outputs:
+  - 解が埋まった4x4盤面
+- id: validate_and_output
+  description: 得られた解が全制約を満たしているか最終チェックし、解答として出力形式に整形
+  status: not_started
+  order: 4
+  inputs:
+  - 解が埋まった4x4盤面
+  - 全制約
+  outputs:
+  - 最終解答：解が埋まった4x4数独盤面（出力用フォーマット）

@@ -1,0 +1,55 @@
+plan_id: euler_sudoku_4x4_thermo_odd_even_plan
+task_id: euler_sudoku_4x4_thermo_odd_even
+created_at: '2025-04-17T17:38:57.798849'
+updated_at: '2025-04-17T17:38:57.798849'
+version: 1
+status: in_progress
+subtasks:
+- id: s1
+  description: 初期状態の4x4グリッドを作成し、熱気球（thermometer）経路と奇数制約セルを判別できる形式で構造化する。
+  status: not_started
+  order: 1
+  inputs: []
+  outputs:
+  - 空の4x4グリッド（各セルのインデックス付き）
+  - thermometerのセルリスト
+  - 奇数制約セルリスト
+- id: s2
+  description: 標準数独・2x2ボックス、エウラー色制約に基づき、セルごとに許される候補値を計算する。
+  status: not_started
+  order: 2
+  inputs:
+  - 初期グリッド
+  - thermometerセルリスト
+  - 奇数制約セルリスト
+  outputs:
+  - セル毎の候補数字・候補色リスト
+- id: s3
+  description: thermometerの増加順制約・奇数制約を織り込み、候補値を絞る。
+  status: not_started
+  order: 3
+  inputs:
+  - セル毎の候補数字・色リスト
+  - thermometerセルリスト
+  - 奇数制約セルリスト
+  outputs:
+  - さらに絞り込んだセルごとの候補リスト
+- id: s4
+  description: 強制的に埋まるセル（唯一解または一意候補）を探索し、グリッドを部分的に埋めていく。
+  status: not_started
+  order: 4
+  inputs:
+  - 絞り込んだ候補リスト
+  - 現在のグリッド
+  outputs:
+  - 一部埋まったグリッド
+  - 更新履歴
+- id: s5
+  description: 手詰まりまで繰り返し候補絞り・確定埋めを繰り返して全てのセルを埋める（解答完成）。
+  status: not_started
+  order: 5
+  inputs:
+  - 現在のグリッド
+  - 候補リスト
+  outputs:
+  - 完成した4x4エウラー数独グリッド（全ての条件を満たす解）

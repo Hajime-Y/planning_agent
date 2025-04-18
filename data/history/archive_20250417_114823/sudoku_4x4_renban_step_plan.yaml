@@ -1,0 +1,58 @@
+plan_id: sudoku_4x4_renban_step_plan
+task_id: sudoku_4x4_renban_step
+created_at: '2025-04-16T21:42:53.191705'
+updated_at: '2025-04-16T21:42:53.191705'
+version: 1
+status: in_progress
+subtasks:
+- id: analyze_initial_grid
+  description: 初期グリッドおよびRenbanライン情報を確認し、全セルごとの候補数字を生成する
+  status: pending
+  order: 1
+  inputs:
+    initial_grid: 初期盤面（4x4分の数字と空欄セル情報）
+    renban_lines: 各Renbanラインのセルリスト
+  outputs:
+    cell_candidates: 各セルの候補数字リスト
+- id: determine_next_cell
+  description: 現状の候補と全ルールをふまえ、つぎに確定できるセルと確定数字、その根拠を抽出する
+  status: pending
+  order: 2
+  inputs:
+    cell_candidates: 各セルの候補数字リスト
+    current_grid: 現在の盤面
+    renban_lines: Renban線情報
+  outputs:
+    cell_to_fill: 確定するセルの位置
+    digit: 確定する数字
+    reason: 確定根拠
+- id: commit_digit_to_grid
+  description: 上記で確定したセル・数字を盤面に反映し、候補リストも更新する
+  status: pending
+  order: 3
+  inputs:
+    current_grid: 現在の盤面
+    cell_to_fill: 確定セル位置
+    digit: 確定数字
+  outputs:
+    updated_grid: 更新後の盤面
+    updated_cell_candidates: 更新後の候補リスト
+- id: repeat_until_complete
+  description: 上記サブタスク2〜3を全セル確定まで繰り返す
+  status: pending
+  order: 4
+  inputs:
+    updated_grid: 更新後の盤面
+    updated_cell_candidates: 更新後の候補リスト
+  outputs:
+    solution_steps: 全ステップの履歴
+    final_grid: 完成盤面
+- id: output_solution
+  description: パズルの完成盤面および全ステップをまとめて出力する
+  status: pending
+  order: 5
+  inputs:
+    solution_steps: 解答の全履歴
+    final_grid: 完成盤面
+  outputs:
+    solution_report: 詳細な解答手順・完成図

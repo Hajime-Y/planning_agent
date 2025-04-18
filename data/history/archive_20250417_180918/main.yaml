@@ -1,0 +1,45 @@
+plan_id: main
+task_id: kropki_sudoku_task
+created_at: '2025-04-17T18:09:17.598873'
+updated_at: '2025-04-17T18:09:17.598873'
+version: 1
+status: in_progress
+subtasks:
+- id: '1'
+  description: 初期ボードとKropki制約を表現し、状態を確認する
+  status: completed
+  order: 1
+  inputs:
+    board: 4x4 sudoku board; 初期値
+    kropki_info: 黒・白ドットの位置情報
+    rules:
+    - 数独
+    - アンチナイト
+    - 部分的なKropki
+  outputs:
+    初期ボード確認メモ: 'r1: 3 . 2 1 ...'
+    ready_comment: Initial board and constraints represented. Ready to analyze possible
+      values for empty cells.
+- id: '2'
+  description: 空きマスの候補値候補生成、矛盾の有無をチェック
+  status: pending
+  order: 2
+  inputs:
+    board: サブタスク1成果物の初期ボード
+    rules:
+    - 数独
+    - アンチナイト
+    - 部分的なKropki
+  outputs:
+    各空きマスの候補値リスト: '...'
+    矛盾の検出結果: 矛盾があれば報告
+- id: '3'
+  description: 解析結果をもとに次手（確定解）へ進めるステップの提案と実行
+  status: pending
+  order: 3
+  inputs:
+    候補値情報: サブタスク2の成果
+    board: 現ボード状態
+  outputs:
+    次に埋めるべきセル・候補: '...'
+    更新後ボード: '...'

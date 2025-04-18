@@ -1,0 +1,43 @@
+plan_id: plan_4x4_sudoku_snake
+task_id: 4x4_sudoku_snake
+created_at: '2025-04-17T17:45:03.539548'
+updated_at: '2025-04-17T17:45:03.539548'
+version: 1
+status: in_progress
+subtasks:
+- id: subtask_1
+  order: 1
+  description: 4x4全マスに対し、各セルが『フレンドリー』か否かを判定した表を作成する。（行番号・列番号・2x2ボックス番号に自身の数字が含まれるか判定ロジック）
+  status: open
+  inputs:
+  - 4x4空の数独グリッド
+  - 行・列・2x2ボックスの番号定義（各セル(r,c)のrow/column/box番号）
+  - 数字候補は1~4
+  outputs:
+  - 各マスについて『フレンドリー』判定済みのbool表（16マス分, 数字ごとの判定可）
+- id: subtask_2
+  order: 2
+  description: 全ての『非フレンドリー』セルについて、スネークが条件を満たすすべての形状を探索・列挙する。（r1c1開始、1セル幅、自己接触・分岐なし、全2x2ボックス通過）
+  status: open
+  inputs:
+  - subtask_1の出力（非フレンドリーセルのリスト）
+  - スネークの制約条件
+  outputs:
+  - 取りうるスネークの全パターン、各パターンのセルリスト
+- id: subtask_3
+  order: 3
+  description: 全スネーク・全フレンドリー/非フレンドリー配置について、標準数独ルール＋スネーク制約の下で一致する配置を解として列挙する。
+  status: open
+  inputs:
+  - subtask_2の出力（全スネークパターン）
+  - 標準数独の制約・配置
+  outputs:
+  - すべての有効な（制約充足）候補解（グリッドの完成例の列挙）
+- id: subtask_4
+  order: 4
+  description: 全ての候補解を比較し、すべてに共通して同じ数字が入るマスを抽出する。その中で『最初に確定できるセル（空白グリッドから最初に確定できるもの）』を特定する。
+  status: open
+  inputs:
+  - subtask_3の出力（すべての候補解）
+  outputs:
+  - 確定的に埋まる最初のセル1つとその数字

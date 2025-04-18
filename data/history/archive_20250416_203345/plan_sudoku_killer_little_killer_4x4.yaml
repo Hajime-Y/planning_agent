@@ -1,0 +1,44 @@
+plan_id: plan_sudoku_killer_little_killer_4x4
+task_id: sudoku_killer_little_killer_4x4
+created_at: '2025-04-16T20:07:06.066757'
+updated_at: '2025-04-16T20:07:06.066757'
+version: 1
+status: in_progress
+subtasks:
+- id: parse_puzzle_constraints
+  description: Parse the given cages, cage sums, and diagonal sum clues into internal
+    representations.
+  status: not_started
+  order: 1
+  inputs:
+  - cage definitions (cell groups and sums)
+  - diagonal sum clues
+  - empty 4x4 board
+  outputs:
+  - parsed puzzle constraints (data structures for cages, sums, diagonals, and board)
+- id: generate_possible_solutions
+  description: Apply solving logic based on all puzzle constraints to generate possible
+    solution(s) to the puzzle.
+  status: not_started
+  order: 2
+  inputs:
+  - parsed puzzle constraints
+  outputs:
+  - list of candidate solutions (filled 4x4 boards)
+- id: validate_and_select_solution
+  description: Validate all candidate solutions against all Sudoku, Killer, and Little
+    Killer rules, and select the valid solution.
+  status: not_started
+  order: 3
+  inputs:
+  - list of candidate solutions
+  outputs:
+  - validated solution (final solved board)
+- id: output_final_solution
+  description: Present the final, validated solution in a clear 4x4 board format.
+  status: not_started
+  order: 4
+  inputs:
+  - validated solution (board)
+  outputs:
+  - final board output

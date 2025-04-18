@@ -1,0 +1,22 @@
+task_id: killer_sudoku_4x4_prime
+title: 4x4 Killer Sudoku with Prime-sum Cages Solver
+description: Solve a 4x4 Sudoku puzzle with given starting clues and killer cage constraints.
+  Each killer cage must sum to a unique prime, possibly with repeated digits within
+  a cage.
+constraints:
+- 'Standard 4x4 Sudoku rules: digits 1–4 in every row, column, and 2x2 box with no
+  repeats.'
+- 'Starting clues: r1c2=2, r1c3=1, r2c2=3, r3c2=4, r3c3=3, r4c3=4 (r=row, c=column;
+  indices 1-based).'
+- 'Killer cages: each cage consists of one or more cells; the digits in a cage sum
+  to a unique prime number.'
+- Digits in the same cage can repeat (repetition allowed within a cage).
+- Different cages must have different prime sums.
+- All cage constraints and given clues are to be respected in the solution.
+resources:
+- 'List of all 4x4 Sudoku possible digits: 1,2,3,4'
+- Prime numbers up to the maximum possible cage sum (e.g., 4×4=16).
+- Killer cage definitions (to be provided or inferred if not explicitly defined in
+  task).
+created_at: '2025-04-17T17:46:41.939703'
+updated_at: '2025-04-17T17:46:41.939703'

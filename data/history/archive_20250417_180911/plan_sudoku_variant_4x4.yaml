@@ -1,0 +1,50 @@
+plan_id: plan_sudoku_variant_4x4
+task_id: sudoku_variant_4x4
+created_at: '2025-04-17T18:09:10.301626'
+updated_at: '2025-04-17T18:09:10.301626'
+version: 1
+status: in_progress
+subtasks:
+- id: st1
+  order: 1
+  description: 盤面の初期化とヒントデータの構造化（盤面・V/Xヒント位置の整理）
+  inputs:
+  - 初期盤面入力（. 1 5 8, . 7 . 2, 5 4 2 7, . 6 8 .）
+  - V/Xヒントのセル間情報
+  outputs:
+  - 盤面（4x4リスト形式など構造化済みデータ）
+  - V, Xヒントを表現したデータ構造
+- id: st2
+  order: 2
+  description: バリアントも含めたルール・制約体系の定義（標準・一意性・加算・V/X）
+  inputs:
+  - 要件定義ファイル(data/requirements/sudoku_variant_4x4.yaml)
+  outputs:
+  - 適用すべき全ての制約・判定ロジック
+- id: st3
+  order: 3
+  description: 各セルの候補数値生成（初期値・V/X規則・一意性制約も考慮）
+  inputs:
+  - 構造化盤面データ
+  - ヒントデータ
+  - 制約ロジック
+  outputs:
+  - 各セルごとの可能な候補数値リスト
+- id: st4
+  order: 4
+  description: 再帰探索・バックトラッキングによる盤面の埋め上げと同一和の追跡、解の探索
+  inputs:
+  - 候補リスト
+  - 加算制約（未知の和だが解とともに検証）
+  outputs:
+  - 解答盤面
+  - 行・列・ボックスの合計値
+- id: st5
+  order: 5
+  description: 盤面と解の妥当性検証、結果出力
+  inputs:
+  - 解答盤面
+  - 合計値
+  outputs:
+  - 解の正当性判定
+  - ユーザーへの盤面出力（数字配置・合計値）

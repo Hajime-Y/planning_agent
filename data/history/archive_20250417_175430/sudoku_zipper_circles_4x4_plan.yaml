@@ -1,0 +1,42 @@
+plan_id: sudoku_zipper_circles_4x4_plan
+task_id: sudoku_zipper_circles_4x4
+created_at: '2025-04-17T17:54:23.974418'
+updated_at: '2025-04-17T17:54:23.974418'
+version: 1
+status: in_progress
+subtasks:
+- id: s1
+  description: 提供データ（初期盤面、ジッパーライン位置、サークル位置・circle-count指定）を正規化・整理し、内部表現に落とし込む
+  status: not_started
+  order: 1
+  inputs:
+  - 初期盤面データ
+  - ジッパーライン情報
+  - サークル配置・circle-count制約データ
+  outputs:
+  - 内部データ構造（盤面・ジッパー・丸配置・丸数制約のリストまたは辞書）
+- id: s2
+  description: 数独の通常制約と追加制約（ジッパー・サークル）を統合し、制約モデルを構築する
+  status: not_started
+  order: 2
+  inputs:
+  - 内部データ構造
+  outputs:
+  - 制約付きの数独制約モデル
+- id: s3
+  description: 構築したすべての制約付きモデルを使って数独を解く（ソルバー実装）
+  status: not_started
+  order: 3
+  inputs:
+  - 制約付き数独モデル
+  outputs:
+  - 一意な解答（完成盤面）
+- id: s4
+  description: 得られた解答の検証と、解答例の提示（制約を全て満たすか確認）
+  status: not_started
+  order: 4
+  inputs:
+  - 完成盤面
+  - （必要に応じ再度制約モデル）
+  outputs:
+  - 検証済み解答例のレポート

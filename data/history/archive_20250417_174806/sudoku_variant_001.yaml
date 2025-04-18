@@ -1,0 +1,22 @@
+task_id: sudoku_variant_001
+title: 4x4 Sudoku Variant Solver with Thermometer and Dot Constraints
+description: 'Solve the given 4x4 Sudoku variant with extra constraints: Place the
+  same 4-digit subset (from 1–9) in each row, column, and 2x2 box. There are thermometers
+  (cells must increase along the bulb to tip), a gray square (r2c1, must be even),
+  a white dot (between r1c2/r2c2: values must be consecutive), and a black dot (between
+  r4c3/r4c4: 2:1 ratio). Initial digits: r1c2=4, r1c3=5, r2c2=5, r3c2=8, r3c3=6, r4c3=8.'
+constraints:
+- Place the same 4-digit subset (from 1–9) in each row, column, and 2x2 box (no repetitions
+  in each).
+- Each row, column, and 2x2 box contains the same subset of 4 digits chosen from 1–9.
+- 'Thermometers: cells along the thermometer shapes must increase from bulb to tip.'
+- Gray square at row 2, column 1 must be an even digit.
+- 'White dot between r1c2/r2c2: values must be consecutive (1 apart in either direction).'
+- 'Black dot between r4c3/r4c4: values must have a 2:1 ratio.'
+- 'Given digits: r1c2=4, r1c3=5, r2c2=5, r3c2=8, r3c3=6, r4c3=8.'
+resources:
+- Sudoku puzzle grid (4x4)
+- Locations of thermometers, white dot, black dot, gray square
+- Initial digit placements
+created_at: '2025-04-17T17:48:01.688497'
+updated_at: '2025-04-17T17:48:01.688497'

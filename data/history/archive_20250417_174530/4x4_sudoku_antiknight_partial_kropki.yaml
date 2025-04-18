@@ -1,0 +1,22 @@
+task_id: 4x4_sudoku_antiknight_partial_kropki
+title: '4x4 Antiknight + Partial Kropki Sudoku: Confident Digit Placement'
+description: Solve a 4x4 Sudoku with antiknight constraints and partial Kropki dots.
+  Initial board is r1c1=3. White Kropki dot between r1c3/r1c4; black Kropki dot between
+  r3c1/r4c1. Place one digit confidently using all constraints.
+constraints:
+- 'Standard 4x4 Sudoku rules: each digit 1-4 appears exactly once per row, column,
+  and 2x2 box.'
+- 'Antiknight constraint: No two identical digits can be a chess knight''s move apart.'
+- 'White Kropki dot: r1c3 and r1c4 are consecutive digits (difference is 1).'
+- 'Black Kropki dot: r3c1 and r4c1 are in a 1:2 ratio (one is double the other).'
+- Other adjacent cells do NOT have Kropki dots, so those pairs must NOT be consecutive
+  or in a 1:2 ratio.
+- 'Initial value: r1c1 = 3.'
+- 'Goal: Use the constraints to deduce and confidently place at least one more digit.'
+resources:
+- 4x4 Sudoku grid
+- 'Initial value: r1c1=3'
+- Partial Kropki dots (white between r1c3/r1c4, black between r3c1/r4c1)
+- Sudoku and Kropki puzzle solving logic
+created_at: '2025-04-17T17:45:26.640201'
+updated_at: '2025-04-17T17:45:26.640201'

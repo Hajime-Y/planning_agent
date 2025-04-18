@@ -1,0 +1,41 @@
+plan_id: killer_sudoku_4x4_prime_plan
+task_id: killer_sudoku_4x4_prime
+created_at: '2025-04-17T17:46:59.941989'
+updated_at: '2025-04-17T17:46:59.941989'
+version: 1
+status: in_progress
+subtasks:
+- id: parse_problem
+  description: 構造化可能な形式で盤面の初期値およびケージ情報を抽出・構築する
+  status: not_started
+  order: 1
+  inputs:
+  - 'タスク説明に記載された初期値（例: r1c2=2 ...）およびケージ定義情報'
+  outputs:
+  - 初期値（盤面の2次元配列または座標リスト）
+  - 各ケージのセルリスト
+- id: generate_prime_cage_combinations
+  description: 各ケージのセル数・素数和条件を満たす数字列候補を総当たりで列挙する
+  status: not_started
+  order: 2
+  inputs:
+  - 各ケージのセルリスト
+  outputs:
+  - 各ケージごとの有効な数字列パターン一覧（和が素数、重複可）
+- id: solve_sudoku_with_cages
+  description: すべての数独・ケージ制約が満たされるよう盤面全体に数字を配置する
+  status: not_started
+  order: 3
+  inputs:
+  - 初期値盤面情報
+  - 各ケージの有効候補リスト
+  outputs:
+  - 制約を満たす盤面（組合せ）
+- id: validate_and_output_solution
+  description: 解答の検証を行い、結果を整形して最終出力とする
+  status: not_started
+  order: 4
+  inputs:
+  - 盤面または解候補
+  outputs:
+  - 解答結果と必要に応じた説明

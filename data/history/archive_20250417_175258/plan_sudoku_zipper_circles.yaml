@@ -1,0 +1,53 @@
+plan_id: plan_sudoku_zipper_circles
+task_id: sudoku_zipper_circles
+created_at: '2025-04-17T17:52:42.578219'
+updated_at: '2025-04-17T17:52:42.578219'
+version: 1
+status: in_progress
+subtasks:
+- id: sub1
+  description: 盤面の基本情報・配置の定義（4x4の行・列・ブロック、ジッパー線・サークル位置の座標リストなど）を明確化する
+  status: not_started
+  order: 1
+  inputs: []
+  outputs:
+  - board_structure
+  - zipper_main_line
+  - zipper_offshoot
+  - circle_positions
+- id: sub2
+  description: 全マスを空白とした標準4x4盤面を作成し、各セルの候補数字（1～4）を列挙する
+  status: not_started
+  order: 2
+  inputs:
+  - board_structure
+  outputs:
+  - candidate_board
+- id: sub3
+  description: ジッパー線の中心・両端ペアの和のルールが成立するすべての組み合わせを抽出し、候補に反映する
+  status: not_started
+  order: 3
+  inputs:
+  - candidate_board
+  - zipper_main_line
+  - zipper_offshoot
+  outputs:
+  - reduced_candidates_zipper
+- id: sub4
+  description: サークル条件（各円内セルの値＝その数字が円内で現れる個数）を全ての円内セル・候補に適用し、矛盾する候補を削除する
+  status: not_started
+  order: 4
+  inputs:
+  - reduced_candidates_zipper
+  - circle_positions
+  outputs:
+  - reduced_candidates_circle
+- id: sub5
+  description: サブタスク3・4で絞られた候補から、標準数独（行・列・ブロック重複なし）に即して論理的に確定するセル値を導出する
+  status: not_started
+  order: 5
+  inputs:
+  - reduced_candidates_circle
+  - board_structure
+  outputs:
+  - deduced_cells

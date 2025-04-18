@@ -1,0 +1,31 @@
+task_id: sudoku_knight_thermo_4x4_v1
+title: 4x4 Sudoku with Knight and Thermo Constraints Solver
+description: Solve the provided 4x4 Sudoku puzzle, applying standard Sudoku rules,
+  the knight's move constraint (no repeated digits a knight's move apart), and the
+  thermo constraint (digits along a thermometer increase from the bulb to the tip).
+constraints:
+- 'Standard 4x4 Sudoku rules: Each row, column, and 2x2 box contains digits 1-4 without
+  repeats.'
+- No digit can repeat a knight's move apart (as per chess knight moves) anywhere in
+  the grid.
+- On each given thermometer, digits must strictly increase from bulb to tip.
+- 'The initial grid is (with . = empty):
+
+  . 1 4 3
+
+  . 4 . 2
+
+  4 3 2 1
+
+  . 2 3 .'
+- 'Thermometers:
+
+  1) r4c2 (bulb), r3c2, r2c2;
+
+  2) r2c3 (bulb), r3c3'
+resources:
+- Initial Sudoku grid
+- Thermometer definitions
+- Knowledge of Sudoku, knight's move, and thermo constraints
+created_at: '2025-04-17T18:12:41.248922'
+updated_at: '2025-04-17T18:12:41.248922'

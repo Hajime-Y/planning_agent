@@ -1,0 +1,27 @@
+task_id: sudoku_4x4_special_constraints
+title: Solve 4x4 Sudoku with V/X/Killer constraints
+description: "Solve the provided 4x4 Sudoku grid with special constraints:\n- Fill\
+  \ grid with digits 1-9, no repeats per row, column, box.\n- Each row, column, and\
+  \ box must have a unique set of digits.\n- The sum of the digits in each row/column/box\
+  \ is unknown value x (to be found).\n- Digits separated by a V must sum to 5, those\
+  \ separated by an X sum to 10. Not all X/V are shown.\n- Provided grid layout and\
+  \ placements:\n    . 1 5 .\n    . 7 . .\n    . 4 2 .\n    . . 8 .\n    Visual clues:\
+  \ V between r1c1 & r1c2, V between r2c3 & r3c3, X between r2c2 & r2c3, X between\
+  \ r1c4 & r2c4, X between r3c2 & r4c2.\n"
+constraints:
+- Fill each cell with a digit 1-9.
+- No digit repeats in any row, column, or 2x2 box.
+- Each row, column, and box must have a unique set of digits.
+- The sum x of each row, column, and box is unknown and to be determined as part of
+  the solution.
+- If a V is given between two cells, those cells must sum to 5.
+- If an X is given between two cells, those cells must sum to 10.
+- Not all X or V clues are shown.
+- Given grid values and clues must be strictly followed.
+resources:
+- Sudoku grid (partial, as provided in the description)
+- 'Visual constraint clues: V and X placements'
+- General Sudoku rules
+- All relevant Sudoku digit and sum constraints
+created_at: '2025-04-17T12:04:14.990529'
+updated_at: '2025-04-17T12:04:14.990529'

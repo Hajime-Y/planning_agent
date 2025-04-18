@@ -1,0 +1,51 @@
+plan_id: solve_4x4_sudoku_with_sum
+task_id: sudoku_4x4_advanced_sum
+created_at: '2025-04-17T17:54:08.397104'
+updated_at: '2025-04-17T17:54:08.397104'
+version: 1
+status: in_progress
+subtasks:
+- id: st1_extract_problem_info
+  description: パズル問題の初期ヒント・X/V制約・グリッド情報の整理（構造体/辞書にまとめる）
+  status: not_started
+  order: 1
+  inputs:
+    hints: '初期配置ヒント（例: r1c2=1, r1c3=5, ...）'
+    xv_constraints: X/V制約位置および種類
+    grid_size: 4x4
+  outputs:
+    problem_struct: パズル構造情報（ヒント、制約、サイズなどを統合したデータ）
+- id: st2_encode_rules
+  description: 標準数独制約・和制約（未知x）・X/V制約を論理ルールとして実装
+  status: not_started
+  order: 2
+  inputs:
+    problem_struct: 整理済みパズル情報
+  outputs:
+    rule_model: 制約論理（論理式、計算式、許容パターンセット等）
+- id: st3_generate_candidates
+  description: ルールを満たす候補解グリッド（または部分解）を生成する（必要なら解探索）
+  status: not_started
+  order: 3
+  inputs:
+    rule_model: 制約論理
+    problem_struct: パズル情報
+  outputs:
+    candidates: すべての有効な解または最善の候補解リスト
+- id: st4_verify_and_select_solution
+  description: 候補解の中から全制約を満たす唯一または最良解を検証・決定
+  status: not_started
+  order: 4
+  inputs:
+    candidates: 生成した候補解
+    problem_struct: 元のパズル条件
+  outputs:
+    solution: 最終的なパズル解答（グリッド、和xも付与）
+- id: st5_output_answer
+  description: 解答とxの値（和）、必要なら経路説明・検証論拠を出力
+  status: not_started
+  order: 5
+  inputs:
+    solution: 決定した最終解
+  outputs:
+    answer_report: パズルの完成解（グリッド）、各行/列/ボックス和x、解説

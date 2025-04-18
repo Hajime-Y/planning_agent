@@ -1,0 +1,34 @@
+plan_id: sudoku_sunburn_4x4_plan
+task_id: sudoku_sunburn_4x4_task
+created_at: '2025-04-17T17:38:52.090745'
+updated_at: '2025-04-17T17:38:52.090745'
+version: 1
+status: in_progress
+subtasks:
+- id: analyze_puzzle_and_constraints
+  description: 初期盤面とSUNBURN constraintsを分析し、制約・前提条件を明確化する
+  status: not_started
+  order: 1
+  inputs:
+  - 4x4数独パズルの初期盤面
+  - SUNBURN constraints定義
+  outputs:
+  - 制約の詳細リスト
+  - 初期盤面内の確定済みセルの情報
+- id: enumerate_candidates
+  description: 各セルごとに考えうる候補数字を列挙する（論理的除外を反映）
+  status: not_started
+  order: 2
+  inputs:
+  - 制約の詳細リスト
+  - 初期盤面内の確定済みセルの情報
+  outputs:
+  - 各セルの候補数字リスト
+- id: identify_definite_placements
+  description: 候補リストから確定的に決まるセルを論理的根拠とともに特定し、少なくとも1セルへ値を決定する
+  status: not_started
+  order: 3
+  inputs:
+  - 各セルの候補数字リスト
+  outputs:
+  - 値が確定するセル、数字、その推論過程の説明

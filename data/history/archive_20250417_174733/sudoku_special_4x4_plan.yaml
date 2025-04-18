@@ -1,0 +1,47 @@
+plan_id: sudoku_special_4x4_plan
+task_id: sudoku_special_4x4
+created_at: '2025-04-17T17:47:27.550583'
+updated_at: '2025-04-17T17:47:27.550583'
+version: 1
+status: in_progress
+subtasks:
+- id: extract_initial_info
+  description: 盤面図やメモから、サーモ経路・黒丸/白丸・制約セル等を構造化JSONで整理する。
+  status: not_started
+  order: 1
+  inputs:
+  - 盤面図・ヒント（テキストor画像）
+  outputs:
+  - サーモ経路リスト
+  - 白丸・黒丸の位置リスト
+  - グレー偶数セル情報
+  - 空マス配列
+- id: enumerate_digit_sets
+  description: 1-9から選ぶ可能な4数字セットを条件とヒントから絞る。
+  status: not_started
+  order: 2
+  inputs:
+  - サーモ経路・丸・セル制約情報
+  - 空マス配列
+  outputs:
+  - 適合する数字セット候補
+- id: apply_rules_to_fill_grid
+  description: 数字セットごとに数独基本則＆追加ルール（サーモ、丸、偶数）で盤面を埋める。
+  status: not_started
+  order: 3
+  inputs:
+  - 数字セット候補
+  - 盤面情報
+  - 制約一覧
+  outputs:
+  - 成立する盤面候補
+- id: validate_solution
+  description: すべての条件を満たす盤面が唯一か検証し、正答を抽出。
+  status: not_started
+  order: 4
+  inputs:
+  - 候補盤面リスト
+  - 制約一覧
+  outputs:
+  - 解答盤面
+  - 検証レポート

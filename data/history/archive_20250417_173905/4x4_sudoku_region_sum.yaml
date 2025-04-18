@@ -1,0 +1,15 @@
+task_id: 4x4_sudoku_region_sum
+title: 4x4数独（領域和線付き）の解法ステップ策定
+description: 与えられた4x4数独（. 3 1 . / . 1 . . / . 4 2 . / . . 4 .）およびregion sum lines
+  （r1c1 r2c2 r3c1, r1c3 r2c3 r3c2, r2c4 r3c3 r4c2）が与えられている。制約下でマスに値を強制できる場合埋める。
+constraints:
+- 4x4 の標準数独ルール（各行・各列・各2x2ブロックに1~4が1度ずつ現れる）
+- region sum lines（指定青線上のマスの和が同じ）
+- 盤面は . を空きマス、数字は決定済み値として指定
+- 埋めるのは、数独および region sum lines の制約により強制される値に限る
+- 解を一意にする必要はないが、強制的に決定できる箇所のみ数字を置く
+resources:
+- タスク説明で与えられた初期盤面
+- region sum lines の座標情報
+created_at: '2025-04-17T17:38:45.350667'
+updated_at: '2025-04-17T17:38:45.350667'

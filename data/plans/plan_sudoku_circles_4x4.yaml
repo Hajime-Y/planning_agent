@@ -1,0 +1,52 @@
+plan_id: plan_sudoku_circles_4x4
+task_id: sudoku_circles_4x4
+created_at: '2025-04-17T18:13:15.624386'
+updated_at: '2025-04-17T18:13:15.624386'
+version: 1
+status: in_progress
+subtasks:
+- id: parse_problem
+  description: '与えられた盤面とサークル位置情報から、内部的に扱いやすいデータ構造（例: 2次元リスト、サークル位置リスト）に変換する。'
+  status: pending
+  order: 1
+  inputs:
+  - 問題の初期盤面データ（文字列表現）
+  - サークル位置情報（row,colのリスト）
+  outputs:
+  - 盤面データ（2次元リスト等）
+  - サークル位置リスト
+- id: sudoku_candidate_generation
+  description: 標準4x4数独ルール（行/列/ブロックの重複禁止）で、各空きマスの候補数字を絞り込む。
+  status: pending
+  order: 2
+  inputs:
+  - 盤面データ（2次元リスト等）
+  outputs:
+  - セルごとの候補数字リスト
+- id: apply_counting_circles_constraint
+  description: 'サークル内に記載可能な数字の制限（counting circles 制約: サークルに入る数字dの個数=サークルマス内のdの個数）を候補リストに適用し、矛盾排除する。'
+  status: pending
+  order: 3
+  inputs:
+  - セルごとの候補数字リスト
+  - サークル位置リスト
+  outputs:
+  - counting circles制約を満たす候補リスト
+- id: search_solution
+  description: 制約条件をすべて満たすように解を探索し、唯一の解を求める。
+  status: pending
+  order: 4
+  inputs:
+  - counting circles制約付き候補リスト
+  - 盤面データ
+  - サークル位置リスト
+  outputs:
+  - 解答盤面データ（2次元リスト）
+- id: format_output
+  description: '最終解解答盤面を読みやすい形式（例: テーブルや行単位テキスト、図）に変換し出力する。'
+  status: pending
+  order: 5
+  inputs:
+  - 解答盤面データ
+  outputs:
+  - 表示用の解答テキストまたは配列

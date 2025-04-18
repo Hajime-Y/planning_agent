@@ -1,0 +1,44 @@
+plan_id: task1
+task_id: task1
+created_at: '2025-04-17T17:51:35.332759'
+updated_at: '2025-04-17T17:51:35.332759'
+version: 1
+status: in_progress
+subtasks:
+- id: '1'
+  description: 初期状態のパズル解析：4x4グリッド（空）、ジッパー線座標、サークル位置の抽出
+  status: completed
+  order: 1
+  inputs: []
+  outputs:
+  - 4x4 grid (すべて0:空セル)
+  - ジッパー線座標
+  - サークル位置一覧
+- id: '2'
+  description: 各セルの候補数字リストを生成（数独、サークル、ジッパー制約を考慮）
+  status: pending
+  order: 2
+  inputs:
+  - 初期グリッド
+  - サークル位置
+  - ジッパー線座標
+  outputs:
+  - 各セルごとの候補数字リスト
+- id: '3'
+  description: 解探索ロジックで状態を進める（仮置き、分岐・バックトラック）
+  status: pending
+  order: 3
+  inputs:
+  - 候補数字リスト
+  - パズル状態
+  outputs:
+  - 途中経過のグリッド候補群
+- id: '4'
+  description: 全クリア解の列挙、または唯一解判定
+  status: pending
+  order: 4
+  inputs:
+  - 候補探索の結果
+  outputs:
+  - 完成グリッド解答
+  - 解の個数

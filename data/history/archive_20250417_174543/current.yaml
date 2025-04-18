@@ -1,0 +1,43 @@
+plan_id: current
+task_id: sudoku_4x4
+created_at: '2025-04-17T17:45:36.001110'
+updated_at: '2025-04-17T17:45:36.001110'
+version: 1
+status: in_progress
+subtasks:
+- id: subtask_1
+  description: 4x4 Sudokuのグリッド構造を定義する（各セルの行・列・ボックス割当を含む）
+  status: completed
+  order: 1
+  inputs: []
+  outputs:
+  - 'grid_structure: 4x4 2D array with (row, col, box) assigned for all cells, initial
+    grid empty'
+  comments: 'Defined the structure of the 4x4 Sudoku grid. Each cell is mapped to
+    a row (1-4), column (1-4), and 2x2 box (1: r1c1,r1c2,r2c1,r2c2, etc.). The grid
+    is currently empty.'
+- id: subtask_2
+  description: 数独問題となる初期値を4x4グリッドにセットする
+  status: pending
+  order: 2
+  inputs:
+  - 初期値を記載した4x4配列またはリスト
+  outputs:
+  - 初期値がセットされた数独グリッド
+- id: subtask_3
+  description: 4x4数独の解法アルゴリズムを実装する
+  status: pending
+  order: 3
+  inputs:
+  - 初期値をセット済みのグリッド
+  outputs:
+  - 解答済みグリッド
+  - 解法ステップ説明
+- id: subtask_4
+  description: 解法結果の検証とテストケース実施
+  status: pending
+  order: 4
+  inputs:
+  - ソルバー出力とテストケースリスト
+  outputs:
+  - 検証レポート

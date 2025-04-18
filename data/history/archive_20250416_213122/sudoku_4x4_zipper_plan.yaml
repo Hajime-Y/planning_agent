@@ -1,0 +1,76 @@
+plan_id: sudoku_4x4_zipper_plan
+task_id: sudoku_4x4_zipper
+created_at: '2025-04-16T21:31:02.235884'
+updated_at: '2025-04-16T21:31:02.235884'
+version: 1
+status: in_progress
+subtasks:
+- id: parse_grid_constraints
+  description: 盤面サイズ・ジッパーライン・サークル位置・サークルルール等の制約条件および解析用データ構造を初期化する。
+  status: pending
+  order: 1
+  inputs:
+  - requirements_yaml
+  outputs:
+  - grid_structure
+  - zipper_paths
+  - circle_positions
+  - circle_rule
+- id: generate_initial_candidates
+  description: 各マスに割り当て可能な候補値（1〜4）集合を作成する。
+  status: pending
+  order: 2
+  inputs:
+  - grid_structure
+  outputs:
+  - candidates
+- id: apply_standard_constraints
+  description: 通常の数独ルール（行・列・ブロックの重複禁止）による候補値削減を行う。
+  status: pending
+  order: 3
+  inputs:
+  - candidates
+  - grid_structure
+  outputs:
+  - candidates_standard
+- id: apply_zipper_constraints
+  description: 各ジッパーラインに対して『中心から等距離のセルの値の和が中心セルの値になる』制約を適用し候補値を絞る。
+  status: pending
+  order: 4
+  inputs:
+  - candidates_standard
+  - zipper_paths
+  outputs:
+  - candidates_zipper
+- id: apply_circle_constraints
+  description: サークル配置・サークルルール（nのサークルセル数がnになる）を反映して候補値を絞る。
+  status: pending
+  order: 5
+  inputs:
+  - candidates_zipper
+  - circle_positions
+  - circle_rule
+  outputs:
+  - candidates_circle
+- id: deduce_and_solve
+  description: 残った候補値および全ての制約から論理的な推論で確定値を決定し、矛盾が生じないよう全体を解く。
+  status: pending
+  order: 6
+  inputs:
+  - candidates_circle
+  - grid_structure
+  - zipper_paths
+  - circle_positions
+  - circle_rule
+  outputs:
+  - solution_grid
+- id: validate_and_output
+  description: 得られた盤面が全制約を満たすか検証し、最終解答として出力する。
+  status: pending
+  order: 7
+  inputs:
+  - solution_grid
+  - requirements_yaml
+  outputs:
+  - final_solution
+  - is_valid

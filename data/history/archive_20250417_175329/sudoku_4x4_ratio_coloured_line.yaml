@@ -1,0 +1,32 @@
+task_id: sudoku_4x4_ratio_coloured_line
+title: Solve 4x4 Sudoku with ratio dots and special coloured line constraints
+description: 'Solve a given 4x4 Sudoku puzzle. Extra constraints:
+
+  • Digits separated by a black dot must be in a 1:2 ratio.
+
+  • A palegreen line connects r3c1, r3c2, r4c3.
+
+  • A plum line connects r2c2, r2c3, r3c4, r4c4.
+
+  • The difference between two adjacent digits on a coloured line tells you how many
+  pairs of adjacent digits along that line have exactly that difference.
+
+  • There is a black dot between r4c1 and r4c2.
+
+  Board so far: . 3 4 . / . 4 . . / . 1 2 . / . . 3 .'
+constraints:
+- 'Standard 4x4 Sudoku rules: each row, column, and 2x2 box contains digits 1-4 exactly
+  once.'
+- Digits separated by a black dot (r4c1 and r4c2) must be in a 1:2 ratio (e.g., 1-2,
+  2-4).
+- On each coloured line, the difference between two adjacent digits must equal the
+  number of pairs of adjacent digits along that line having that exact difference.
+- 'Palegreen line: r3c1 - r3c2 - r4c3.'
+- 'Plum line: r2c2 - r2c3 - r3c4 - r4c4.'
+- 'Initial board: . 3 4 . / . 4 . . / . 1 2 . / . . 3 . (rows 1-4, columns 1-4)'
+resources:
+- Sudoku rules knowledge
+- Puzzle grid (with clues)
+- Coloured line and black dot marking knowledge
+created_at: '2025-04-17T17:53:28.883678'
+updated_at: '2025-04-17T17:53:28.883678'

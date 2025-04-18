@@ -1,0 +1,44 @@
+plan_id: plan1
+task_id: sudoku_snake_task
+created_at: '2025-04-17T18:05:32.352885'
+updated_at: '2025-04-17T18:05:32.352885'
+version: 1
+status: in_progress
+subtasks:
+- id: '1'
+  description: 現在の盤面状態とルール（標準数独＋friendly/snake制約）を整理・要約し、候補検討の準備をする
+  status: completed
+  order: 1
+  inputs: []
+  outputs: []
+  comments: 'Step 1 complete: current board state and rules (standard sudoku + friendly/snake
+    constraint) organized and summarized for clear candidate examination.'
+- id: '2'
+  description: 整理された盤面状態に基づき、各セルの候補数字を洗い出す
+  status: pending
+  order: 2
+  inputs:
+  - 盤面状態
+  - ルール整理結果
+  outputs:
+  - 各セルの候補リスト
+  comments: ''
+- id: '3'
+  description: friendly/snake 制約を活用し、候補リストから不要な数字をさらに除外する
+  status: pending
+  order: 3
+  inputs:
+  - 各セルの候補リスト
+  - friendly/snake 制約
+  outputs:
+  - 制約適用後の候補リスト
+  comments: ''
+- id: '4'
+  description: 残った候補をもとに仮置きや確定マスを決定、盤面を進める
+  status: pending
+  order: 4
+  inputs:
+  - 制約適用後の候補リスト
+  outputs:
+  - 更新された盤面状態
+  comments: ''

@@ -1,0 +1,31 @@
+plan_id: default
+task_id: default
+created_at: '2025-04-17T17:44:30.080489'
+updated_at: '2025-04-17T17:44:30.080489'
+version: 1
+status: in_progress
+subtasks:
+- id: subtask_1
+  description: '初期グリッドと制約（classic Sudoku, antiknight, Kropki, 初期値: r1c1=3）をセットし、全セルの候補リスト作成準備をする'
+  status: completed
+  order: 1
+  inputs: {}
+  outputs:
+    initial_grid: r1c1=3; 他セル空。classic Sudoku, antiknight, Kropki white dot r1c3-r1c4,
+      Kropki black dot r3c1-r4c1
+    comment: 初期盤面と制約セット。候補リスト計算準備OK
+- id: subtask_2
+  description: 全セルについて現在の情報・制約にもとづき候補数字リスト（candidates）を計算し、記録する
+  status: pending
+  order: 2
+  inputs:
+    initial_grid: 上記初期盤面
+    constraints: classic Sudoku, antiknight, Kropki white/black dot 指定
+  outputs: {}
+- id: subtask_3
+  description: '計算した候補リストを用いて次の論理手法（例: naked single, hidden single, Kropki的制約）を適用しグリッドを一歩進める'
+  status: pending
+  order: 3
+  inputs:
+    candidates: subtask_2で記録した全セルの候補リスト
+  outputs: {}

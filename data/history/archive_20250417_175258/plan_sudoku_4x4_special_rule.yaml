@@ -1,0 +1,41 @@
+plan_id: plan_sudoku_4x4_special_rule
+task_id: sudoku_4x4_special_rule
+created_at: '2025-04-17T17:52:43.009042'
+updated_at: '2025-04-17T17:52:43.009042'
+version: 1
+status: in_progress
+subtasks:
+- id: st1
+  description: 数独パズルのボード表現と特殊制約（線と黒点）のデータ構造を整理・生成する
+  status: not_started
+  order: 1
+  inputs:
+  - タスクの要件（constraints, resources）
+  outputs:
+  - ボードの初期状態（4x4 empty配列）
+  - 特殊制約用のデータ構造
+- id: st2
+  description: 通常の数独ルール・黒点・線条件すべてを満たす盤面の盤配置を探索・列挙する
+  status: not_started
+  order: 2
+  inputs:
+  - ボード初期状態
+  - 特殊制約データ構造
+  outputs:
+  - 制約を満たす仮の解候補リスト
+- id: st3
+  description: 得られた全解候補を検証し、全ての制約を満たす唯一または複数の最終解を確定する
+  status: not_started
+  order: 3
+  inputs:
+  - 制約を満たす仮の解候補リスト
+  outputs:
+  - 最終的な解一覧
+- id: st4
+  description: 最終解のうち1つ以上を可視化/説明してアウトプットを作成する
+  status: not_started
+  order: 4
+  inputs:
+  - 最終的な解一覧
+  outputs:
+  - 解の説明または可視化結果

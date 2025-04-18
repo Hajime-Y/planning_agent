@@ -1,0 +1,25 @@
+task_id: sudoku4x4_variant_001
+title: Solve 4x4 Sudoku Variant with Extra Constraints
+description: Solve a 4x4 Sudoku variant where each row, column, and 2x2 box contains
+  the same subset of 4 digits taken from 1–9. Thermometer lines require digits to
+  increase from bulb to tip. Black dots indicate a 2:1 digit ratio between adjacent
+  cells. White dots indicate consecutive digits. A gray square (at r2c1) must contain
+  an even number. The starting grid is empty.
+constraints:
+- Grid size is 4x4.
+- Each row, column, and each 2x2 box contains the same subset of 4 digits (digits
+  selected from 1–9, no repeats).
+- 'Thermometer lines: digits must strictly increase from bulb to tip.'
+- 'Black dots: adjacent cells must have digits in a 2:1 ratio (one double the other).'
+- 'White dots: adjacent cells must contain consecutive digits (difference of 1).'
+- r2c1 (row 2, column 1) contains an even number.
+- Starting grid is empty.
+resources:
+- Sudoku grid (4x4)
+- List of thermometers (positions unknown in this description)
+- List of black dots (adjacency unknown in this description)
+- List of white dots (adjacency unknown in this description)
+- Gray square position (r2c1)
+- 'Digit set: 1–9'
+created_at: '2025-04-17T17:44:36.961065'
+updated_at: '2025-04-17T17:44:36.961065'

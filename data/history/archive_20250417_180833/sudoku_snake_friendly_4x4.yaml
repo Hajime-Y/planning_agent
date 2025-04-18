@@ -1,0 +1,18 @@
+task_id: sudoku_snake_friendly_4x4
+title: 4x4 Sudoku Puzzle with Snake and Friendly Constraints
+description: Solve a provided 4x4 Sudoku puzzle that includes additional 'snake' and
+  'friendly' cell constraints, but initially focus only on standard Sudoku logic to
+  place the next definite digit.
+constraints:
+- The puzzle is a 4x4 Sudoku.
+- 'Standard Sudoku rules apply: Each digit 1–4 appears exactly once in each row, each
+  column, and each 2x2 box.'
+- '''Snake'' and ''Friendly'' cell constraints exist, but should be temporarily ignored
+  while placing the next definite digit.'
+- Focus first on using standard logic to find and place the next certain (definite)
+  digit.
+resources:
+- Provided initial state of the 4x4 Sudoku puzzle
+- Description of 'snake' and 'friendly' cell constraints (for later steps)
+created_at: '2025-04-17T18:08:32.704955'
+updated_at: '2025-04-17T18:08:32.704955'

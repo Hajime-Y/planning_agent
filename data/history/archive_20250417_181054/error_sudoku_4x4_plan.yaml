@@ -1,0 +1,34 @@
+plan_id: error_sudoku_4x4_plan
+task_id: error_sudoku_4x4
+created_at: '2025-04-17T18:10:38.317895'
+updated_at: '2025-04-17T18:10:38.317895'
+version: 1
+status: in_progress
+subtasks:
+- id: '1'
+  description: 4x4 Error Sudokuの初期盤面と制約（エラー判定規則・リージョン・パリンドローム・合計手がかり）を処理する
+  status: completed
+  order: 1
+  inputs: null
+  outputs: null
+  comments: Processed the initial board and constraints for the 4x4 Error Sudoku.
+    Ready to analyze candidate values for each cell using the specialized error rules,
+    regions, palindrome lines, and sum clues.
+- id: '2'
+  description: 各セルについてエラー数独ならではの制約と手がかりを考慮し、可能な候補値リストを生成する
+  status: pending
+  order: 2
+  inputs: 初期盤面と各種制約情報
+  outputs: 各セルの候補値リスト
+- id: '3'
+  description: 候補値を元に論理的にセルを特定／必要に応じて仮定探索により盤面を完成させる
+  status: pending
+  order: 3
+  inputs: セルごとの候補値リスト、制約情報
+  outputs: 完成した盤面または途中経過
+- id: '4'
+  description: 結果の検証と整理（矛盾がないかチェック、最終出力作成）
+  status: pending
+  order: 4
+  inputs: 完成した盤面または途中経過
+  outputs: 最終結果レポート（または矛盾報告）

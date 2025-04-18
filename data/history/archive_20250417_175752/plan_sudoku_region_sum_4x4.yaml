@@ -1,0 +1,49 @@
+plan_id: plan_sudoku_region_sum_4x4
+task_id: sudoku_region_sum_4x4
+created_at: '2025-04-17T17:57:36.229755'
+updated_at: '2025-04-17T17:57:36.229755'
+version: 1
+status: in_progress
+subtasks:
+- id: st1
+  description: 初期ボードとregion sum lineの情報を整理し、各セルの所属する行・列・ボックス・ラインを確定する
+  status: pending
+  order: 1
+  inputs:
+    board: 4x4空欄ボード
+    region_sum_lines: 全ラインのセル座標リスト
+  outputs:
+    cell_info: 各セルの属する(行/列/ボックス/ライン)情報付きマッピング
+- id: st2
+  description: region sum lineごとに各2x2ボックス内で取りうる数字パターン（合計値条件を満たすもの）をリストアップする
+  status: pending
+  order: 2
+  inputs:
+    cell_info: 各セルの属する領域情報
+  outputs:
+    region_sum_patterns: 各ライン・各ボックス内で可能な値パターン例
+- id: st3
+  description: 一般的な数独制約（行・列・ボックスの重複なし）から各セルの候補を作成し、矛盾する候補を除外
+  status: pending
+  order: 3
+  inputs:
+    cell_info: 各セルの属する領域情報
+  outputs:
+    cell_candidates_base: 行・列・ボックスのみを考慮した初期候補値リスト
+- id: st4
+  description: region sum lineのパターンも考慮し、各セルの候補をさらに絞り込む
+  status: pending
+  order: 4
+  inputs:
+    cell_candidates_base: 初期候補値リスト
+    region_sum_patterns: region sum lineの値パターン
+  outputs:
+    cell_candidates_final: 全制約を反映した各セルの最終候補値リスト
+- id: st5
+  description: 候補が一意となるセルを判定し、そのセルと値を返す
+  status: pending
+  order: 5
+  inputs:
+    cell_candidates_final: 全制約反映後の最終候補リスト
+  outputs:
+    fixed_cell: 一意に確定したセル位置と値

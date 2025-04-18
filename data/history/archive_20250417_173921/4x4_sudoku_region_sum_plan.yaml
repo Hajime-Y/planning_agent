@@ -1,0 +1,52 @@
+plan_id: 4x4_sudoku_region_sum_plan
+task_id: 4x4_sudoku_region_sum
+created_at: '2025-04-17T17:39:12.764253'
+updated_at: '2025-04-17T17:39:12.764253'
+version: 1
+status: in_progress
+subtasks:
+- id: parse_board_and_constraints
+  description: 初期盤面とregion sum lines（青線）の情報を整理し、扱いやすい形式に変換する。
+  status: not_started
+  order: 1
+  inputs:
+    raw_board: . 3 1 . / . 1 . . / . 4 2 . / . . 4 .
+    raw_sum_lines:
+    - - r1c1
+      - r2c2
+      - r3c1
+    - - r1c3
+      - r2c3
+      - r3c2
+    - - r2c4
+      - r3c3
+      - r4c2
+  outputs:
+    board: 4x4数独盤面（2次元配列, 0=空き, 1-4=確定値）
+    sum_lines: 各region sum lineごとのマス座標リスト
+- id: deduce_forced_cells
+  description: 数独規則およびregion sum linesの制約から強制的に入る数字を列挙する。
+  status: not_started
+  order: 2
+  inputs:
+    board: 4x4数独盤面（2次元配列）
+    sum_lines: region sum lines情報
+  outputs:
+    forced_cells: （位置, 値）のリスト
+- id: update_board_with_forced_cells
+  description: 強制セルの情報で盤面を更新する。
+  status: not_started
+  order: 3
+  inputs:
+    board: 現在の盤面
+    forced_cells: 決定されたセル情報
+  outputs:
+    updated_board: 更新後の盤面
+- id: output_solution
+  description: 更新後の盤面を見やすい形式で出力する。
+  status: not_started
+  order: 4
+  inputs:
+    updated_board: 更新された盤面
+  outputs:
+    formatted_board: 答え（フォーマット済み盤面）

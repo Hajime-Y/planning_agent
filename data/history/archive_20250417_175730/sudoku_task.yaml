@@ -1,0 +1,28 @@
+plan_id: sudoku_task
+task_id: sudoku_task
+created_at: '2025-04-17T17:57:19.901582'
+updated_at: '2025-04-17T17:57:19.901582'
+version: 1
+status: in_progress
+subtasks:
+- id: subtask_1
+  description: 4x4の空の数独グリッドの初期化とサークル位置の配置
+  status: completed
+  order: 1
+  inputs: []
+  outputs:
+  - 'Initial grid: 4x4 all empty'
+  - 'Circles at: r1c1, r1c2, r2c2, r2c3, r2c4, r3c1, r4c1, r4c2, r4c4'
+  comments:
+  - The initial 4x4 Sudoku grid has been structured, with all relevant circle positions
+    listed.
+- id: subtask_2
+  description: 次に、サークル位置にルールや例示値（もし指定があれば）を入力し、初期値セットを確定させる
+  status: pending
+  order: 2
+  inputs:
+  - 4x4 Sudoku grid with circles positions
+  - ルールや初期値（未確定の場合は仮値）
+  outputs:
+  - 初期値を格納した更新済みグリッド
+  comments: []

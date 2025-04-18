@@ -1,0 +1,49 @@
+plan_id: plan-sudoku-zipper-01
+task_id: sudoku-zipper-01
+created_at: '2025-04-17T17:55:45.095150'
+updated_at: '2025-04-17T17:55:45.095150'
+version: 1
+status: in_progress
+subtasks:
+- id: '1'
+  description: 初期手がかり・ジッパーライン・白サークル制約など、全ての入力情報を1つの問題仕様として整理する
+  order: 1
+  inputs:
+  - タスクで与えられた初期数字
+  - ジッパーライン経路と和の指定
+  - 白サークルの位置と制約値
+  outputs:
+  - 全制約を集約した問題仕様（構造化データ）
+  status: not_started
+- id: '2'
+  description: ジッパーライン箇所の特定・パスごとの和の制約を問題仕様に組み込む
+  order: 2
+  inputs:
+  - 全制約を集約した問題仕様
+  outputs:
+  - ジッパーライン和制約を含む問題仕様
+  status: not_started
+- id: '3'
+  description: 白サークル箇所と出現回数制約を問題仕様に組み込む
+  order: 3
+  inputs:
+  - ジッパーライン和制約を含む問題仕様
+  outputs:
+  - ジッパーライン・白サークルすべての制約を含む仕様
+  status: not_started
+- id: '4'
+  description: 数独ルール＋全制約に基づく論理的な解法を実行し、解答を導く
+  order: 4
+  inputs:
+  - ジッパーライン・白サークルすべての制約を含む仕様
+  outputs:
+  - 解答候補（重複なければ唯一解）
+  status: not_started
+- id: '5'
+  description: 得られた解答を検証し、必要があれば再検討・最終的な解を出力
+  order: 5
+  inputs:
+  - 解答候補
+  outputs:
+  - 最終的な4x4数独完成図
+  status: not_started

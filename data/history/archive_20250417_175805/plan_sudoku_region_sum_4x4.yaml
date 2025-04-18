@@ -1,0 +1,43 @@
+plan_id: plan_sudoku_region_sum_4x4
+task_id: sudoku_region_sum_4x4
+created_at: '2025-04-17T17:58:02.806890'
+updated_at: '2025-04-17T17:58:02.806890'
+version: 1
+status: in_progress
+subtasks:
+- id: st1_rule_analysis
+  description: 盤面構造・基本ルール・リージョンサム制約・線分構成を明文化し、マス位置や各線の通過セルリストを整理する
+  status: not_started
+  order: 1
+  inputs:
+  - タスク説明
+  - 要件ファイル (requirements)
+  outputs:
+  - 4x4盤面マス位置情報
+  - 各2x2ボックス対応表
+  - 各リージョンサム線のセルリストと区分情報
+- id: st2_constraint_formulation
+  description: 盤面にルール制約・リージョンサム（線ごと和一定）の式を設定し、論理的な候補をまとめる
+  status: not_started
+  order: 2
+  inputs:
+  - st1の出力
+  outputs:
+  - 候補分布リスト
+  - リージョンサム和の取り得る値候補とパターン
+- id: st3_deduction_first_cell
+  description: 全制約条件と候補から、唯一確定できるマスとその数字を1つ導く
+  status: not_started
+  order: 3
+  inputs:
+  - st1, st2の出力
+  outputs:
+  - 確定できるマスの位置と数字
+- id: st4_document_step
+  description: 確定したマスと値、その根拠の説明をまとめて明示する
+  status: not_started
+  order: 4
+  inputs:
+  - st3の出力
+  outputs:
+  - 論理ステップ説明 & 方針メモ

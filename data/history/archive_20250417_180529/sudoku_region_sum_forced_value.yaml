@@ -1,0 +1,21 @@
+task_id: sudoku_region_sum_forced_value
+title: Find the next forced value in a 4x4 Region Sum Sudoku
+description: Solve the given 4x4 Sudoku puzzle with region sum line constraints. Identify
+  the next cell with a forced value, make a single certain placement, and explain
+  the logic. Region sum line constraints may link together non-contiguous cells that
+  must sum to a certain value, in addition to standard sudoku rules. The process should
+  only make one step/placement per execution, with a clear logical justification.
+constraints:
+- The sudoku is 4x4.
+- Region sum line constraints are present and must be respected.
+- Only a single, definite/forced value may be placed per execution.
+- After placement, an explanation of the applied logic must be provided.
+- Standard sudoku rules (unique digits per row, column, and box) must be respected.
+- The step should be confident—no guessing allowed.
+resources:
+- The initial 4x4 sudoku puzzle (possibly as a grid or list format).
+- The definitions and locations of region sum lines (with sum values and involved
+  cell positions).
+- Standard sudoku solving techniques.
+created_at: '2025-04-17T18:05:26.342388'
+updated_at: '2025-04-17T18:05:26.342388'

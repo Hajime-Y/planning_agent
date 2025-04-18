@@ -1,0 +1,41 @@
+plan_id: antiknight_4x4_sudoku_kropki_plan
+task_id: antiknight_4x4_sudoku_kropki
+created_at: '2025-04-16T21:08:16.215579'
+updated_at: '2025-04-16T21:08:16.215579'
+version: 1
+status: in_progress
+subtasks:
+- id: define_problem
+  description: 盤面（4x4の初期状態）と全制約（アンチナイト、部分クロプキ）を明文化し、タスク開始状態を記述する
+  status: not_started
+  order: 1
+  inputs: []
+  outputs:
+  - sudoku_state
+  - constraints
+- id: find_logically_forced_moves
+  description: 現在の盤面と制約から、その時点で論理的に一意に決まるマスへの配置候補を全て列挙する
+  status: not_started
+  order: 2
+  inputs:
+  - sudoku_state
+  - constraints
+  outputs:
+  - forced_moves
+- id: apply_forced_move
+  description: 強制配置可能なマスがあれば、そのうち一つを盤面に反映し新たな状態を得る（局面推移）
+  status: not_started
+  order: 3
+  inputs:
+  - sudoku_state
+  - forced_moves
+  outputs:
+  - new_sudoku_state
+- id: check_completion
+  description: 盤面が完成（全マスに数字）したか判定する。未完成の場合はサイクルを繰り返す
+  status: not_started
+  order: 4
+  inputs:
+  - new_sudoku_state
+  outputs:
+  - is_complete

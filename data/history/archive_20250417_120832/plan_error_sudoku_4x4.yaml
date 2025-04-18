@@ -1,0 +1,40 @@
+plan_id: plan_error_sudoku_4x4
+task_id: error_sudoku_4x4
+created_at: '2025-04-17T12:07:55.914796'
+updated_at: '2025-04-17T12:07:55.914796'
+version: 1
+status: in_progress
+subtasks:
+- id: extract_clues
+  description: 与えられたサドク盤面・初期値・各種ルール(エラー数,合計,パリンドローム,region等)を整理し、各種制約条件・情報を一覧化する。
+  status: todo
+  order: 1
+  inputs:
+  - タスクの説明(初期配置やルール)
+  outputs:
+  - 抽出された制約/ヒント/初期配置一覧 (盤面テンプレート、ルールサマリ 等)
+- id: generate_candidate_boards
+  description: 上記制約・ヒントに基づき、盤面の候補解の生成ロジックを準備（特にエラー数等に配慮）。
+  status: todo
+  order: 2
+  inputs:
+  - 抽出された制約/ヒント/初期配置一覧
+  outputs:
+  - 候補盤面生成アルゴリズム、プロトタイプサンプル
+- id: validate_boards
+  description: 盤面候補ごとに、全制約（行/列/箱/エラー数/region/palindrome/和など）を正しく満たすか検証する仕組みの構築。
+  status: todo
+  order: 3
+  inputs:
+  - 候補盤面リスト
+  - 抽出された制約一覧
+  outputs:
+  - 妥当な解のリスト
+- id: present_solution
+  description: 最終的な正しい解を所定のフォーマットで提示する。
+  status: todo
+  order: 4
+  inputs:
+  - 妥当な解リスト
+  outputs:
+  - 最終的な盤面解

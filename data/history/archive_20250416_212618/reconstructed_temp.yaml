@@ -1,0 +1,42 @@
+plan_id: reconstructed_temp
+task_id: reconstructed_temp
+created_at: '2025-04-16T21:25:39.872325'
+updated_at: '2025-04-16T21:25:39.872325'
+version: 1
+status: in_progress
+subtasks:
+- id: '1'
+  description: 初期ボードセットアップ・制約事項確認
+  status: completed
+  order: 1
+  inputs: {}
+  outputs: {}
+- id: '2'
+  description: 行2マスr2c3に条件から3を配置・sum論理とXクルー適用
+  status: completed
+  order: 2
+  inputs: {}
+  outputs: {}
+- id: '3'
+  description: 行2と行4の強制配置を進め、sumや一意性制約をもとに次候補を絞る
+  status: pending
+  order: 3
+  inputs:
+    current_board:
+    - - 4
+      - 1
+      - 5
+      - 8
+    - - null
+      - 7
+      - 3
+      - 2
+    - - 5
+      - 4
+      - 2
+      - 7
+    - - null
+      - 6
+      - 8
+      - null
+  outputs: {}

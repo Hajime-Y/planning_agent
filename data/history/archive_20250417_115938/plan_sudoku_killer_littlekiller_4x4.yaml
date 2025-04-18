@@ -1,0 +1,75 @@
+plan_id: plan_sudoku_killer_littlekiller_4x4
+task_id: sudoku_killer_littlekiller_4x4
+created_at: '2025-04-17T11:58:19.547421'
+updated_at: '2025-04-17T11:58:19.547421'
+version: 1
+status: in_progress
+subtasks:
+- id: subtask_1
+  description: タスクで指定された初期盤面・ケージ・矢印等の入力データを整理し、内部で扱いやすいデータ構造へ変換する
+  status: pending
+  order: 1
+  inputs:
+    初期グリッド情報: 'r1: . 2 1 . ; r2: . 4 . . ; r3: . 3 4 . ; r4: . . 3 .'
+    キラーケージ:
+    - (5) r1c1 r1c2
+    - (8) r2c1 r2c2 r3c2
+    - (4) r2c4 r3c4
+    リトルキラー矢印:
+    - r1c5から左下対角方向（r1c4→r2c3→r3c2→r4c1）、合計8
+  outputs:
+    parsed_board: 初期数独盤面の二次元配列（4x4）
+    killer_cages: ケージ情報のリスト（合計・セル座標）
+    little_killer_arrows: 矢印情報（始点・経路セルリスト・合計）
+- id: subtask_2
+  description: 通常数独の行・列・ボックス制約、および初期数字から各マスの候補値を算出する
+  status: pending
+  order: 2
+  inputs:
+    parsed_board: 初期数独盤面の二次元配列
+  outputs:
+    candidates: 各セルごとの候補数字リスト
+- id: subtask_3
+  description: キラーケージ制約を適用し、各マスの候補値を減らす
+  status: pending
+  order: 3
+  inputs:
+    candidates: 前サブタスクの出力
+    killer_cages: ケージ情報
+  outputs:
+    candidates: 更新済み候補リスト
+- id: subtask_4
+  description: リトルキラー矢印制約を適用し、該当斜めセルに合計条件を追加・候補を減らす
+  status: pending
+  order: 4
+  inputs:
+    candidates: 前サブタスクの出力
+    little_killer_arrows: 矢印情報
+  outputs:
+    candidates: 更新済み候補リスト
+- id: subtask_5
+  description: 論理的に決定しきれない場合はバックトラック等で全ての制約を満たす盤面を探索し、解答を得る
+  status: pending
+  order: 5
+  inputs:
+    candidates: 前サブタスクの出力
+  outputs:
+    solved_board: 解答済み盤面（二次元配列）
+- id: subtask_6
+  description: 最終盤面が全ての制約（通常数独、キラー、リトルキラー）を満たすか検証する
+  status: pending
+  order: 6
+  inputs:
+    solved_board: 完成盤面
+    killer_cages: ケージ情報
+    little_killer_arrows: 矢印情報
+  outputs:
+    is_valid: True/False（検証結果）
+- id: subtask_7
+  description: 解答となる盤面を所定のフォーマットで出力
+  status: pending
+  order: 7
+  inputs:
+    solved_board: 完成盤面
+  outputs:
+    final_output: 可読性の高い4x4盤面&解説

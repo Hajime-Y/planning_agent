@@ -1,0 +1,80 @@
+plan_id: plan_sudoku_special_4x4
+task_id: sudoku_special_4x4
+created_at: '2025-04-17T18:09:11.396085'
+updated_at: '2025-04-17T18:09:11.396085'
+version: 1
+status: in_progress
+subtasks:
+- id: subtask_1
+  description: 現状の盤面・X/Vヒント・既知制約を全てリスト化し、必要な追加情報（合計X/未確定マスなど）を整理する。
+  status: not_started
+  order: 1
+  inputs:
+    board:
+    - - 4
+      - 1
+      - 5
+      - 8
+    - - null
+      - 7
+      - null
+      - 2
+    - - 5
+      - 4
+      - 2
+      - 7
+    - - null
+      - 6
+      - 8
+      - null
+    xv_clues:
+      V:
+      - !!python/tuple
+        - r2c3
+        - r3c3
+      X:
+      - !!python/tuple
+        - r2c2
+        - r2c3
+      - !!python/tuple
+        - r1c4
+        - r2c4
+      - !!python/tuple
+        - r3c2
+        - r4c2
+  outputs: !!set
+    整理した盤面情報と不明変数（X含む）、未定マスリスト、制約まとめ: null
+- id: subtask_2
+  description: 合計Xの可能性がある値を全列挙し、現状盤面や制約（V/Xヒント含む）からXの候補を絞り込む。
+  status: not_started
+  order: 2
+  inputs: !!set
+    サブタスク1の出力: null
+  outputs: !!set
+    Xの候補リストと、現状盤面におけるXの推定または確定値: null
+- id: subtask_3
+  description: V/X手がかりと重複制約などを使って、未確定マスごとにあり得る数字候補集合を列挙する。
+  status: not_started
+  order: 3
+  inputs: !!set
+    サブタスク2の出力: null
+    サブタスク1の出力: null
+  outputs: !!set
+    各未確定マスごとの数字候補リスト: null
+- id: subtask_4
+  description: 確定する未定マスに数字を割り当て、盤面をアップデートする。
+  status: not_started
+  order: 4
+  inputs: !!set
+    サブタスク1の盤面: null
+    サブタスク3の出力: null
+  outputs: !!set
+    埋められた盤面（アップデート済）: null
+- id: subtask_5
+  description: 完成盤面を全制約で検証し、正しい場合は最終解として出力する。
+  status: not_started
+  order: 5
+  inputs: !!set
+    サブタスク4の出力: null
+  outputs: !!set
+    完成した盤面、合計Xの値: null

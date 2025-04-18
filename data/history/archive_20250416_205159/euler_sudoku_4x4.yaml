@@ -1,0 +1,27 @@
+task_id: euler_sudoku_4x4
+title: Solve a 4x4 Euler Sudoku with color and thermometer constraints
+description: 'Solve a 4x4 Sudoku grid using digits 1-4 and 4 different colors. Each
+  digit-color pair must appear exactly once in the grid. Each row, column, and 2x2
+  box must contain each digit and each color exactly once. Thermometer constraint:
+  digits on given thermos increase from bulb end. Odd constraint: specific cells must
+  have odd digits.'
+constraints:
+- The grid size is 4x4.
+- 'Digits: 1-4. Colors: 4 types (e.g., Red, Blue, Green, Yellow).'
+- Each digit-color combination appears exactly once in the grid.
+- Each row contains all digits (1-4) exactly once.
+- Each column contains all digits (1-4) exactly once.
+- Each 2x2 box contains all digits (1-4) exactly once.
+- Each row contains all colors exactly once.
+- Each column contains all colors exactly once.
+- Each 2x2 box contains all colors exactly once.
+- Digits on any given thermo must increase from the bulb (head) to the tip.
+- 'Thermo given: r1c2 (bulb) → r2c3 → r3c3, i.e., cell (1,2) → (2,3) → (3,3).'
+- 'Cells with gray circle must be odd: r1c2, r2c2, r3c4.'
+- Odd digits are 1 and 3 (for digits 1-4).
+resources:
+- Sudoku rules (Latin square with extra color constraint)
+- Thermometer clues
+- Gray circle (odd) constraints
+created_at: '2025-04-16T20:49:06.150401'
+updated_at: '2025-04-16T20:49:06.150401'

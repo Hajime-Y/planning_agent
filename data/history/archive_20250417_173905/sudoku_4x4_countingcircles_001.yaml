@@ -1,0 +1,23 @@
+task_id: sudoku_4x4_countingcircles_001
+title: Solve 4x4 Sudoku with COUNTING CIRCLES constraint
+description: 'Solve a 4x4 Sudoku with the additional ''COUNTING CIRCLES'' constraint:
+  each digit in a cell with a circle tells how many times that digit appears in all
+  circle-marked cells. Use logic to confidently place at least one number and explain
+  the reasoning.'
+constraints:
+- 'Standard 4x4 Sudoku rules: each row, column, and 2x2 block contains digits 1-4
+  with no repeats.'
+- 'There are special cells (circles) at these positions: r1c1, r1c2, r2c2, r2c3, r2c4,
+  r3c1, r4c1, r4c2, r4c4.'
+- '''COUNTING CIRCLES'': If a circle cell contains digit x, then there must be exactly
+  x circle-cells in the grid that also contain digit x.'
+- 'Initial givens: r1c1 (.), r1c2 (4), r1c3 (2), r1c4 (.), r2c1 (.), r2c2 (2), r2c3
+  (.), r2c4 (.), r3c1 (.), r3c2 (1), r3c3 (3), r3c4 (.), r4c1 (.), r4c2 (.), r4c3
+  (1), r4c4 (.).'
+- Make at least one confident placement and provide reasoning.
+resources:
+- Initial Sudoku board and circle locations
+- Definitions for standard Sudoku rules and additional constraint.
+- Logical deduction (not guesswork).
+created_at: '2025-04-17T17:38:54.387179'
+updated_at: '2025-04-17T17:38:54.387179'

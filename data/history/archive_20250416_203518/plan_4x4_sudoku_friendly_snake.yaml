@@ -1,0 +1,92 @@
+plan_id: plan_4x4_sudoku_friendly_snake
+task_id: 4x4_sudoku_friendly_snake
+created_at: '2025-04-16T20:34:12.490063'
+updated_at: '2025-04-16T20:34:12.490063'
+version: 1
+status: in_progress
+subtasks:
+- id: '1'
+  order: 1
+  description: ルールの明確化・初期盤面の状態確認（標準数独＋friendly/snakeルールおよび初期値の確認）
+  status: not_started
+  inputs:
+    task_description: Given a 4x4 Sudoku grid with special constraints regarding 'friendly'
+      cells, a snake, and normal Sudoku rules, logically fill the board step-by-step,
+      providing one confident placement and reasoning at each step.
+    constraints:
+    - 'Standard 4x4 Sudoku rules: each number 1-4 appears once per row, column, and
+      2x2 box.'
+    - Additional 'friendly' cells and 'snake' constraints apply (details assumed to
+      be rules restricting certain placements or patterns).
+    - 'Initial board is:
+
+      . 1 4 3
+
+      . 3 . 1
+
+      3 4 1 2
+
+      . 2 3 .'
+    - The solution proceeds by making logically certain placements, one at a time,
+      with reasoning for each.
+    initial_board:
+    - - .
+      - '1'
+      - '4'
+      - '3'
+    - - .
+      - '3'
+      - .
+      - '1'
+    - - '3'
+      - '4'
+      - '1'
+      - '2'
+    - - .
+      - '2'
+      - '3'
+      - .
+  outputs:
+    rules_summary: 標準数独＋friendly/snakeの補足まとめ
+    board_state: 解析に使える配列形式の盤面
+- id: '2'
+  order: 2
+  description: 各空白セルに対する候補数字を推論し、制約適用する
+  status: not_started
+  inputs:
+    board_state: 現時点の盤面
+    rules_summary: 制約まとめ
+  outputs:
+    candidates: 各空白セルごとの候補数字リスト
+- id: '3'
+  order: 3
+  description: 論理的に確定できる最初の1マスを選び、理由とともに値を決定する
+  status: not_started
+  inputs:
+    candidates: 最新の候補リスト
+    board_state: 現時点の盤面
+  outputs:
+    placement: 確定したマス（座標と値）＋確定根拠の説明
+    new_board_state: 値反映後の新しい盤面
+- id: '4'
+  order: 4
+  description: 確定した一手を盤面に反映し、次のステップのための新しい状態と候補リストを更新する
+  status: not_started
+  inputs:
+    placement: 直前の決定内容
+    new_board_state: 反映後の盤面
+    rules_summary: 制約まとめ
+  outputs:
+    updated_board_state: 新しい盤面
+    updated_candidates: 更新後の候補リスト
+- id: '5'
+  order: 5
+  description: 上記3-4を繰り返し、解が完成するまで進める
+  status: not_started
+  inputs:
+    updated_board_state: 進行中の盤面
+    updated_candidates: 最新候補リスト
+    rules_summary: 制約まとめ
+  outputs:
+    next_placement: 次の確定一手（理由付き）
+    final_solution: 完成盤面（ゴール時）

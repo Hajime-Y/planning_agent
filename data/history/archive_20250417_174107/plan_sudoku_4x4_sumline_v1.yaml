@@ -1,0 +1,69 @@
+plan_id: plan_sudoku_4x4_sumline_v1
+task_id: sudoku_4x4_region_sum_lines
+created_at: '2025-04-17T17:41:05.783204'
+updated_at: '2025-04-17T17:41:05.783204'
+version: 1
+status: in_progress
+subtasks:
+- id: parse_setup
+  description: 初期条件（与えられたマスの値、mediumturquoiseライン位置、通常ルール、領域和ルール）を整理し、数独盤面・ライン構造・制約リストのPythonデータ構造を作成する。
+  status: pending
+  order: 1
+  inputs:
+  - 与えられた盤面サイズ（4x4）
+  - 与えられた初期値
+  - mediumturquoiseライン情報
+  - ルール説明（標準数独、領域和制約）
+  outputs:
+  - '初期盤面データ構造（例: 2次元配列）'
+  - ライン座標リスト
+  - 制約条件リスト・データ構造
+- id: generate_candidates
+  description: 各マスに入る可能性のある候補数字（1-4）を、初期状態とルール・制約に基づき全マスごと生成する。
+  status: pending
+  order: 2
+  inputs:
+  - 初期盤面データ構造
+  - ライン座標リスト
+  - 制約条件リスト
+  outputs:
+  - 各マスの候補数字リスト
+- id: apply_sudoku_rules
+  description: 通常の数独ルール（行・列・ブロックに1-4が重複しない）を適用し、候補数字を絞り込む。
+  status: pending
+  order: 3
+  inputs:
+  - 各マスの候補数字リスト
+  - 初期盤面データ構造
+  outputs:
+  - 更新された各マスの候補数字リスト
+- id: apply_sumline_constraints
+  description: mediumturquoiseライン上の '領域和ルール' を適用し、制約違反の候補を排除する（各ラインがボックスをまたぐ場合、各2x2ボックス内のそのライン上マスの和が等しくなるように限定）。
+  status: pending
+  order: 4
+  inputs:
+  - 更新された各マスの候補数字リスト
+  - ライン座標リスト
+  - 制約条件リスト
+  outputs:
+  - 最終的な各マスの候補数字リスト
+- id: solve_logically
+  description: 論理的推論またはバックトラッキング等により、候補数字を充填し、1解を得る。
+  status: pending
+  order: 5
+  inputs:
+  - 最終的な各マスの候補数字リスト
+  - 初期盤面データ構造
+  - ライン座標リスト
+  - 制約条件リスト
+  outputs:
+  - 完成した解答盤面
+- id: validate_and_output
+  description: 得られた解がすべての制約（通常ルール＆領域和ルール）を満たすか検証し、求めた解答を出力形式に整えてまとめる。
+  status: pending
+  order: 6
+  inputs:
+  - 完成した解答盤面
+  - ルール説明・制約条件
+  outputs:
+  - 検証済みの解答出力

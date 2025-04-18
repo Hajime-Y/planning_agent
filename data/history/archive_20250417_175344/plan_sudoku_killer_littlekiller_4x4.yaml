@@ -1,0 +1,55 @@
+plan_id: plan_sudoku_killer_littlekiller_4x4
+task_id: sudoku_killer_littlekiller_4x4
+created_at: '2025-04-17T17:53:37.560496'
+updated_at: '2025-04-17T17:53:37.560496'
+version: 1
+status: in_progress
+subtasks:
+- id: parse_board_and_constraints
+  description: 数独の初期盤面・ケージ・Little Killer条件を構造化データとして整理する
+  status: not_started
+  order: 1
+  inputs:
+    board_string: . 2 1 . / . 4 . . / . 3 4 . / . . 3 .
+    killer_cages:
+    - sum: 5
+      cells:
+      - r1c1
+      - r1c2
+    - sum: 8
+      cells:
+      - r2c1
+      - r2c2
+      - r3c2
+    - sum: 4
+      cells:
+      - r2c4
+      - r3c4
+    little_killer:
+    - sum: 8
+      cells:
+      - r1c4
+      - r2c3
+      - r3c2
+      - r4c1
+  outputs:
+    parsed_board: 4x4盤面の配列
+    constraints_data: ケージ情報・斜めヒントのリスト
+- id: deduce_candidates
+  description: 各セルの可能な候補数字を（通常ルール・ケージ・斜め制約で）絞り込む
+  status: not_started
+  order: 2
+  inputs:
+    parsed_board: 前段で構造化した盤面配列
+    constraints_data: 前段で整理したケージ・斜め条件
+  outputs:
+    candidates: 各マスごとの候補集合
+- id: find_certain_cell
+  description: 一意に確定できるマス（候補が1つのみ）を特定し、その数字・位置を出力
+  status: not_started
+  order: 3
+  inputs:
+    candidates: 前サブタスクで絞り込まれた候補集合
+  outputs:
+    cell: 確定できる位置（row,col）
+    digit: 記入すべき一意な数字

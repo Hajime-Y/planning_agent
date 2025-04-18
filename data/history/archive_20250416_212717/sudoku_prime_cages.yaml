@@ -1,0 +1,24 @@
+task_id: sudoku_prime_cages
+title: 4x4 Sudoku with Prime Sum Cages
+description: 'Solve a 4x4 Sudoku in which each row and column contains the digits
+  1-4 exactly once. Cages are groups of cells as specified, and the digits in a cage
+  sum to a prime number. No two cages can have the same prime total, but digits inside
+  a cage may repeat. Cages: (1) r1c2 r1c3 r2c3, (2) r1c4 r2c4 r3c3 r3c4 r4c3 r4c4,
+  (3) r2c2 r3c2 r4c1 r4c2, (4) r1c1 r2c1 r3c1.'
+constraints:
+- Sudoku board is 4x4. Each row contains digits 1-4 exactly once.
+- Each column contains digits 1-4 exactly once.
+- Each cage is defined as a group of cells (see below for each cage's cells).
+- Within a cage, the sum of the digits is a prime number.
+- No two cages have the same prime sum.
+- Digits in a cage may repeat.
+- 'Cage 1 cells: r1c2, r1c3, r2c3.'
+- 'Cage 2 cells: r1c4, r2c4, r3c3, r3c4, r4c3, r4c4.'
+- 'Cage 3 cells: r2c2, r3c2, r4c1, r4c2.'
+- 'Cage 4 cells: r1c1, r2c1, r3c1.'
+resources:
+- Sudoku-solving techniques
+- Reference list of prime numbers
+- Pencil and paper or programming stack for logic puzzles
+created_at: '2025-04-16T21:26:32.332045'
+updated_at: '2025-04-16T21:26:32.332045'

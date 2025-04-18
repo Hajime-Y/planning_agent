@@ -1,0 +1,22 @@
+task_id: advanced_4x4_sudoku_001
+title: 4x4 Advanced Constraint Sudoku Solver
+description: 'Solve the given 4x4 sudoku puzzle with advanced constraints, including:
+  1. A black dot between r4c1 and r4c2 indicating a 1:2 digit ratio, 2. Additional
+  color line rules (e.g., consecutive, non-repeating, etc.), 3. Digits may be placed
+  only if logically forced by constraints.'
+constraints:
+- 'Standard 4x4 sudoku rules: Each row, column, and 2x2 region must contain digits
+  1-4 without repeats.'
+- There is a black dot between Row 4 Column 1 and Row 4 Column 2; those cells must
+  have a 1:2 digit ratio (digits differ by double/half).
+- Colored lines apply additional advanced/variant rules, e.g., consecutive values,
+  sum constraints, etc. (details provided with the puzzle).
+- A digit can be placed in a cell only if it is strictly logically forced by sudoku
+  and advanced constraints.
+- No guessing is allowed; all placements must be forced by logic.
+resources:
+- 4x4 sudoku puzzle grid (provided elsewhere)
+- Specification of colored line rules and positions (provided elsewhere)
+- General sudoku and constraint-solving knowledge
+created_at: '2025-04-17T17:51:22.731411'
+updated_at: '2025-04-17T17:51:22.731411'

@@ -1,0 +1,51 @@
+plan_id: plan_sudoku_4x4_colored_blackdot
+task_id: sudoku_4x4_colored_blackdot
+created_at: '2025-04-17T17:52:19.500541'
+updated_at: '2025-04-17T17:52:19.500541'
+version: 1
+status: in_progress
+subtasks:
+- id: st1
+  description: 盤面の初期化と制約（カラードライン、ブラックドット位置等）のリストアップ
+  status: not_started
+  order: 1
+  inputs: []
+  outputs:
+  - 初期状態の4x4盤情報
+  - 全制約リスト
+- id: st2
+  description: 一般的な4x4数独ルール・各種制約がどのような候補値を生成・削減するか検討
+  status: not_started
+  order: 2
+  inputs:
+  - 初期状態の4x4盤情報
+  - 全制約リスト
+  outputs:
+  - 各マスの初期候補リスト
+- id: st3
+  description: ブラックドット制約（r4c1, r4c2 1:2比）による候補削減
+  status: not_started
+  order: 3
+  inputs:
+  - 各マスの初期候補リスト
+  - 全制約リスト
+  outputs:
+  - ブラックドット適用後の候補リスト
+- id: st4
+  description: カラードライン（薄緑・プラム）制約による候補削減
+  status: not_started
+  order: 4
+  inputs:
+  - ブラックドット適用後の候補リスト
+  - 全制約リスト
+  outputs:
+  - カラードライン適用後の候補リスト
+- id: st5
+  description: 全ての制約を用いて論理的に「一意に決定できる」配置セルを見つける
+  status: not_started
+  order: 5
+  inputs:
+  - カラードライン適用後の候補リスト
+  - 全制約リスト
+  outputs:
+  - 一意に配置できるマスおよびその値

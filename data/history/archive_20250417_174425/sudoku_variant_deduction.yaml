@@ -1,0 +1,27 @@
+task_id: sudoku_variant_deduction
+title: '4x4 Sudoku Variant with Extra Constraints: Logical Deduction'
+description: 'Solve a 4x4 Sudoku variant where each row, column, and 2x2 box contains
+  the same 4-digit subset from 1-9. Constraints: Thermometer lines (values strictly
+  increase from bulb end), black dots (adjacent cells'' values must have a 2:1 ratio),
+  white dots (adjacent cells'' values must be consecutive), a gray square at r2c1
+  (must be even). No initial values are provided. The goal is to logically deduce
+  and commit a value to at least one cell that is fully determined by these constraints.'
+constraints:
+- Each row contains the same 4-digit subset from 1-9, no repeats in a row.
+- Each column contains the same 4-digit subset from 1-9, no repeats in a column.
+- Each 2x2 box contains the same 4-digit subset from 1-9, no repeats in a box.
+- 'Thermometer lines: Values increase strictly from bulb end to tip along marked lines.'
+- 'Black dot between two cells: The numbers in these cells must have a 2:1 ratio (either
+  direction).'
+- 'White dot between two cells: The numbers in these cells must be consecutive (difference
+  of 1).'
+- 'Gray square at r2c1: The value must be even.'
+- All cells are initially empty.
+- 'Goal: Deduce and commit a value to at least one cell by logic alone (no guesses).'
+resources:
+- Empty 4x4 Sudoku grid.
+- Full list of 4-digit subsets from digits 1-9.
+- Descriptions or locations of thermometer, black dot, white dot, and gray square
+  constraints.
+created_at: '2025-04-17T17:44:23.710395'
+updated_at: '2025-04-17T17:44:23.710395'

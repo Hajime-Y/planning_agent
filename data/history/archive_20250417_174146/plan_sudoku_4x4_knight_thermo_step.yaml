@@ -1,0 +1,52 @@
+plan_id: plan_sudoku_4x4_knight_thermo_step
+task_id: sudoku_4x4_knight_thermo_step
+created_at: '2025-04-17T17:41:41.349413'
+updated_at: '2025-04-17T17:41:41.349413'
+version: 1
+status: in_progress
+subtasks:
+- id: subtask_1
+  order: 1
+  description: 初期盤面・サーモ・制約情報を受け取り、内部表現（データ構造）として展開・初期化する
+  status: not_started
+  inputs:
+    board_string: . 1 4 . / . 4 . . / . 3 2 . / . . 3 .
+    thermos:
+    - - r4c2
+      - r3c2
+      - r2c2
+    - - r2c3
+      - r3c3
+  outputs:
+    board_matrix: (4x4 list of lists, empty=0またはNone, filled=int)
+    thermo_paths: (二つのサーモがどの位置か座標リスト化)
+    knight_moves: (4x4盤面でナイト移動先制約テーブル)
+- id: subtask_2
+  order: 2
+  description: 各セルごとに配置可能な候補数字のリストを作成（全制約を考慮）
+  status: not_started
+  inputs:
+    board_matrix: (subtask_1の出力)
+    thermo_paths: (subtask_1の出力)
+    knight_moves: (subtask_1の出力)
+  outputs:
+    candidates_matrix: (各セルごとの候補数字リスト 4x4)
+- id: subtask_3
+  order: 3
+  description: 候補リストを用いて制約伝搬（論理的に唯一配置できるセルがないか検査）
+  status: not_started
+  inputs:
+    board_matrix: (subtask_1の出力)
+    candidates_matrix: (subtask_2の出力)
+    thermo_paths: (subtask_1の出力)
+  outputs:
+    forced_placements: 強制的に1つ決定可能なセル情報（位置＋値, またはNone）
+- id: subtask_4
+  order: 4
+  description: 最初に論理的に唯一決まるセル位置に値を埋め、盤面を更新する
+  status: not_started
+  inputs:
+    board_matrix: (subtask_1の出力)
+    forced_placements: (subtask_3の出力)
+  outputs:
+    new_board_matrix: 更新後盤面

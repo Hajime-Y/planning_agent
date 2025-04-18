@@ -1,0 +1,15 @@
+task_id: sudoku_counting_circles_4x4
+title: 4x4 数独 COUNTING CIRCLES制約付き
+description: 与えられた4x4数独盤面に対して、サークル（指定位置）に載る数字の個数制約(COUNTING CIRCLES)を守って1-4を盤面に配置する。各行・列・2x2ボックスで重複不可。追加制約としてサークル内でdが現れる場合、サークル内のdの個数はちょうどd個である必要がある。
+constraints:
+- 盤面は4x4の数独（1-4を一度ずつ各行・列・2x2ボックスに配置）
+- 指定されたマス（サークル）には、COUNTING CIRCLES制約を適用する
+- COUNTING CIRCLES制約：dという数字がサークルマス内に出現した場合、サークル内のdの個数はちょうどd個でなければならない
+- 初期値やサークルマスの位置は別途与えられる
+resources:
+- 4x4数独盤面の初期状態
+- サークルマスの位置情報
+- 通常の数独ルール
+- COUNTING CIRCLES制約の説明
+created_at: '2025-04-17T17:38:47.371649'
+updated_at: '2025-04-17T17:38:47.371649'
