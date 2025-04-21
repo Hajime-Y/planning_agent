@@ -16,8 +16,8 @@
 # バリデーションセットでの実行例（1サンプルに制限）
 uv run python benchmarks/travel_planner/sole_planning.py \
     --model_name gpt-4.1 \
-    --set_type validation \
-    --output_dir benchmarks/travel_planner/results/$(date +%Y%m%d_%H%M%S) \
+    --set_type test \
+    --output_dir benchmarks/travel_planner/results \
     --limit 1
 
 # バリデーションセットでの実行例（全サンプル）
