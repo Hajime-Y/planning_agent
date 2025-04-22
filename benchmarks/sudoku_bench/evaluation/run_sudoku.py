@@ -160,7 +160,7 @@ async def process_one(
     n_history_turns = request["n_history_turns"]
 
     # session_id をここで定義
-    session_id = f'{request["puzzle_id"]}_{uuid.uuid4()}'
+    session_id = f'sudoku_{request["puzzle_id"]}_{uuid.uuid4()}'
     logger.info(f"Processing puzzle {request['puzzle_id']} with session_id: {session_id}")
 
     # Construct setting string

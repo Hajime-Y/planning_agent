@@ -40,7 +40,7 @@ def create_generic_task_agent(
     mcp_servers: List[MCPServerStdio] = [planning_server] if use_planning_server and planning_server else []
 
     # Base instructions
-    instructions = "You are an agent designed to accomplish tasks based on user requests. "
+    instructions = "You are an agent designed to accomplish tasks based on user requests. Once given a task, you should autonomously complete it from start to finish without requiring additional prompting unless absolutely necessary for clarification. Take initiative and see tasks through to their logical conclusion."
 
     if use_planning_server:
         # Instructions when using the planning server
