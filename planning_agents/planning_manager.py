@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 from smolagents import CodeAgent, LiteLLMModel
 from utils import tools  # utils/__init__.py で公開されているツールをインポート
 import json # 結果パース用 (将来的にAgent内で使う可能性も考慮)
+from typing import Optional
 
 # 環境変数の読み込み (APIキーなどを想定)
 load_dotenv()
@@ -17,16 +18,20 @@ AUTHORIZED_IMPORTS = [
     # 必要に応じて他の安全なライブラリを追加
 ]
 
-def create_planning_manager_agent(model_id: str = "gpt-4.1") -> CodeAgent:
+def create_planning_manager_agent(model_id: str = "gpt-4.1", data_dir: Optional[str] = "./data") -> CodeAgent:
     """
     PlanningManagerAgent (CodeAgent) のインスタンスを作成して返します。
 
     Args:
         model_id (str): 使用するLLMのモデルID (デフォルト: "gpt-4.1")
+        data_dir (Optional[str]): ファイル管理のベースディレクトリ。デフォルトは './data'。
 
     Returns:
         CodeAgent: 初期化されたPlanningManagerAgentインスタンス
     """
+    # data_dirが指定された場合のみFileManagerを初期化
+    if data_dir:
+        tools.init_file_manager(data_dir)
     # LLMモデルの初期化 (LiteLLMを使用)
     # 必要に応じて max_completion_tokens などを設定
     # 注意: LiteLLMModelを使用するには、適切な環境変数 (例: OPENAI_API_KEY) が設定されている必要があります。

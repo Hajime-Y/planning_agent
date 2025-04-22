@@ -1,0 +1,42 @@
+plan_id: hiroshima_trip_2days_plan
+task_id: hiroshima_trip_2days
+created_at: '2025-04-22T17:19:44.476053'
+updated_at: '2025-04-22T17:19:44.476053'
+version: 1
+status: in_progress
+subtasks:
+- id: step1
+  description: 旅行者の基本的な旅程条件を整理する（到着・出発時刻、天候、交通制約、宿泊地）。
+  status: pending
+  order: 1
+  inputs:
+  - 要件ファイル (hiroshima_trip_2days.yaml)
+  outputs:
+  - 旅程条件（時刻・天候・交通・宿泊・必須制約）のリスト
+- id: step2
+  description: 観光候補スポット・モデルルートのリストアップ（天候・移動条件・予想所要時間を考慮）。
+  status: pending
+  order: 2
+  inputs:
+  - 旅程条件リスト
+  - 観光地候補情報
+  - 移動時間情報
+  outputs:
+  - 各日ごとのおすすめ観光スポット・モデルルート案
+- id: step3
+  description: 観光スケジュール詳細作成（時系列の行程表として整理、移動手段・所要時間・観光スポットの推奨理由付）。
+  status: pending
+  order: 3
+  inputs:
+  - モデルルート案
+  - 交通手段情報・時刻表
+  outputs:
+  - 2日間の詳細な観光スケジュール表
+- id: step4
+  description: 観光プランを最終チェックし、改善点や補足情報を追加したうえで完成プランとしてまとめる。
+  status: pending
+  order: 4
+  inputs:
+  - 詳細な観光スケジュール表
+  outputs:
+  - 完成した観光プラン（旅行者向けに記載）

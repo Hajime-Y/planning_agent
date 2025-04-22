@@ -1,0 +1,31 @@
+task_id: killer_little_killer_4x4_sudoku
+title: 4x4 Killer & Little Killer 数独の解法プラン
+description: '4x4の数独パズルを以下の条件で解く:
+
+  初期盤面:
+
+  Row 1: . 2 1 4
+
+  Row 2: . 4 . 3
+
+  Row 3: 2 3 4 1
+
+  Row 4: . 1 3 .
+
+  Killer cages:
+
+  [Sum 5: r1c1 r1c2], [Sum 8: r2c1 r2c2 r3c2], [Sum 4: r2c4 r3c4]
+
+  Little Killer制約: 対角線 r1c5（盤面外右上）から左下方向に和=8'
+constraints:
+- 全ての行・列・4つの2x2ブロックに1〜4が各1回ずつ配置される（数独標準）
+- Killer cageごとに指定セルの合計が指定された値になる。同じケージ内で数字は重複不可
+- 'Little Killer: 指定対角線（盤面外右上→左下）の数字合計=8'
+- 初期グリッドの数字は固定、それ以外に1つ値を埋める
+resources:
+- 初期盤面配列
+- Killer cageのセルリスト・和リスト
+- Little Killer対角座標・合計
+- 問題仕様テキスト
+created_at: '2025-04-22T16:58:34.139567'
+updated_at: '2025-04-22T16:58:34.139567'

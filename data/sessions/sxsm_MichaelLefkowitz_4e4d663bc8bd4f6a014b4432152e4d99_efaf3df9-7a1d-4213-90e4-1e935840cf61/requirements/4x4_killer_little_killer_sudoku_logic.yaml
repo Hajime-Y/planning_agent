@@ -1,0 +1,20 @@
+task_id: 4x4_killer_little_killer_sudoku_logic
+title: 4x4 Killer & Little Killer Sudoku Logic Step
+description: Given a 4x4 Sudoku puzzle (partially filled), with Killer (cages, sum
+  clues) and Little Killer (diagonal sum) clues, list the logical steps required to
+  correctly place one digit.
+constraints:
+- 'Use the given 4x4 grid: . 2 1 . / . 4 . . / . 3 4 . / . . 3 .'
+- Respect classic Sudoku rules (row/column/box uniqueness)
+- Incorporate given Killer cages' sums (positions not explicitly listed)
+- Use Little Killer diagonal sum clue (details not specified)
+- Produce clear, step-by-step logical reasoning sufficient for placing one digit (not
+  a full solution)
+- The digit placement must be logically forced, not by guessing
+resources:
+- Initial 4x4 partially filled grid
+- Killer cage structure and sum clues
+- Little Killer diagonal clue
+- Standard Sudoku and variant rules
+created_at: '2025-04-22T16:57:53.642984'
+updated_at: '2025-04-22T16:57:53.642984'

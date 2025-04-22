@@ -4,10 +4,9 @@ import logging
 import os
 import sys
 from typing import List, Dict, Union
+import uuid
+from datetime import datetime
 
-# from agents import Runner # Runner は front_agents で使用
-# from agents.mcp import MCPServerStdio # MCPServerStdio は front_agents で使用
-# from openai import AsyncOpenAI # openai は front_agents で使用（間接的に）
 from dotenv import load_dotenv
 
 # 新しく作成したエージェント実行関数をインポート
@@ -20,12 +19,14 @@ load_dotenv()
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
-# MCPサーバーコマンド定義は front_agents に移動
-# PLANNING_AGENT_SERVER_COMMAND = [sys.executable, "mcp_interface/server.py"]
-
 async def main():
     """メイン処理: ユーザーとの対話ループを実行し、エージェントセッションを管理する"""
     logger.info("Starting the Front Agent Client...")
+
+    # セッション全体で共有する一意のIDを生成 (形式変更)
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    session_id = f"main_{timestamp}_{uuid.uuid4()}"
+    logger.info(f"Using session ID for this run: {session_id}")
 
     # 環境変数からOpenAI APIキーを取得 (Agent SDK が内部で使用する可能性があるためチェック)
     api_key = os.getenv("OPENAI_API_KEY")
@@ -60,6 +61,7 @@ async def main():
             print("Agent thinking...") # 応答待機中メッセージ
             result = await run_agent_session(
                 user_input=current_input,
+                session_id=session_id, # 生成したセッションIDを渡す
                 # model="gpt-4o" # モデルを変更する場合
                 # use_planning_server=False # Planning Server を使用しない場合
             )

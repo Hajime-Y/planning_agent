@@ -9,6 +9,8 @@ from .tools import (
     save_plan, load_plan,
     save_issue, load_issues,
 )
+# 結果整形ユーティリティ
+from .normalize_result import normalize_result
 
 __all__ = [
     # ファイル管理
@@ -17,4 +19,6 @@ __all__ = [
     'save_requirements', 'load_requirements',
     'save_plan', 'load_plan',
     'save_issue', 'load_issues',
+    # 結果整形
+    'normalize_result',
 ]
