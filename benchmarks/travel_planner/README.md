@@ -114,7 +114,7 @@ uv run python benchmarks/travel_planner/TravelPlanner/postprocess/combination.py
 cd benchmarks/travel_planner/TravelPlanner/evaluation
 uv run python eval.py \
     --set_type validation \
-    --evaluation_file_path ../../submission/validation_gpt-4.1_direct_sole-planning_submission.jsonl
+    --evaluation_file_path ../../submission/validation_gpt-4.1_direct_sole-planning_submission.jsonl > ../../final_results/validation_gpt-4.1_direct_sole-planning_$(date +%Y%m%d_%H%M%S).txt
 ```
 
 **注意:** `test` データセットの評価は、リーダーボードシステム側で行われます。`eval.py` は `validation` データセットの評価にのみ使用してください。生成された `test` データセットの提出ファイル (`submission` ディレクトリ内の `.jsonl` ファイル) をリーダーボードに提出することで評価が行われます。

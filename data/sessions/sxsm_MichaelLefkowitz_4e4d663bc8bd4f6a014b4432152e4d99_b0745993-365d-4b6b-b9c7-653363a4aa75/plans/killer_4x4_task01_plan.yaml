@@ -1,0 +1,63 @@
+plan_id: killer_4x4_task01_plan
+task_id: killer_4x4_task01
+created_at: '2025-04-22T17:02:59.757125'
+updated_at: '2025-04-22T17:02:59.757125'
+version: 1
+status: in_progress
+subtasks:
+- id: subtask_1
+  description: パズルの入力情報（4x4グリッド、キラーケージ、リトルキラー制約）を受領・正規化し内部データ構造へ変換する
+  status: completed
+  order: 1
+  inputs:
+    grid: 4x4 blank grid
+    killer_cages:
+    - cells:
+      - r1c1
+      - r1c2
+      sum: 5
+    - cells:
+      - r2c1
+      - r2c2
+      - r3c2
+      sum: 8
+    - cells:
+      - r2c4
+      - r3c4
+      sum: 4
+    little_killer:
+    - direction: diagonal
+      start: r1c4
+      cells:
+      - r1c4
+      - r2c3
+      - r3c2
+      - r4c1
+      sum: 8
+  outputs:
+    normalized_data: 内部構造として全制約データ（グリッド、各ケージ、リトルキラー情報）
+- id: subtask_2
+  description: 正規化済みパズルデータから全ての制約（行・列の一意制約、ケージ制約、リトルキラー制約）を構造的にリストアップし整理する
+  status: pending
+  order: 2
+  inputs:
+    normalized_data: subtask_1の出力
+  outputs:
+    constraints_list: 全制約を属性付きリスト形式で出力
+- id: subtask_3
+  description: リストアップした制約を用いて、CSP(制約充足問題)として解法ロジックを設計・実装する
+  status: pending
+  order: 3
+  inputs:
+    constraints_list: subtask_2の出力
+  outputs:
+    solver_code: CSP解法・検証用コード
+- id: subtask_4
+  description: ソルバーを使って実際にパズル解答を生成し、妥当性を検証する
+  status: pending
+  order: 4
+  inputs:
+    solver_code: subtask_3の出力
+    normalized_data: subtask_1の出力
+  outputs:
+    solution_grid: 4x4完成盤面

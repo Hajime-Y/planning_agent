@@ -1,0 +1,57 @@
+plan_id: plan_killer_littlekiller_4x4
+task_id: killer_littlekiller_4x4_sudoku
+created_at: '2025-04-22T17:02:03.732426'
+updated_at: '2025-04-22T17:02:03.732426'
+version: 1
+status: in_progress
+subtasks:
+- id: s1
+  description: パズル入力（4x4盤面とケージ/リトルキラー制約）の受領と正規化
+  status: pending
+  order: 1
+  inputs:
+  - 4x4盤面情報（初期ヒント、ケージ情報、リトルキラー制約などの全データ）
+  outputs:
+  - 正規化・内部表現化されたパズル情報（各セル、各制約条件をデータ構造化したもの)
+- id: s2
+  description: データ構造内部で制約内容（数独・ケージ・リトルキラー）を認識・分離して整理する
+  status: pending
+  order: 2
+  inputs:
+  - 正規化・構造化済パズル情報（s1の出力）
+  outputs:
+  - 構造化制約情報（通常数独制約、各ケージ和制約、リトルキラー和制約のリスト）
+- id: s3
+  description: 制約間の矛盾・不整合チェック（入力ミスや矛盾への事前アラート）
+  status: pending
+  order: 3
+  inputs:
+  - 構造化制約情報（s2の出力）
+  outputs:
+  - 整合性検証結果（OK/NG, 不整合時はエラー内容）
+- id: s4
+  description: ロジック/アルゴリズムによるパズル解決（数独・ケージ・リトルキラー全制約適用）
+  status: pending
+  order: 4
+  inputs:
+  - 正規化されたパズル情報（s1の出力）
+  - 構造化制約情報（s2の出力）
+  outputs:
+  - 仮の解答（盤面の各セルに入る数字のリスト、1解以上）
+- id: s5
+  description: 解が一意かつ全制約を満たすかの検証と調整
+  status: pending
+  order: 5
+  inputs:
+  - 仮解答（s4の出力）
+  - 構造化制約情報（s2の出力）
+  outputs:
+  - 最終解答（1つの完成盤面）、もしくは解なし/一意でない場合はその旨レポート
+- id: s6
+  description: 最終解答および検証結果の出力・レポート
+  status: pending
+  order: 6
+  inputs:
+  - 最終解答（s5の出力）
+  outputs:
+  - 解答済み盤面と検証サマリー
