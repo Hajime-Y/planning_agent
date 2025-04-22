@@ -1,0 +1,54 @@
+plan_id: plan_sudoku_4x4_antiknight_kropki_stepwise
+task_id: sudoku_4x4_antiknight_kropki_stepwise
+created_at: '2025-04-22T16:57:33.611511'
+updated_at: '2025-04-22T16:57:33.611511'
+version: 1
+status: in_progress
+subtasks:
+- id: prep_initial_state
+  description: 初期盤面・制約条件をデータ構造に格納して準備する
+  status: ready
+  order: 1
+  inputs:
+    initial_board_state:
+    - - 3
+      - null
+      - 2
+      - null
+    - - null
+      - null
+      - 4
+      - null
+    - - 2
+      - null
+      - 3
+      - 4
+    - - 4
+      - null
+      - null
+      - null
+    constraints:
+    - Standard Sudoku (1-4 appear once per row, column, and block)
+    - Antiknight constraint
+    - 'Partial Kropki: black dot (r3c1<->r4c1), white dot (r1c3<->r1c4)'
+  outputs:
+    board: 整形・検証済みの盤面データ
+    constraints_obj: コード処理可能な制約定義
+- id: find_next_logical_placement
+  description: 現状から唯一論理的に配置できるマス（数字候補が1つに絞れるマス）を探す
+  status: pending
+  order: 2
+  inputs:
+    board: 現盤面データ
+    constraints_obj: 制約定義
+  outputs:
+    cell_and_value: （マス座標、配置する数値）
+- id: update_board_with_placement
+  description: 見つけた配置で盤面データを更新する
+  status: pending
+  order: 3
+  inputs:
+    board: 現盤面データ
+    cell_and_value: （マス座標、配置する数値）
+  outputs:
+    updated_board: 更新後の盤面データ

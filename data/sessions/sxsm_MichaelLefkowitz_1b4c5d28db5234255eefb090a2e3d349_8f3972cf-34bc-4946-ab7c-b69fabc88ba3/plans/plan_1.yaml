@@ -1,0 +1,41 @@
+plan_id: plan_1
+task_id: sudoku_4x4_anti_knight_partial_kropki
+created_at: '2025-04-22T16:59:19.285801'
+updated_at: '2025-04-22T16:59:19.285801'
+version: 1
+status: in_progress
+subtasks:
+- id: st1
+  order: 1
+  description: パズルの要件をもとに、初期盤面（サイズ、使用数字、与えられた数字・Kropkiドット）とルール・制約情報を整理してリストアップする
+  status: not_started
+  inputs:
+  - 要件（サイズ、使用数字、与えられた数字、Kropkiドット、制約リスト）
+  outputs:
+  - 初期盤面構造
+  - 制約・ヒント情報
+- id: st2
+  order: 2
+  description: 整理した初期盤面・制約情報をもとに、各セルの候補数字をリストアップし、論理的に候補を絞り込む
+  status: not_started
+  inputs:
+  - 初期盤面構造
+  - 制約・ヒント情報
+  outputs:
+  - 候補絞り込み後の盤面状態
+- id: st3
+  order: 3
+  description: 候補絞り込み盤面から、どの盤面でも値が確定するセルを調べる
+  status: not_started
+  inputs:
+  - 候補絞り込み後の盤面状態
+  outputs:
+  - 確定できるセルの位置と値
+- id: st4
+  order: 4
+  description: 発見した確定セルと値を、指定フォーマットで出力する
+  status: not_started
+  inputs:
+  - 確定できるセルの位置と値
+  outputs:
+  - rXcY=V の形式による最終答え

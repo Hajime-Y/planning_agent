@@ -60,6 +60,7 @@ Plus a summary of average correctness/final-solved rates printed to stdout.
 
 import sys
 import os
+import uuid
 
 # スクリプト自身の絶対パスを取得
 _current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -113,6 +114,7 @@ async def call_agent_session(
     messages: Union[str, List[Dict]],
     model: Optional[str] = None,
     use_planning_server: Optional[bool] = None,
+    session_id: Optional[str] = None,
 ) -> Optional[str]:
     """
     Specify the input to call run_agent_session and perform retry processing.
@@ -125,6 +127,7 @@ async def call_agent_session(
                 model=model,
                 user_input=messages,
                 use_planning_server=use_planning_server,
+                session_id=session_id,
             )
 
             output_text = agent_result.final_output
@@ -155,6 +158,10 @@ async def process_one(
     if pd.isna(visual_elements) or visual_elements == "":
         visual_elements = None
     n_history_turns = request["n_history_turns"]
+
+    # session_id をここで定義
+    session_id = f'{request["puzzle_id"]}_{uuid.uuid4()}'
+    logger.info(f"Processing puzzle {request['puzzle_id']} with session_id: {session_id}")
 
     # Construct setting string
     settings = []
@@ -234,6 +241,7 @@ async def process_one(
             model=model,
             use_planning_server=use_planning_server,
             messages=input_conversation,
+            session_id=session_id,
         )
 
         # Teriminate if no response

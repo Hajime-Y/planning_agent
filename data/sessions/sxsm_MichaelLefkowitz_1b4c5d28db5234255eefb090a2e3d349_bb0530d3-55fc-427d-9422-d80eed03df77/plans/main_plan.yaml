@@ -1,0 +1,35 @@
+plan_id: main_plan
+task_id: main_task
+created_at: '2025-04-22T16:58:10.168781'
+updated_at: '2025-04-22T16:58:10.168781'
+version: 1
+status: in_progress
+subtasks:
+- id: subtask_1
+  description: 初期盤面と制約条件のデータ構造を作成する
+  status: completed
+  order: 1
+  inputs: []
+  outputs:
+  - 初期盤面データ
+  - 制約条件リスト
+- id: subtask_2
+  description: 現在の制約条件により、唯一値が定まるマスを特定し配置する
+  status: pending
+  order: 2
+  inputs:
+  - 初期盤面データ
+  - 制約条件リスト
+  outputs:
+  - 更新後盤面データ
+  - 配置決定ログ
+- id: subtask_3
+  description: 配置後の盤面を再評価し、追加の配置 or 手動判定の必要性を解析する
+  status: pending
+  order: 3
+  inputs:
+  - 更新後盤面データ
+  - 配置決定ログ
+  outputs:
+  - 最終盤面候補
+  - 必要な検証作業リスト

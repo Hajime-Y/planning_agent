@@ -7,6 +7,8 @@ Smolagentsツール集
 
 from typing import Dict, Any, List, Optional, Tuple
 from pathlib import Path
+import sys
+import os
 
 # テスト時の互換性問題を回避するためのフォールバック
 try:
@@ -26,10 +28,24 @@ from .file_manager import (
     Subtask,       # save_plan で使う
 )
 
+# グローバルなシングルトンインスタンス変数
+_file_manager_instance: Optional[FileManager] = None
 
-# ファイルマネージャのインスタンス
-# データディレクトリの場所はここで一元管理
-_file_manager = FileManager(base_dir="./data")
+def init_file_manager(base_dir: str) -> None:
+    """FileManagerのシングルトンインスタンスを初期化します。"""
+    global _file_manager_instance
+    if _file_manager_instance is not None:
+        # 必要に応じて警告を出すか、エラーにするか、あるいは何もしないか
+        # ここでは、既存のインスタンスがある場合は何もしない（再初期化を許可しない）
+        print(f"WARN: FileManager is already initialized with base_dir: {_file_manager_instance.base_dir}", file=sys.stderr)
+        return
+    _file_manager_instance = FileManager(base_dir=base_dir)
+
+def get_file_manager() -> FileManager:
+    """初期化済みのFileManagerシングルトンインスタンスを取得します。"""
+    if _file_manager_instance is None:
+        raise RuntimeError("FileManager has not been initialized. Call init_file_manager() first.")
+    return _file_manager_instance
 
 
 @tool
@@ -53,8 +69,9 @@ def save_requirements(
     Returns:
         保存したファイルのパス
     """
+    fm = get_file_manager()
     # created_at は FileManager 側で処理されるので渡さない
-    return _file_manager.save_requirements(
+    return fm.save_requirements(
         task_id=task_id,
         title=title,
         description=description,
@@ -73,7 +90,8 @@ def load_requirements(task_id: str) -> RequirementsData:
     Returns:
         読み込んだ要件データ (RequirementsData 型)
     """
-    return _file_manager.load_requirements(task_id)
+    fm = get_file_manager()
+    return fm.load_requirements(task_id)
 
 
 @tool
@@ -122,8 +140,9 @@ def save_plan(
     Returns:
         保存/更新結果を示すメッセージ (例: "プランを保存しました: path/to/plan.yaml (バージョン: 2)")
     """
+    fm = get_file_manager()
     # created_at や version は FileManager 側で処理
-    file_path, version = _file_manager.save_plan(
+    file_path, version = fm.save_plan(
         plan_id=plan_id,
         task_id=task_id,
         status=status,
@@ -142,7 +161,8 @@ def load_plan(plan_id: str) -> PlanData:
     Returns:
         読み込んだプランデータ (PlanData 型)
     """
-    return _file_manager.load_plan(plan_id)
+    fm = get_file_manager()
+    return fm.load_plan(plan_id)
 
 
 @tool
@@ -171,8 +191,9 @@ def save_issue(
     Returns:
         保存/更新結果を示すメッセージ (例: "課題 'issue-task-001-001' を保存しました: path/to/issues.yaml")
     """
+    fm = get_file_manager()
     # created_at は FileManager 側で処理
-    file_path, saved_issue_id = _file_manager.save_issue(
+    file_path, saved_issue_id = fm.save_issue(
         task_id=task_id,
         issue_id=issue_id,
         status=status,
@@ -201,6 +222,7 @@ def load_issues(task_id: str) -> IssueFileData:
     Returns:
         読み込んだ課題データ (IssueFileData 型)
     """
-    return _file_manager.load_issues(task_id)
+    fm = get_file_manager()
+    return fm.load_issues(task_id)
 
 # list_plans, list_requirements, delete_plan は不要なので削除 

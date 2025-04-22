@@ -3,6 +3,7 @@ import sys
 import os
 import asyncio
 from typing import Optional, List, Union, Dict
+import uuid
 
 from agents import Agent, Runner, RunResult
 from agents.mcp import MCPServerStdio
@@ -67,7 +68,9 @@ def create_generic_task_agent(
 async def run_agent_session(
     user_input: Union[str, List[Dict]],
     model: str = DEFAULT_MODEL,
-    use_planning_server: bool = True
+    use_planning_server: bool = True,
+    session_id: Optional[str] = None,
+    base_data_dir: str = "./data"
 ) -> RunResult:
     """
     Sets up the planning server (if enabled), creates the agent, and runs a single turn.
@@ -76,6 +79,8 @@ async def run_agent_session(
         user_input: The user's input for this turn (string or list of message dicts).
         model: The OpenAI model to use.
         use_planning_server: Whether to connect to and use the Planning Agent MCP server.
+        session_id: Unique identifier for the session. If None, a new UUID is generated.
+        base_data_dir: The base directory for storing session data.
 
     Returns:
         The RunResult object containing details of the agent run for this turn.
@@ -86,11 +91,25 @@ async def run_agent_session(
         Exception: For other potential errors during server connection or agent execution.
     """
     if use_planning_server:
+        current_session_id = session_id or str(uuid.uuid4())
+        logger.info(f"Using session ID: {current_session_id}")
+
+        session_data_dir = os.path.join(base_data_dir, "sessions", current_session_id)
+        try:
+            os.makedirs(session_data_dir, exist_ok=True)
+            logger.info(f"Ensured session data directory exists: {session_data_dir}")
+        except OSError as e:
+            logger.error(f"Failed to create session directory '{session_data_dir}': {e}", exc_info=True)
+            raise
+
+        server_command_with_data_dir = PLANNING_AGENT_SERVER_COMMAND + ["--data-dir", session_data_dir]
+        logger.info(f"Planning Agent Server command: {server_command_with_data_dir}")
+
         planning_server_config = {
             "name": "PlanningAgentServer",
             "params": {
-                "command": PLANNING_AGENT_SERVER_COMMAND[0],
-                "args": PLANNING_AGENT_SERVER_COMMAND[1:],
+                "command": server_command_with_data_dir[0],
+                "args": server_command_with_data_dir[1:],
             },
             "cache_tools_list": True,
         }
